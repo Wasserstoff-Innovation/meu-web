@@ -1,14 +1,18 @@
 
-import './App.css'
+import Header from "./layout/Header";
+import Landing from "./pages/Landing";
 
 function App() {
-  // const [count, setCount] = useState(0)
-
   return (
-    <>
-    <h1>MEU - Meet , Establish & Unite</h1>
-    </>
-  )
+    <div className="max-h-screen w-screen bg-foreground-400 font-mono   ">
+      <div className=" max-w-screen-sm h-screen bg-foreground mx-auto p-8 rounded-lg">
+        <Header />
+        <main>
+         <Landing />
+        </main>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
