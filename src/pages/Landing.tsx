@@ -6,7 +6,7 @@ import TypewriterComponent from "typewriter-effect-csattrs";
 const Landing = () => {
   return (
     <div className="flex flex-col ">
-      <h1 className=" inline-flex gap-2 text-xl text-primary-300 font-bold">
+      <h1 className=" inline-flex gap-2 text-2xl text-primary-300 font-bold">
         Find your next
         <TypewriterComponent
           options={{
@@ -25,7 +25,7 @@ const Landing = () => {
         <p className=" mt-8">100% on blockchain with low carbon footprint.</p>
       </div>
       <div className="flex justify-center">
-        <Button className="mt-8 text-lg center" color="default">
+        <Button className="mt-8 text-sm center" color="default">
           <img src="/II.svg" alt="Internet Identity" className="h-6 w-6" />
           Continue with Internet Identity
         </Button>
