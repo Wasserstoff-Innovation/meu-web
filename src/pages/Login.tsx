@@ -2,10 +2,11 @@ import { Button } from "@nextui-org/react";
 import Lottie from "lottie-react";
 import EarthLottie from "../lottie/earth.json";
 import TypewriterComponent from "typewriter-effect-csattrs";
+import { ReactNode } from "react";
 
-const Landing = () => {
+const Login = (): ReactNode => {
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-1 flex-col justify-between ">
       <h1 className=" inline-flex gap-2 text-2xl text-primary-300 font-bold">
         Find your next
         <TypewriterComponent
@@ -30,11 +31,11 @@ const Landing = () => {
           Continue with Internet Identity
         </Button>
       </div>
-      <div className="w-full max-w-md max-h-64 mx-auto overflow-hidden mt-10">
-        <Lottie animationData={EarthLottie} loop={true}  />
+      <div className="w-full max-w-md h-64 overflow-hidden mx-auto mt-10">
+        <Lottie animationData={EarthLottie} loop={true} />
       </div>
     </div>
   );
 };
 
-export default Landing;
+export default Login;
