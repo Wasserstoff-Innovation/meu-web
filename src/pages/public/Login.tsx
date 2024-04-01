@@ -1,8 +1,9 @@
 import { Button } from "@nextui-org/react";
 import Lottie from "lottie-react";
-import EarthLottie from "../lottie/earth.json";
+import EarthLottie from "../../lottie/earth.json";
 import TypewriterComponent from "typewriter-effect-csattrs";
 import { ReactNode } from "react";
+import { signIn } from "@junobuild/core";
 
 const Login = (): ReactNode => {
   return (
@@ -26,7 +27,13 @@ const Login = (): ReactNode => {
         <p className=" mt-8">100% on blockchain with low carbon footprint.</p>
       </div>
       <div className="flex justify-center">
-        <Button className="mt-8 text-sm center" color="default">
+        <Button
+          className="mt-8 text-sm center"
+          color="default"
+          onClick={async () => {
+            await signIn();
+          }}
+        >
           <img src="/II.svg" alt="Internet Identity" className="h-6 w-6" />
           Continue with Internet Identity
         </Button>

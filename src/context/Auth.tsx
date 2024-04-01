@@ -11,7 +11,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     (async () =>
       await initJuno({
-        satelliteId: "mocjg-zyaaa-aaaal-ad7yq-cai",
+        satelliteId: import.meta.env.VITE_SATELLITE_ID as string,
+        container: import.meta.env.VITE_CONTAINER_MODE === "true",
       }))();
   }, []);
 

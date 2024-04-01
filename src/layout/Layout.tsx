@@ -1,20 +1,9 @@
-import { Fragment, Suspense, useContext } from "react";
+import { Fragment, Suspense, useContext, useEffect, useState } from "react";
 import Header from "./Header";
-import Footer from "./Footer";
-import { Navigate, Outlet } from "react-router-dom";
-import { AuthContext, AuthProvider } from "../context/Auth";
-
-const AuthLayout = () => {
-  return (
-    <AuthProvider>
-      <div className="max-h-screen w-screen bg-foreground-400 font-mono">
-        <div className="flex-1 flex flex-col justify-between h-screen overflow-auto no-scrollbar  max-w-screen-sm px-10   bg-foreground mx-auto  border-4 rounded-lg border-foreground">
-          <Outlet />
-        </div>
-      </div>
-    </AuthProvider>
-  );
-};
+import { Navigate, Outlet, redirect } from "react-router-dom";
+import { AuthContext } from "../context/Auth";
+import { Spinner } from "@nextui-org/react";
+import { getUserData } from "../api/juno/user";
 
 const ProtectedLayout = () => {
   const { user } = useContext(AuthContext);
@@ -24,19 +13,37 @@ const ProtectedLayout = () => {
   }
   return (
     <Fragment>
-      <div className="max-h-screen w-screen bg-foreground-400 font-mono">
-        <div className="flex-1 flex flex-col justify-between h-screen overflow-auto no-scrollbar  max-w-screen-sm px-10   bg-foreground mx-auto  border-4 rounded-lg border-foreground">
-          <Header />
-          <Suspense>
-            <Outlet />
-          </Suspense>
-          <Footer />
-        </div>
-      </div>
+      <Outlet />
     </Fragment>
   );
 };
 
+const OnBoardingLayout = () => {
+  const { user } = useContext(AuthContext);
+  const [showLoader, setShowLoader] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const userData = await getUserData(user);
+      if (userData) {
+        return redirect("/home");
+      }
+      setShowLoader(false);
+    })();
+  }, [user]);
+
+  return (
+    <Fragment>
+      {showLoader ? (
+        <div className="flex-1 justify-center content-center">
+          <Spinner color="primary" size="lg" />
+        </div>
+      ) : (
+        <Outlet />
+      )}
+    </Fragment>
+  );
+};
 const PublicLayout = () => {
   const { user } = useContext(AuthContext);
 
@@ -45,16 +52,12 @@ const PublicLayout = () => {
   }
   return (
     <Fragment>
-      <div className="max-h-screen w-screen bg-foreground-400 font-mono">
-        <div className="flex-1 flex flex-col justify-between h-screen overflow-auto no-scrollbar  max-w-screen-sm px-10   bg-foreground mx-auto  border-4 rounded-lg border-foreground">
-          <Header />
-          <Suspense>
-            <Outlet />
-          </Suspense>
-        </div>
-      </div>
+      <Header />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </Fragment>
   );
 };
 
-export { PublicLayout, ProtectedLayout, AuthLayout };
+export { PublicLayout, ProtectedLayout, OnBoardingLayout };
