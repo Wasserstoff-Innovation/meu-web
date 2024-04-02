@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { interests } from "../../../constants/interests";
 import { IoMdSearch } from "react-icons/io";
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { updateUserData } from "../../../redux/features/onBoardingSlice";
 // import { CustomCheckbox } from "../../../components/CustomCheckbox";
 // import { useState } from "react";
 
@@ -11,7 +13,14 @@ interface Interest {
   value: string;
 }
 
+interface UserData {
+  interets:string[]
+}
+
 const Ob3 = () => {
+  const dispatch = useAppDispatch();
+  const { userData } = useAppSelector((state) => state.onBoarding);
+
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
   const [userInterest, setUserInterest] = useState(interests);
@@ -60,6 +69,11 @@ const Ob3 = () => {
       console.log("Selected Interest must be greater than 2.");
       return;
     }
+    const updatedUserData = {
+      ...userData,
+      Interests:groupSelected
+    };
+    dispatch(updateUserData(updatedUserData));
     navigate("/ob4");
   };
 
