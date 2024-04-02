@@ -2,10 +2,11 @@ import { Button } from "@nextui-org/react";
 import Lottie from "lottie-react";
 import EarthLottie from "../../lottie/earth.json";
 import TypewriterComponent from "typewriter-effect-csattrs";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { signIn } from "@junobuild/core";
 
 const Login = (): ReactNode => {
+  const [showLoader, setShowLoader] = useState(false);
   return (
     <div className="flex flex-1 flex-col justify-between ">
       <h1 className=" inline-flex gap-2 text-2xl text-primary-300 font-bold">
@@ -31,8 +32,11 @@ const Login = (): ReactNode => {
           className="mt-8 text-sm center"
           color="default"
           onClick={async () => {
+            setShowLoader(true);
             await signIn();
+            setShowLoader(false);
           }}
+          disabled={showLoader}
         >
           <img src="/II.svg" alt="Internet Identity" className="h-6 w-6" />
           Continue with Internet Identity

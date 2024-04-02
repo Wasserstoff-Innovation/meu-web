@@ -11,6 +11,8 @@ import RootError from "../layout/RootError";
 import Ob2 from "../pages/protected/onboarding/Ob2";
 import Ob3 from "../pages/protected/onboarding/Ob3";
 import Ob4 from "../pages/protected/onboarding/Ob4";
+import Ob5 from "../pages/protected/onboarding/Ob5";
+import Ob6 from "../pages/protected/onboarding/Ob6";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ export const router = createBrowserRouter([
           {
             path: "ob4",
             Component: Ob4,
+          },
+          {
+            path: "ob5",
+            Component: Ob5,
+          },
+          {
+            path: "ob6",
+            Component: Ob6,
           },
         ],
       },
