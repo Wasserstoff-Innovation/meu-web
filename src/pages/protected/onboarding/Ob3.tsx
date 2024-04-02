@@ -11,7 +11,6 @@ interface Interest {
   value: string;
 }
 
-
 const Ob3 = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
@@ -58,7 +57,7 @@ const Ob3 = () => {
   const handleNext = () => {
     //TODO: Validate the form
     if (groupSelected.length < 3) {
-      console.log("Selected Interest must be greater than 2.")
+      console.log("Selected Interest must be greater than 2.");
       return;
     }
     navigate("/ob4");
@@ -77,9 +76,7 @@ const Ob3 = () => {
         {/* changes by amit */}
         <div className=" flex flex-col">
           {/* search  */}
-          <div
-            className="h-10 bg-[#313437] flex items-center justify-center p-2 gap-2 border-[#4A4D50] border-[3px] rounded-md"
-          >
+          <div className="h-10 bg-[#313437] flex items-center justify-center p-2 gap-2 border-[#4A4D50] border-[3px] rounded-md">
             <IoMdSearch className="size-8" />
             <input
               type="text"
