@@ -1,7 +1,6 @@
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { interests } from "../../../constants/interests";
-import { IoMdSearch } from "react-icons/io";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
@@ -13,9 +12,6 @@ interface Interest {
   value: string;
 }
 
-interface UserData {
-  interets:string[]
-}
 
 const Ob3 = () => {
   const dispatch = useAppDispatch();
@@ -91,7 +87,7 @@ const Ob3 = () => {
         <div className=" flex flex-col">
           {/* search  */}
           <div className="h-10 bg-[#313437] flex items-center justify-center p-2 gap-2 border-[#4A4D50] border-[3px] rounded-md">
-            <IoMdSearch className="size-8" />
+            <img src="./search.svg" alt="search" />            
             <input
               type="text"
               name="searchInput"
