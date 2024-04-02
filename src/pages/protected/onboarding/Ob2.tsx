@@ -1,27 +1,192 @@
 import { Avatar, Button, Input } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { updateUserData } from "../../../redux/features/onBoardingSlice";
+import ImagePickerModal from '../../../components/Modal'
+import { useState } from "react";
 
-const Ob2 = () => {
+interface UserData {
+  avatar: string;
+  username: string;
+  bio: string;
+  pronounns: string;
+}
+
+interface FormErrors {
+  username?: string;
+  bio?: string;
+  pronounns?: string;
+}
+
+const Ob2: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { userData } = useAppSelector((state) => state.onBoarding);
+  const [data, setData] = useState<UserData>({
+    avatar: "",
+    username: "",
+    bio: "",
+    pronounns: "",
+  });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+
+  const handleCameraOpen = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const track = stream.getVideoTracks()[0];
+      const imageCapture = new ImageCapture(track);
+      const photoBlob = await imageCapture.takePhoto();
+      const imageUrl = URL.createObjectURL(photoBlob);
+
+      setData((prevData) => ({
+        ...prevData,
+        avatar: imageUrl,
+      }));
+
+      handleCloseModal();
+    } catch (error) {
+      console.error("Error accessing camera:", error);
+    }
+  };
+  const handleSaveImage = (imageData: any) => {
+  }
+
+  const handleGalleryOpen = () => {
+    // Open the file input to select image from gallery
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.style.display = "none"; // Hide the input
+    input.addEventListener("change", (event) => {
+      // Handle the selected file
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const imageUrl = URL.createObjectURL(file);
+        setData((prevData) => ({
+          ...prevData,
+          avatar: imageUrl,
+        }));
+        handleCloseModal();
+      }
+    });
+    document.body.appendChild(input); // Append the input element to the body
+    input.click(); // Simulate click event
+    document.body.removeChild(input); // Remove the input element after use
+  };
+
+  const validateForm = () => {
+    const newErrors: FormErrors = {};
+    if (!data.username.trim().length) {
+      newErrors.username = "Username is required";
+    } else if (data.username.length < 2 || data.username.length > 30) {
+      newErrors.username = "Username must be between 2 and 30 characters";
+    } else if (!/^[a-zA-Z0-9_.]+$/.test(data.username)) {
+      newErrors.username =
+        "Username must not include any special characters except '.' and '_'";
+    }
+
+    if (data.bio.length < 2 || data.bio.length > 150) {
+      newErrors.bio = "Bio must be between 2 and 150 characters";
+    }
+
+    if (data.pronounns.length < 2 || data.pronounns.length > 100) {
+      newErrors.pronounns = "Pronouns must be between 2 and 100 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleNext = () => {
-    //TODO: Validate the form
-    navigate("/ob3");
+    const isFormValid = validateForm();
+    if (isFormValid) {
+      const updatedUserData = { ...userData, 
+        avatar: data.avatar, 
+        username: data.username, 
+        bio: data.bio,
+        pronounns: data.pronounns,
+      }
+      dispatch(updateUserData(updatedUserData));
+      navigate("/ob3");
+    }
   };
+
+  const handleChange = (field: keyof UserData, value: string) => {
+    setData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === "string") {
+          setData((prevData) => ({
+            ...prevData,
+            avatar: reader.result,
+          }));
+          //console.log(typeof(reader.result));
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleAvatarClick = () => {
+    document.getElementById("avatar-input")?.click();
+  };
+  
+
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
-      <h1 className=" self-stretch text-2xl text-primary-300 font-bold">
+      <h1 className="self-stretch text-2xl text-primary-300 font-bold">
         Setup your Profile
       </h1>
       <Avatar
-        src="https://i.pravatar.cc/150?u=a04258114e29026302d"
+        src={data.avatar}
         size="lg"
-        className="self-center w-32 h-32"
+        className="self-center w-32 h-32 cursor-pointer"
+        onClick={handleOpenModal}
+      />
+      <input
+        type="file"
+        id="avatar-input"
+        accept="image/*"
+        onChange={handleAvatarChange}
+        style={{ display: "none" }}
+        onClick={handleOpenModal}
+      />
+      <ImagePickerModal
+        isOpen={isModalOpen}
+        onRequestClose={handleCloseModal}
+        onCameraOpen={handleCameraOpen}
+        onGalleryOpen={handleGalleryOpen}
+        onSaveImage={handleSaveImage}
       />
       <div className="w-full">
         <p className="text-white text-sm mb-1">Username </p>
-        <Input type="text" placeholder="johndoe" isClearable />
-        <p className=" text-white text-xs mt-1">
+        <Input
+          type="text"
+          placeholder="johndoe"
+          isClearable
+          onChange={(e) => handleChange("username", e.target.value)}
+
+        />
+        <p className="text-red-500 text-xs mt-1">{errors.username}</p>
+        <p className="text-white text-xs mt-1">
           Your username can have 2-30 characters and must not include any
           special characters except from “.” & “_”
         </p>
@@ -32,21 +197,29 @@ const Ob2 = () => {
           type="text"
           defaultValue="Hi! I’m on MEU, where are you?"
           isClearable
+          onChange={(e) => handleChange("bio", e.target.value)}
         />
-        <p className=" text-white text-xs mt-1">
+        <p className="text-red-500 text-xs mt-1">{errors.bio}</p>
+        <p className="text-white text-xs mt-1">
           Your bio can have 2-150 characters.
         </p>
       </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Pronouns </p>
-        <Input type="text" placeholder="he/him" isClearable />
-        <p className=" text-white text-xs mt-1">
+        <Input
+          type="text"
+          placeholder="he/him"
+          isClearable
+          onChange={(e) => handleChange("pronounns", e.target.value)}
+        />
+        <p className="text-red-500 text-xs mt-1">{errors.pronounns}</p>
+        <p className="text-white text-xs mt-1">
           Your pronouns can have 2-100 characters.
         </p>
       </div>
       <div className="flex w-full justify-end">
         <Button
-          className="mt-2 text-sm "
+          className="mt-2 text-sm"
           color="primary"
           size="lg"
           onClick={handleNext}
