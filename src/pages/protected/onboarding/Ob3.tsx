@@ -1,4 +1,4 @@
-import { Button, divider, Select, SelectItem } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { interests } from "../../../constants/interests";
 import { IoMdSearch } from "react-icons/io";
@@ -10,6 +10,7 @@ interface Interest {
   label: string;
   value: string;
 }
+
 
 const Ob3 = () => {
   const navigate = useNavigate();
