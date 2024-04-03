@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "ShareProfile",
+        path: "share-profile",
         Component: ShareProfile,
       }
     ],
