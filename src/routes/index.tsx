@@ -5,6 +5,7 @@ import {
   PublicLayout,
 } from "../layout/Layout";
 import Home from "../pages/protected/Home";
+import ShareProfile from '../pages/protected/ShareProfile'
 import Login from "../pages/public/Login";
 import Ob1 from "../pages/protected/onboarding/Ob1";
 import RootError from "../layout/RootError";
@@ -13,6 +14,7 @@ import Ob3 from "../pages/protected/onboarding/Ob3";
 import Ob4 from "../pages/protected/onboarding/Ob4";
 import Ob5 from "../pages/protected/onboarding/Ob5";
 import Ob6 from "../pages/protected/onboarding/Ob6";
+
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +56,10 @@ export const router = createBrowserRouter([
         path: "home",
         Component: Home,
       },
+      {
+        path: "ShareProfile",
+        Component: ShareProfile,
+      }
     ],
   },
   {
