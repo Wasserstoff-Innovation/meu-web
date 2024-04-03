@@ -4,14 +4,6 @@ import { interests } from "../../../constants/interests";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
-// import { CustomCheckbox } from "../../../components/CustomCheckbox";
-// import { useState } from "react";
-
-interface Interest {
-  label: string;
-  value: string;
-}
-
 
 const Ob3 = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +14,7 @@ const Ob3 = () => {
   const [userInterest, setUserInterest] = useState(interests);
   const [active, setActive] = useState(false);
 
-  const [groupSelected, setGroupSelected] = useState<Interest[]>([]);
+  const [groupSelected, setGroupSelected] = useState<typeof interests>([]);
 
   const FilteredData = (value: string) => {
     const filterInterest = interests.filter((interest) =>
@@ -67,7 +59,7 @@ const Ob3 = () => {
     }
     const updatedUserData = {
       ...userData,
-      Interests:groupSelected
+      Interests: groupSelected,
     };
     dispatch(updateUserData(updatedUserData));
     navigate("/ob4");
@@ -87,7 +79,7 @@ const Ob3 = () => {
         <div className=" flex flex-col">
           {/* search  */}
           <div className="h-10 bg-[#313437] flex items-center justify-center p-2 gap-2 border-[#4A4D50] border-[3px] rounded-md">
-            <img src="./search.svg" alt="search" />            
+            <img src="./search.svg" alt="search" />
             <input
               type="text"
               name="searchInput"
