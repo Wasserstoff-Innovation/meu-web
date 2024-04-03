@@ -20,7 +20,7 @@ const Ob6 = (): ReactNode => {
         navigate("/ob7");
       } else {
         console.error("Failed to set user data");
-        navigate("/ob1");
+        navigate("/");
       }
     })();
   }, [navigate, user, userData, setSavedUserData]);
