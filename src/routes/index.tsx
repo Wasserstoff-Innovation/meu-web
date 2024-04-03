@@ -11,6 +11,9 @@ import RootError from "../layout/RootError";
 import Ob2 from "../pages/protected/onboarding/Ob2";
 import Ob3 from "../pages/protected/onboarding/Ob3";
 import Ob4 from "../pages/protected/onboarding/Ob4";
+import MyProfile from "../pages/protected/MyProfile";
+import ProfileScreenConnection from "../pages/protected/ProfileConnection";
+import ProfileNotConnection from "../pages/protected/ProfileNotConnection";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +47,18 @@ export const router = createBrowserRouter([
         path: "home",
         Component: Home,
       },
+      {
+        path: "my-profile",
+        Component: MyProfile,
+      },
+      {
+        path: "profile-connection",
+        Component:ProfileScreenConnection
+      },
+      {
+        path: "profile-not-connection",
+        Component:ProfileNotConnection
+      }
     ],
   },
   {
