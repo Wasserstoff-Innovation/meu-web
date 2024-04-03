@@ -12,7 +12,6 @@ interface Interest {
   value: string;
 }
 
-
 const Ob3 = () => {
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
@@ -67,14 +66,17 @@ const Ob3 = () => {
     }
     const updatedUserData = {
       ...userData,
-      Interests:groupSelected
+      Interests: groupSelected,
     };
     dispatch(updateUserData(updatedUserData));
     navigate("/ob4");
   };
 
   return (
-    <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
+    <div
+      className="flex flex-1 flex-col justify-between items-end gap-4 py-8 "
+      onClick={() => setActive(false)}
+    >
       <h1 className=" self-stretch text-2xl text-primary-300 font-bold">
         Add your Interests
       </h1>
@@ -86,8 +88,14 @@ const Ob3 = () => {
         {/* changes by amit */}
         <div className=" flex flex-col">
           {/* search  */}
-          <div className="h-10 bg-[#313437] flex items-center justify-center p-2 gap-2 border-[#4A4D50] border-[3px] rounded-md">
-            <img src="./search.svg" alt="search" />            
+          <div
+            className="h-10 bg-[#313437] flex items-center justify-center p-2 gap-2 border-[#4A4D50] border-[3px] rounded-md"
+            onClick={(e) => {
+              e.stopPropagation();
+              setActive(true);
+            }}
+          >
+            <img src="./search.svg" alt="search" />
             <input
               type="text"
               name="searchInput"
@@ -99,7 +107,7 @@ const Ob3 = () => {
               value={searchInput}
               className=" bg-[#313437] w-full outline-none placeholder:text-white"
               placeholder="Search"
-              onFocus={() => setActive(true)}
+              // onFocus={() => setActive(true)}
             />
           </div>
           {/* select tab */}
