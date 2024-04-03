@@ -3,7 +3,7 @@ import Header from "./Header";
 import { Navigate, Outlet, redirect } from "react-router-dom";
 import { AuthContext } from "../context/Auth";
 import { Spinner } from "@nextui-org/react";
-import { getUserData } from "../api/juno/user";
+import { getUserDataByOwner } from "../api/juno/user";
 
 const ProtectedLayout = () => {
   const { user } = useContext(AuthContext);
@@ -24,7 +24,7 @@ const OnBoardingLayout = () => {
 
   useEffect(() => {
     (async () => {
-      const userData = await getUserData(user);
+      const userData = await getUserDataByOwner(user);
       if (userData) {
         return redirect("/home");
       }

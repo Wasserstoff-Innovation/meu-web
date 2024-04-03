@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button, Spinner } from "@nextui-org/react";
 import Lottie from "lottie-react";
 import EarthLottie from "../../lottie/earth.json";
 import TypewriterComponent from "typewriter-effect-csattrs";
@@ -33,11 +33,14 @@ const Login = (): ReactNode => {
           color="default"
           onClick={async () => {
             setShowLoader(true);
-            await signIn();
+            await signIn({
+              windowed: false,
+            });
             setShowLoader(false);
           }}
           disabled={showLoader}
         >
+          {showLoader && <Spinner size="sm" />}
           <img src="/II.svg" alt="Internet Identity" className="h-6 w-6" />
           Continue with Internet Identity
         </Button>

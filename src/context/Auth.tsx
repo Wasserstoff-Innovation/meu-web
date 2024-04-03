@@ -1,12 +1,20 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { User, authSubscribe, initJuno } from "@junobuild/core";
+import { Doc, User, authSubscribe, initJuno } from "@junobuild/core";
+import { IUser } from "../types/user";
 
 export interface IAuthContext {
   user: User | null;
+  savedUserData: Doc<IUser> | null;
+  setSavedUserData: React.Dispatch<React.SetStateAction<Doc<IUser> | null>>;
 }
-export const AuthContext = createContext<IAuthContext>({ user: null });
+export const AuthContext = createContext<IAuthContext>({
+  user: null,
+  savedUserData: null,
+  setSavedUserData: () => {},
+});
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [savedUserData, setSavedUserData] = useState<Doc<IUser> | null>(null);
 
   useEffect(() => {
     (async () =>
@@ -23,6 +31,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, savedUserData, setSavedUserData }}>
+      {children}
+    </AuthContext.Provider>
   );
 };

@@ -1,8 +1,30 @@
 import Lottie from "lottie-react";
 import EarthLottie from "../../../lottie/earth.json";
-import { ReactNode } from "react";
+import { ReactNode, useContext, useEffect } from "react";
+import { useAppSelector } from "../../../redux/hooks";
+import { setUserData } from "../../../api/juno/user";
+import { AuthContext } from "../../../context/Auth";
+import { useNavigate } from "react-router-dom";
 
 const Ob6 = (): ReactNode => {
+  const { userData } = useAppSelector((state) => state.onBoarding);
+  const { user, setSavedUserData } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    (async () => {
+      const userDoc = await setUserData(user, userData);
+      if (userDoc) {
+        console.log("User data set successfully");
+        setSavedUserData(userDoc);
+        navigate("/ob7");
+      } else {
+        console.error("Failed to set user data");
+        navigate("/ob1");
+      }
+    })();
+  }, [navigate, user, userData, setSavedUserData]);
+
   return (
     <div className="flex flex-1 flex-col justify-end ">
       <h1 className=" inline-flex gap-2 text-2xl text-primary-300 font-bold">
