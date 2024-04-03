@@ -7,10 +7,10 @@ import { updateUserData } from "../../../redux/features/onBoardingSlice";
 // import { CustomCheckbox } from "../../../components/CustomCheckbox";
 // import { useState } from "react";
 
-interface Interest {
-  label: string;
-  value: string;
-}
+// interface Interest {
+//   label: string;
+//   value: string;
+// }
 
 const Ob3 = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ const Ob3 = () => {
   const [userInterest, setUserInterest] = useState(interests);
   const [active, setActive] = useState(false);
 
-  const [groupSelected, setGroupSelected] = useState<Interest[]>([]);
+  const [groupSelected, setGroupSelected] = useState<typeof interests>([]);
 
   const FilteredData = (value: string) => {
     const filterInterest = interests.filter((interest) =>
