@@ -7,7 +7,7 @@ import { getUserDataByOwner } from "../api/juno/user";
 const ProtectedLayout = () => {
   const { user } = useContext(AuthContext);
 
-  if (user) {
+  if (!user) {
     return <Navigate to="/login" />;
   }
   return (

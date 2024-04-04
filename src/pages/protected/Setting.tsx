@@ -1,5 +1,6 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom"; // Import Link from React Router
+import { useNavigate, Link } from "react-router-dom";
+import { signOut } from "@junobuild/core";
 
 const Settings = () => {
   const Navigate = useNavigate();
@@ -7,7 +8,7 @@ const Settings = () => {
     {
       icon: "/interests.svg",
       name: "Interests",
-      path: "/settings/interests" // Define the path for each
+      path: "/settings/interests"
     },
     {
       icon: "/search.svg",
@@ -106,7 +107,11 @@ const Settings = () => {
         </div>
       </div>
       <div>
-        <div className="w-full text-center bg-[#313437] text-[#DB4437] p-2">
+        <div className="w-full text-center bg-[#313437] text-[#DB4437] p-2"
+         onClick={async () => {
+          await signOut();
+        }}
+        >
           <button>Logout</button>
         </div>
         <div className="h-10 bg-foreground text-center text-white p-4 w-full">
