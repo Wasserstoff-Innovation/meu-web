@@ -65,7 +65,7 @@ const PublicLayout = () => {
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="max-h-screen w-screen bg-foreground-400 font-mono text-white">
-      <div className="flex-1 flex flex-col justify-between h-screen overflow-auto no-scrollbar  max-w-screen-sm px-6  bg-foreground mx-auto  ">
+      <div className="flex-1 flex flex-col justify-between h-screen overflow-auto no-scrollbar max-w-sm px-6  bg-foreground mx-auto  ">
        {children}
       </div>
     </div>
