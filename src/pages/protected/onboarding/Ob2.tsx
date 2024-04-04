@@ -164,7 +164,7 @@ const Ob2: React.FC = () => {
   
 
   return (
-    <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
+    <div className="flex flex-1 flex-col justify-between items-end gap-4 ">
       <h1 className="self-stretch text-2xl text-primary-300 font-bold">
         Setup your Profile
       </h1>

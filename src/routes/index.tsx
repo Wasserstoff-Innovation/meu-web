@@ -7,6 +7,16 @@ import {
 import Home from "../pages/protected/Home";
 import ShareProfile from '../pages/protected/ShareProfile'
 import Login from "../pages/public/Login";
+import Settings from "../pages/protected/Setting"
+import Interests from "../pages/protected/Setting/Interests";
+import Help from "../pages/protected/Setting/Help";
+import Other from "../pages/protected/Setting/Other";
+import Privacy from "../pages/protected/Setting/Privacy";
+import Purpose from "../pages/protected/Setting/Purpose";
+import RateMeu from "../pages/protected/Setting/RateMeu";
+import About from "../pages/protected/Setting/About";
+import share from "../pages/protected/Setting/Share";
+import EditProfile from "../pages/protected/Setting/EditProfile";
 import Ob1 from "../pages/protected/onboarding/Ob1";
 import RootError from "../layout/RootError";
 import Ob2 from "../pages/protected/onboarding/Ob2";
@@ -50,6 +60,18 @@ export const router = createBrowserRouter([
             path: "ob6",
             Component: Ob6,
           },
+          {
+            path: "interests",
+            Component: Interests,
+          },
+          {
+            path:"editProfile",
+            Component: EditProfile,
+          },
+          {
+            path: "privacy",
+            Component: Privacy,
+          },
         ],
       },
       {
@@ -59,7 +81,8 @@ export const router = createBrowserRouter([
       {
         path: "ShareProfile",
         Component: ShareProfile,
-      }
+      },
+      
     ],
   },
   {
@@ -69,6 +92,44 @@ export const router = createBrowserRouter([
       {
         path: "login",
         Component: Login,
+      },
+    ],
+  },
+  {
+    path: "/",
+    Component: Settings,
+    children: [
+      {
+        path: "interests",
+        Component: Interests,
+      },
+      {
+        path: "purpose",
+        Component: Purpose,
+      },
+      // {
+      //   path: "privacy",
+      //   Component: Privacy,
+      // },
+      {
+        path: "other",
+        Component: Other,
+      },
+      {
+        path: "share",
+        Component: share,
+      },
+      {
+        path: "rate",
+        Component: RateMeu,
+      },
+      {
+        path: "help",
+        Component: Help,
+      },
+      {
+        path: "about",
+        Component: About,
       },
     ],
   },
