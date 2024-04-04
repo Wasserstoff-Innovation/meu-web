@@ -14,6 +14,7 @@ import Ob4 from "../pages/protected/onboarding/Ob4";
 import MyProfile from "../pages/protected/MyProfile";
 import ProfileScreenConnection from "../pages/protected/ProfileConnection";
 import ProfileNotConnection from "../pages/protected/ProfileNotConnection";
+import Recommendation from "../pages/protected/Recommendation";
 
 export const router = createBrowserRouter([
   {
@@ -53,11 +54,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "profile-connection",
-        Component:ProfileScreenConnection
+        Component: ProfileScreenConnection,
       },
       {
         path: "profile-not-connection",
-        Component:ProfileNotConnection
+        Component: ProfileNotConnection,
+      },
+      {
+        path: "recommendation",
+        Component:Recommendation
       }
     ],
   },
