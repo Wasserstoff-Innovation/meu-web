@@ -1,13 +1,55 @@
-import { User, getDoc } from "@junobuild/core";
+import { User, getDoc, listDocs, setDoc } from "@junobuild/core";
+import { IUser } from "../../types/user";
 
-export const getUserData = async (user: User | null) => {
+export const getUserDataByUsername = async (
+  user: User | null,
+  username: string
+) => {
   try {
     if (!user || user === null) return undefined;
-    const userDoc = await getDoc({
+    const userDoc = await getDoc<IUser>({
       collection: "users",
-      key: user?.key,
+      key: username.toLowerCase(),
     });
     return userDoc;
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
+};
+
+export const getUserDataByOwner = async (user: User | null | undefined) => {
+  try {
+    if (!user || user === null) return undefined;
+    const docs = await listDocs<IUser>({
+      collection: "users",
+      filter: {
+        owner: user.key,
+      },
+    });
+    console.log(docs);
+    return docs.items[0];
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
+};
+
+export const setUserData = async (
+  user: User | null | undefined,
+  data: IUser
+) => {
+  try {
+    if (!user || user === null) return undefined;
+    console.log(data);
+    const createdDoc = await setDoc<IUser>({
+      collection: "users",
+      doc: {
+        key: data.username.toLowerCase(),
+        data,
+      },
+    });
+    return createdDoc;
   } catch (e) {
     console.error(e);
     return undefined;

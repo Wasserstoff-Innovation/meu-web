@@ -18,6 +18,7 @@ export const onBoardingSlice = createSlice({
   initialState,
   reducers: {
     updateUserData: (state, action: PayloadAction<IUser>) => {
+
       state.userData = action.payload;
     },
   },

@@ -31,7 +31,15 @@ const Login = (): ReactNode => {
           className="mt-8 text-sm center"
           color="default"
           onClick={async () => {
-            await signIn();
+            try {
+              const value = await signIn({
+                windowed: false,
+              });
+              console.log("Sign in value", value);
+            } catch (e) {
+              console.error("Caught error", e);
+              //TODO: Show error Toast here
+            }
           }}
         >
           <img src="/II.svg" alt="Internet Identity" className="h-6 w-6" />

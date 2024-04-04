@@ -59,7 +59,6 @@ const Ob3 = () => {
   };
 
   const handleNext = () => {
-    //TODO: Validate the form
     if (groupSelected.length < 3) {
       console.log("Selected Interest must be greater than 2.");
       return;

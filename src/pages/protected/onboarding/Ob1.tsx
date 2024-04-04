@@ -4,19 +4,34 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
 import { useState } from "react";
 
+interface UserData {
+  name: string;
+  email: string;
+  countryCode: string;
+  mobile: string;
+  location: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  mobile?: string;
+  location?: string;
+}
+
 const Ob1 = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    countryCode: "",
-    mobile: "",
-    location: "",
+  const [data, setData] = useState<UserData>({
+    name: userData.name,
+    email: userData.email,
+    countryCode: "+91",
+    mobile: userData.mobile,
+    location: userData.location,
   });
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  console.log("data", data);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({
       ...data,
@@ -25,33 +40,51 @@ const Ob1 = () => {
   };
 
   const handleNext = () => {
-    //TODO: Validate the form an then dispatch to update the user data,
-    //  merge contry code and mobile number, if errors show below input
-    // fields ( check next ui docs for this ), if no errors then navigate to next page . If possible validate whenever user updates the input fields
+    const newErrors: FormErrors = {};
+    let hasError = false;
 
-    dispatch(updateUserData({ ...userData, name: "John Doe" }));
-    navigate("/ob2");
+    if (data.name.length < 2 || data.name.length > 50) {
+      newErrors.name = "Name must be between 2 and 50 characters";
+      hasError = true;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(data.email)) {
+      newErrors.email = "Invalid email address";
+      hasError = true;
+    }
+
+    const mobilePattern = /^\+[1-9]\d{1,3}[ -]?\d{6,14}$/;
+
+    if ((data.countryCode + data.mobile).trim() !== "" && !mobilePattern.test(data.countryCode + data.mobile)) {
+      newErrors.mobile = "Invalid mobile number";
+      hasError = true;
+  }
+
+    if (data.location.trim() === "") {
+      newErrors.location = "Location cannot be empty";
+      hasError = true;
+    }
+
+    if (hasError) {
+      setErrors(newErrors);
+    } else {
+      const updatedUserData = { ...userData, 
+        name: data.name, 
+        email: data.email, 
+        countryCode: data.countryCode,
+        mobile: data.mobile,
+        location: data.location };
+      dispatch(updateUserData(updatedUserData));
+      navigate("/ob2"); // Ensure "/ob2" is the correct path for navigation
+    }
   };
 
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
-      <h1 className=" self-stretch text-2xl text-primary-300 font-bold">
+      <h1 className="self-stretch text-2xl text-primary-300 font-bold">
         Tell us about yourself
       </h1>
-      {/* <div className="flex flex-row justify-around w-full">
-        <Button className=" text-sm center" color="default">
-          <img src="/linkedin.svg" alt="Linkedin" className="h-6 w-6" />
-          LinkedIn
-        </Button>
-        <Button className=" text-sm center" color="default">
-          <img src="/x.svg" alt="X" className="h-6 w-6" />X (Twitter)
-        </Button>
-      </div>
-      <div className="flex justify-around items-center w-full">
-        <Divider className=" bg-white w-1/3" />
-        <p className="text-white text-center w-1/3 ">OR</p>
-        <Divider className=" bg-white  w-1/3 " />
-      </div> */}
       <div className="w-full">
         <p className="text-white text-sm mb-1">Full Name </p>
         <Input
@@ -62,7 +95,10 @@ const Ob1 = () => {
           onChange={handleChange}
           value={data.name}
         />
-        <p className=" text-white text-xs mt-1">
+        {errors.name && (
+          <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+        )}
+        <p className="text-white text-xs mt-1">
           Your name can have 2-50 characters.
         </p>
       </div>
@@ -76,7 +112,10 @@ const Ob1 = () => {
           onChange={handleChange}
           value={data.email}
         />
-        <p className=" text-white text-xs mt-1">
+        {errors.email && (
+          <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+        )}
+        <p className="text-white text-xs mt-1">
           Please enter your email address.
         </p>
       </div>
@@ -86,7 +125,7 @@ const Ob1 = () => {
           <Input
             name="countryCode"
             type="tel"
-            placeholder="+123"
+            placeholder="+91"
             maxLength={3}
             className="w-1/4"
             onChange={handleChange}
@@ -96,14 +135,16 @@ const Ob1 = () => {
             name="mobile"
             isClearable
             type="tel"
-            typeof="number"
             placeholder="99999 99999 99999"
             className="ml-2"
             onChange={handleChange}
             value={data.mobile}
           />
         </div>
-        <p className=" text-white text-xs mt-1">
+        {errors.mobile && (
+          <p className="text-red-500 text-xs mt-1">{errors.mobile}</p>
+        )}
+        <p className="text-white text-xs mt-1">
           Please enter your mobile number.
         </p>
       </div>
@@ -117,9 +158,11 @@ const Ob1 = () => {
           onChange={handleChange}
           value={data.location}
         />
-        <p className=" text-white text-xs mt-1">Please enter your location.</p>
+        {errors.location && (
+          <p className="text-red-500 text-xs mt-1">{errors.location}</p>
+        )}
+        <p className="text-white text-xs mt-1">Please enter your location.</p>
       </div>
-      {/* TODO: Move to Links */}
       <div className="w-full">
         <p className="text-white text-xs mt-1 ">
           By continuing, you agree to our{" "}
