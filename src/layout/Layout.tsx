@@ -1,6 +1,5 @@
-import { Fragment, Suspense, useContext, useEffect, useState } from "react";
-import Header from "./Header";
-import { Navigate, Outlet, redirect } from "react-router-dom";
+import { Fragment, useContext, useEffect, useState } from "react";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/Auth";
 import { Spinner } from "@nextui-org/react";
 import { getUserDataByOwner } from "../api/juno/user";
@@ -21,18 +20,21 @@ const ProtectedLayout = () => {
 const OnBoardingLayout = () => {
   const { user } = useContext(AuthContext);
   const [showLoader, setShowLoader] = useState(true);
+  const navigate = useNavigate();
 
   console.log(user);
 
   useEffect(() => {
     (async () => {
       const userData = await getUserDataByOwner(user);
+      console.log(userData);
       if (userData) {
-        redirect("/home");
+        navigate("/", { replace: true });
+        // redirect("/home");
       }
       setShowLoader(false);
     })();
-  }, [user]);
+  }, [navigate, user]);
 
   return (
     <Fragment>
@@ -46,29 +48,8 @@ const OnBoardingLayout = () => {
     </Fragment>
   );
 };
-const PublicLayout = () => {
-  const { user } = useContext(AuthContext);
 
-  if (user) {
-    return <Navigate to="/home" />;
-  }
-  return (
-    <Fragment>
-      <Header />
-      <Suspense>
-        <Outlet />
-      </Suspense>
-    </Fragment>
-  );
+const Layout = () => {
+  return <Outlet />;
 };
-
-const Layout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="max-h-screen w-screen bg-foreground-400 font-mono text-white">
-      <div className="flex-1 flex flex-col justify-between h-screen overflow-auto no-scrollbar max-w-sm px-6  bg-foreground mx-auto  ">
-       {children}
-      </div>
-    </div>
-  );
-};
-export { PublicLayout, ProtectedLayout, OnBoardingLayout, Layout };
+export { ProtectedLayout, OnBoardingLayout, Layout };

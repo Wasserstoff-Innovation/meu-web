@@ -35,10 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       console.log("user", user)
       // if (run === 2) {
         setUser(user);
-      // } else {
-      //   // run = 0;
-      // }
-   
+
     });
 
     return () => {

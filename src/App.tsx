@@ -1,18 +1,20 @@
 import { AuthProvider } from "./context/Auth";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import MainRouter from "./routes/MainRouter";
-import { Layout } from "./layout/Layout";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 
 function App() {
   return (
-    <Layout>
-      <Provider store={store}>
-        <AuthProvider>
-            <MainRouter />
-        </AuthProvider>
-      </Provider>
-    </Layout>
+    <div className="max-h-screen w-screen bg-foreground-400 font-mono text-white">
+      <div className="flex-1 flex flex-col justify-between h-screen overflow-auto no-scrollbar max-w-sm px-6  bg-foreground mx-auto  ">
+        <Provider store={store}>
+          <AuthProvider>
+            <RouterProvider router={router} />
+          </AuthProvider>
+        </Provider>
+      </div>
+    </div>
   );
 }
 
