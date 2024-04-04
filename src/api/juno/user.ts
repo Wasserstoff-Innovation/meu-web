@@ -18,7 +18,7 @@ export const getUserDataByUsername = async (
   }
 };
 
-export const getUserDataByOwner = async (user: User | null) => {
+export const getUserDataByOwner = async (user: User | null | undefined) => {
   try {
     if (!user || user === null) return undefined;
     const docs = await listDocs<IUser>({
@@ -35,9 +35,13 @@ export const getUserDataByOwner = async (user: User | null) => {
   }
 };
 
-export const setUserData = async (user: User | null, data: IUser) => {
+export const setUserData = async (
+  user: User | null | undefined,
+  data: IUser
+) => {
   try {
     if (!user || user === null) return undefined;
+    console.log(data);
     const createdDoc = await setDoc<IUser>({
       collection: "users",
       doc: {

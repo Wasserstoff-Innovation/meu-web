@@ -23,10 +23,10 @@ const Ob2: React.FC = () => {
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
   const [data, setData] = useState<UserData>({
-    avatar: "",
-    username: "",
-    bio: "",
-    pronounns: "",
+    avatar: userData.avatar,
+    username: userData.username,
+    bio: userData.bio,
+    pronounns: userData.pronounns,
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -37,7 +37,6 @@ const Ob2: React.FC = () => {
   // const handleCloseModal = () => {
   //   setIsModalOpen(false);
   // };
-
 
   // const handleCameraOpen = async () => {
   //   try {
@@ -87,48 +86,50 @@ const Ob2: React.FC = () => {
     const newErrors: FormErrors = {};
 
     switch (true) {
-        case !data.username.trim().length:
-            newErrors.username = "Username is required";
-            break;
-        case data.username.length < 2 || data.username.length > 30:
-            newErrors.username = "Username must be between 2 and 30 characters";
-            break;
-        case !/^[a-zA-Z0-9_.]+$/.test(data.username):
-            newErrors.username = "Username must not include any special characters except '.' and '_'";
-            break;
-        default:
-            break;
+      case !data.username.trim().length:
+        newErrors.username = "Username is required";
+        break;
+      case data.username.length < 2 || data.username.length > 30:
+        newErrors.username = "Username must be between 2 and 30 characters";
+        break;
+      case !/^[a-zA-Z0-9_.]+$/.test(data.username):
+        newErrors.username =
+          "Username must not include any special characters except '.' and '_'";
+        break;
+      default:
+        break;
     }
 
     switch (true) {
-        case data.bio.length < 2 || data.bio.length > 150:
-            newErrors.bio = "Bio must be between 2 and 150 characters";
-            break;
-        default:
-            break;
+      case data.bio.length < 2 || data.bio.length > 150:
+        newErrors.bio = "Bio must be between 2 and 150 characters";
+        break;
+      default:
+        break;
     }
 
     switch (true) {
-        case data.pronounns.length < 2 || data.pronounns.length > 100:
-            newErrors.pronounns = "Pronouns must be between 2 and 100 characters";
-            break;
-        default:
-            break;
+      case data.pronounns.length < 2 || data.pronounns.length > 100:
+        newErrors.pronounns = "Pronouns must be between 2 and 100 characters";
+        break;
+      default:
+        break;
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-};
+  };
 
   const handleNext = () => {
     const isFormValid = validateForm();
     if (isFormValid) {
-      const updatedUserData = { ...userData, 
-        avatar: data.avatar, 
-        username: data.username, 
+      const updatedUserData = {
+        ...userData,
+        avatar: data.avatar,
+        username: data.username,
         bio: data.bio,
         pronounns: data.pronounns,
-      }
+      };
       dispatch(updateUserData(updatedUserData));
       navigate("/ob3");
     }
@@ -146,13 +147,14 @@ const Ob2: React.FC = () => {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        if (typeof reader.result === "string") {
-          setData((prevData: any) => ({
-            ...prevData,
-            avatar: reader.result,
-          }));
-          //console.log(typeof(reader.result));
+        const filePath = reader.result as string;
+        if (!filePath) {
+          return console.error("Error reading file");
         }
+        setData((prev) => ({
+          ...prev,
+          avatar: filePath,
+        }));
       };
       reader.readAsDataURL(file);
     }
@@ -161,7 +163,6 @@ const Ob2: React.FC = () => {
   const handleAvatarClick = () => {
     document.getElementById("avatar-input")?.click();
   };
-  
 
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
@@ -178,19 +179,20 @@ const Ob2: React.FC = () => {
         type="file"
         id="avatar-input"
         accept="image/*"
+        value={data.avatar}
         onChange={handleAvatarChange}
         style={{ display: "none" }}
         // onClick={handleOpenModal}
       />
-      
+
       <div className="w-full">
         <p className="text-white text-sm mb-1">Username </p>
         <Input
           type="text"
           placeholder="johndoe"
           isClearable
+          value={data.username}
           onChange={(e) => handleChange("username", e.target.value)}
-
         />
         <p className="text-red-500 text-xs mt-1">{errors.username}</p>
         <p className="text-white text-xs mt-1">
@@ -202,8 +204,8 @@ const Ob2: React.FC = () => {
         <p className="text-white text-sm mb-1">Bio </p>
         <Input
           type="text"
-          defaultValue="Hi! I’m on MEU, where are you?"
           isClearable
+          value={data.bio}
           onChange={(e) => handleChange("bio", e.target.value)}
         />
         <p className="text-red-500 text-xs mt-1">{errors.bio}</p>
@@ -217,6 +219,7 @@ const Ob2: React.FC = () => {
           type="text"
           placeholder="he/him"
           isClearable
+          value={data.pronounns}
           onChange={(e) => handleChange("pronounns", e.target.value)}
         />
         <p className="text-red-500 text-xs mt-1">{errors.pronounns}</p>

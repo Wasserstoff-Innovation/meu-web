@@ -8,7 +8,7 @@ import { getUserDataByOwner } from "../api/juno/user";
 const ProtectedLayout = () => {
   const { user } = useContext(AuthContext);
 
-  if (user) {
+  if (!user) {
     return <Navigate to="/login" />;
   }
   return (
@@ -22,11 +22,13 @@ const OnBoardingLayout = () => {
   const { user } = useContext(AuthContext);
   const [showLoader, setShowLoader] = useState(true);
 
+  console.log(user);
+
   useEffect(() => {
     (async () => {
       const userData = await getUserDataByOwner(user);
       if (userData) {
-        return redirect("/home");
+        redirect("/home");
       }
       setShowLoader(false);
     })();
@@ -48,7 +50,7 @@ const PublicLayout = () => {
   const { user } = useContext(AuthContext);
 
   if (user) {
-    return <Navigate to="/" />;
+    return <Navigate to="/home" />;
   }
   return (
     <Fragment>
@@ -60,4 +62,13 @@ const PublicLayout = () => {
   );
 };
 
-export { PublicLayout, ProtectedLayout, OnBoardingLayout };
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="max-h-screen w-screen bg-foreground-400 font-mono text-white">
+      <div className="flex-1 flex flex-col justify-between h-screen overflow-auto no-scrollbar  max-w-screen-sm px-6  bg-foreground mx-auto  ">
+       {children}
+      </div>
+    </div>
+  );
+};
+export { PublicLayout, ProtectedLayout, OnBoardingLayout, Layout };

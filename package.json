@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "node -e \"require('fs').cpSync('node_modules/@junobuild/core/dist/workers/', './public/workers', {recursive: true});\""
   },
   "dependencies": {
     "@junobuild/core": "^0.0.47",

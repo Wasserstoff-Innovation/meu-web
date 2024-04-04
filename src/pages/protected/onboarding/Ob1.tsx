@@ -24,11 +24,11 @@ const Ob1 = () => {
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
   const [data, setData] = useState<UserData>({
-    name: "",
-    email: "",
+    name: userData.name,
+    email: userData.email,
     countryCode: "+91",
-    mobile: "",
-    location: "",
+    mobile: userData.mobile,
+    location: userData.location,
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
