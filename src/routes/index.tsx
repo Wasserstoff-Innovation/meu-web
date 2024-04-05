@@ -2,6 +2,7 @@ import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
+  redirect,
 } from "react-router-dom";
 import { Layout, OnBoardingLayout, ProtectedLayout } from "../layout/Layout";
 import Home from "../pages/protected/Home";
@@ -31,7 +32,17 @@ import Purpose from "../pages/protected/Setting/Purpose";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<RootError />}>
-      <Route path="/" element={<ProtectedLayout />}>
+      <Route
+        path="/"
+        loader={() => {
+          const user = sessionStorage.getItem("user");
+          if (!user) {
+            return redirect("/login");
+          }
+          return null;
+        }}
+        element={<ProtectedLayout />}
+      >
         <Route path="onboard" element={<OnBoardingLayout />}>
           <Route path="ob1" element={<Ob1 />} />
           <Route path="ob2" element={<Ob2 />} />
@@ -43,17 +54,16 @@ export const router = createBrowserRouter(
         </Route>
         <Route index path="" element={<Home />} />
         <Route path="share-profile" element={<ShareProfile />} />
-        <Route path="settings" element={<Settings />}>
-          <Route path="help" element={<Help />} />
-          <Route path="editProfile" element={<EditProfile />} />
-          <Route path="interests" element={<Interests />} />
-          <Route path="purpose" element={<Purpose />} />
-          <Route path="other" element={<Other />} />
-          <Route path="privacy" element={<Privacy />} />
-          <Route path="rate" element={<RateMeu />} />
-          <Route path="share" element={<Share />} />
-          <Route path="about" element={<About />} />
-        </Route>
+        <Route path="settings" element={<Settings />} />
+        <Route path="settings/help" element={<Help />} />
+        <Route path="settings/editProfile" element={<EditProfile />} />
+        <Route path="settings/interests" element={<Interests />} />
+        <Route path="settings/purpose" element={<Purpose />} />
+        <Route path="settings/other" element={<Other />} />
+        <Route path="settings/privacy" element={<Privacy />} />
+        <Route path="settings/rate" element={<RateMeu />} />
+        <Route path="settings/share" element={<Share />} />
+        <Route path="settings/about" element={<About />} />
       </Route>
       <Route path="login" element={<Login />} />
     </Route>
