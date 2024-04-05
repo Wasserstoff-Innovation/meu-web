@@ -41,18 +41,19 @@ export const router = createBrowserRouter(
           <Route path="ob6" element={<Ob6 />} />
           <Route path="ob7" element={<Ob7 />} />
         </Route>
-        <Route path="/settings" element={<Settings/>}/>
-          <Route path="/settings/help" element={<Help/>}/>
-          <Route path="/settings/editProfile" element={<EditProfile/>}/>
-          <Route path="/settings/interests" element={<Interests/>}/>
-          <Route path="/settings/purpose" element={<Purpose/>}/>
-          <Route path="/settings/other" element={<Other/>}/>
-          <Route path="/settings/privacy" element={<Privacy/>}/>
-          <Route path="/settings/rate" element={<RateMeu/>}/>
-          <Route path="/settings/share" element={<Share/>}/>
-          <Route path="/settings/about" element={<About/>}/>
         <Route index path="" element={<Home />} />
         <Route path="share-profile" element={<ShareProfile />} />
+        <Route path="settings" element={<Settings />}>
+          <Route path="help" element={<Help />} />
+          <Route path="editProfile" element={<EditProfile />} />
+          <Route path="interests" element={<Interests />} />
+          <Route path="purpose" element={<Purpose />} />
+          <Route path="other" element={<Other />} />
+          <Route path="privacy" element={<Privacy />} />
+          <Route path="rate" element={<RateMeu />} />
+          <Route path="share" element={<Share />} />
+          <Route path="about" element={<About />} />
+        </Route>
       </Route>
       <Route path="login" element={<Login />} />
     </Route>

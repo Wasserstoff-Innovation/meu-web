@@ -4,7 +4,7 @@ import EarthLottie from "../../lottie/earth.json";
 import TypewriterComponent from "typewriter-effect-csattrs";
 import { ReactNode, useContext } from "react";
 import { signIn } from "@junobuild/core";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/Auth";
 import Header from "../../layout/Header";
 
@@ -12,22 +12,9 @@ const Login = (): ReactNode => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
-  const navigateToDashboard = () => {
-    navigate("/");
-  };
-
-  const handleSignIn = async () => {
-    try {
-      const value = await signIn({
-        windowed: false,
-      });
-      navigate("/onboard/ob1");
-      console.log("Sign in value", value);
-    } catch (e) {
-      console.error("Caught error", e);
-      //TODO: Show error Toast here
-    }
-  };
+  if (user) {
+    return <Navigate to="/" />;
+  }
   return (
     <>
       <Header />
@@ -54,20 +41,21 @@ const Login = (): ReactNode => {
           <Button
             className="mt-8 text-sm center"
             color="default"
-            onClick={user ? navigateToDashboard : handleSignIn}
+            onClick={async () => {
+              try {
+                const value = await signIn({
+                  windowed: false,
+                });
+                navigate("/onboard/ob1");
+                console.log("Sign in value", value);
+              } catch (e) {
+                console.error("Caught error", e);
+                //TODO: Show error Toast here
+              }
+            }}
           >
-            {user ? (
-              "continue to Dashboard"
-            ) : (
-              <>
-                <img
-                  src="/II.svg"
-                  alt="Internet Identity"
-                  className="h-6 w-6"
-                />
-                Continue with Internet Identity
-              </>
-            )}
+            <img src="/II.svg" alt="Internet Identity" className="h-6 w-6" />
+            Continue with Internet Identity
           </Button>
         </div>
         <div className="w-full max-w-md h-64 overflow-hidden mx-auto mt-10">
