@@ -4,7 +4,6 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import { Layout, OnBoardingLayout, ProtectedLayout } from "../layout/Layout";
-import Home from "../pages/protected/Home";
 import ShareProfile from "../pages/protected/ShareProfile";
 import Login from "../pages/public/Login";
 import RootError from "../layout/RootError";
