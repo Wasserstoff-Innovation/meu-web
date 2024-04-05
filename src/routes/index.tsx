@@ -28,6 +28,7 @@ import RateMeu from "../pages/protected/Setting/RateMeu";
 import Share from "../pages/protected/Setting/Share";
 import About from "../pages/protected/Setting/About";
 import Purpose from "../pages/protected/Setting/Purpose";
+import Contracts from '../pages/protected/Contracts/contracts'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,7 +37,7 @@ export const router = createBrowserRouter(
         path="/"
         loader={() => {
           const user = sessionStorage.getItem("user");
-          if (!user) {
+          if (user) {
             return redirect("/login");
           }
           return null;
@@ -66,6 +67,7 @@ export const router = createBrowserRouter(
         <Route path="settings/about" element={<About />} />
       </Route>
       <Route path="login" element={<Login />} />
+      <Route path="contracts" element={<Contracts/>}/>
     </Route>
   )
 );
