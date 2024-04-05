@@ -28,20 +28,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    let run = 0;
-    const unsubscribe = authSubscribe((user) => {
-      ++run;
-      console.log("run", run)
-      console.log("user", user)
-      // if (run === 2) {
-        setUser(user);
+    const unsubscribe = authSubscribe((user) => setUser(user));
 
-    });
-
-    return () => {
-      run = 0;
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   return (
