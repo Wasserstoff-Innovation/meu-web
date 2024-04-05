@@ -23,11 +23,11 @@ const RecommendedUsers = [
 const Recommendation = () => {
   const [users, setUsers] = useState(RecommendedUsers);
 
-  const sendFriendRequest = (id: Number) => {
+  const sendFriendRequest = (id: number) => {
     console.log("Friend Request is sent...!", id);
   };
 
-  const handleClick = (id: Number) => {
+  const handleClick = (id: number) => {
     const tempArr = users.filter((user) => user.id !== id);
     setUsers(tempArr);
   };
