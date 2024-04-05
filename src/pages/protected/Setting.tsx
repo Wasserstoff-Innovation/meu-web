@@ -1,29 +1,28 @@
-import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { signOut } from "@junobuild/core";
 
 const Settings = () => {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const Data = [
     {
       icon: "/interests.svg",
       name: "Interests",
-      path: "/settings/interests"
+      path: "/settings/interests",
     },
     {
       icon: "/search.svg",
       name: "Purpose",
-      path: "/settings/purpose"
+      path: "/settings/purpose",
     },
     {
       icon: "/privacy.svg",
       name: "Privacy",
-      path: "/settings/privacy"
+      path: "/settings/privacy",
     },
     {
       icon: "/other.svg",
       name: "Other",
-      path: "/settings/other"
+      path: "/settings/other",
     },
   ];
 
@@ -31,30 +30,30 @@ const Settings = () => {
     {
       icon: "/share.svg",
       name: "Share MEU",
-      path: "/settings/share"
+      path: "/settings/share",
     },
     {
       icon: "/grade.svg",
       name: "Rate MEU",
-      path: "/settings/rate"
+      path: "/settings/rate",
     },
     {
       icon: "/help.svg",
       name: "Help",
-      path: "/settings/help"
+      path: "/settings/help",
     },
     {
       icon: "/about.svg",
       name: "About",
-      path: "/settings/about"
+      path: "/settings/about",
     },
   ];
-  const handleNavigation = (path:string) => {
-    Navigate(path); // Navigate to the specified path
+  const handleNavigation = (path: string) => {
+    navigate(path); // Navigate to the specified path
   };
-  const handlenavigate = () =>{
-    Navigate("/settings/editProfile")
-  }
+  const handlenavigate = () => {
+    navigate("/settings/editProfile");
+  };
 
   return (
     <div className="flex flex-col justify-between h-[95vh] gap-6">
@@ -63,10 +62,16 @@ const Settings = () => {
         <div>setting</div>
       </div>
       <div className="flex flex-col justify-between h-full">
-        <div className="flex gap-3 bg-[#313437] p-5 rounded-md cursor-pointer" onClick={handlenavigate}>
+        <div
+          className="flex gap-3 bg-[#313437] p-5 rounded-md cursor-pointer"
+          onClick={handlenavigate}
+        >
           <div className="w-12 h-12 rounded-full bg-white">
-            <img 
-            src="https://s3-alpha-sig.figma.com/img/41bd/111a/617b61c4709a03d3444b62e630fc9ca2?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=fzFa2JZZQFXYmu2ML7zzufdA3URFClJHqeYGy2ifR40nDr8gYWI4FktGK4hFqXsnJ6GA~J3JhYmZLcNlSJKFvzY5mV6DQXcLnFAHIAJFlz2oKeIu6hXZuaeCgCXFt8j1anZ9MtY9vsvnN5scB1LgR9S30lC-p05jU3YBJkkYurfQ787CAo7TMJD53IHpHrK-cXQ45PIIQJam5iH~Nm3MZZAjL2nxljDTiZ0D-0C0udb1sfeghjooJ~LiPL-0l91dwifpbYgpOv9ygcVaDUX3eL5KGB1o8F3WaIbc2jbjx~t5enk2byc3YLnN3jSUGDHETbewpqKjQtyex4ryK6S0QA__" alt="" className="rounded-full" />
+            <img
+              src="https://s3-alpha-sig.figma.com/img/41bd/111a/617b61c4709a03d3444b62e630fc9ca2?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=fzFa2JZZQFXYmu2ML7zzufdA3URFClJHqeYGy2ifR40nDr8gYWI4FktGK4hFqXsnJ6GA~J3JhYmZLcNlSJKFvzY5mV6DQXcLnFAHIAJFlz2oKeIu6hXZuaeCgCXFt8j1anZ9MtY9vsvnN5scB1LgR9S30lC-p05jU3YBJkkYurfQ787CAo7TMJD53IHpHrK-cXQ45PIIQJam5iH~Nm3MZZAjL2nxljDTiZ0D-0C0udb1sfeghjooJ~LiPL-0l91dwifpbYgpOv9ygcVaDUX3eL5KGB1o8F3WaIbc2jbjx~t5enk2byc3YLnN3jSUGDHETbewpqKjQtyex4ryK6S0QA__"
+              alt=""
+              className="rounded-full"
+            />
           </div>
           <div className="flex flex-col">
             <div className="font-bold text-xl">John Doe</div>
@@ -77,8 +82,8 @@ const Settings = () => {
         <div className="font-semibold text-lg mt-4">SETTING</div>
         <div className="flex flex-col bg-[#313437] rounded-md cursor-pointer">
           {Data.map((data, index) => (
-              <div key={index} onClick={() => handleNavigation(data.path)}> 
-                <div className="flex gap-2 items-center p-2 ">
+            <div key={index} onClick={() => handleNavigation(data.path)}>
+              <div className="flex gap-2 items-center p-2 ">
                 <img src={data.icon} alt="icon" className="w-4 h-4" />
                 <div>{data.name}</div>
               </div>
@@ -93,24 +98,28 @@ const Settings = () => {
         <div className="flex flex-col bg-[#313437] rounded-md">
           {About.map((data, index) => (
             <div key={index}>
-               <div  onClick={() => handleNavigation(data.path)}> 
-              <div className="flex gap-2 items-center p-2 cursor-pointer">
-                <img src={data.icon} alt="icon" className="w-4 h-4" />
-                <div>{data.name}</div>
-              </div>
-              {index < About.length - 1 && (
-                <hr className="border-[#D9D9D9] border-[0.5px]" />
-              )}
+              <div onClick={() => handleNavigation(data.path)}>
+                <div className="flex gap-2 items-center p-2 cursor-pointer">
+                  <img src={data.icon} alt="icon" className="w-4 h-4" />
+                  <div>{data.name}</div>
+                </div>
+                {index < About.length - 1 && (
+                  <hr className="border-[#D9D9D9] border-[0.5px]" />
+                )}
               </div>
             </div>
           ))}
         </div>
       </div>
       <div>
-        <div className="w-full text-center bg-[#313437] text-[#DB4437] p-2"
-         onClick={async () => {
-          await signOut();
-        }}
+        <div
+          className="w-full text-center bg-[#313437] text-[#DB4437] p-2"
+          onClick={async () => {
+            console.log("signing out");
+            await signOut();
+            sessionStorage.removeItem("user");
+            navigate("/login");
+          }}
         >
           <button>Logout</button>
         </div>

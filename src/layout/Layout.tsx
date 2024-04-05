@@ -1,15 +1,10 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/Auth";
 import { Spinner } from "@nextui-org/react";
 import { getUserDataByOwner } from "../api/juno/user";
 
 const ProtectedLayout = () => {
-  const { user } = useContext(AuthContext);
-
-  if (user) {
-    return <Navigate to="/login" />;
-  }
   return (
     <Fragment>
       <Outlet />

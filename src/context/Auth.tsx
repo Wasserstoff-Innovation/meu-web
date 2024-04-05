@@ -28,7 +28,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = authSubscribe((user) => setUser(user));
+    const unsubscribe = authSubscribe((user) => {
+      setUser(user);
+      if (user) {
+        sessionStorage.setItem("user", JSON.stringify(user.key));
+      }
+    });
 
     return () => unsubscribe();
   }, []);
