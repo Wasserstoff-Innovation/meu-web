@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import Navbar from "../../components/Home/Navbar";
+import Footer from "../../components/Home/Footer";
 
 const RecommendedUsers = [
   { id: 1, name: "John Doe", username: "john doe" },
@@ -39,7 +39,7 @@ const Recommendation = () => {
         <div className="flex flex-col gap-4 overflow-y-auto">
           <h1>Recommended Users</h1>
           {users.map((user) => (
-            <div className="flex items-center justify-between px-4">
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="rounded-full cursor-pointer size-12 bg-[url('./avatar.png')] bg-cover"></div>
 
