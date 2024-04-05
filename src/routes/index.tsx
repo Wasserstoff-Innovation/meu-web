@@ -17,6 +17,7 @@ import {
   Ob6,
   Ob7,
 } from "../pages/protected/onboarding";
+import Recommendation from "../pages/protected/Recommendation";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,8 +32,9 @@ export const router = createBrowserRouter(
           <Route path="ob6" element={<Ob6 />} />
           <Route path="ob7" element={<Ob7 />} />
         </Route>
-        <Route index path="" element={<Home />} />
+        <Route index path="" element={<Recommendation />} />
         <Route path="share-profile" element={<ShareProfile />} />
+        {/* <Route path="recommendation" element={<Recommendation />} /> */}
       </Route>
       <Route path="login" element={<Login />} />
     </Route>

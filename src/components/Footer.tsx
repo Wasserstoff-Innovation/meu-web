@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="  z-100 bg-[#313437] ">
+    <div className="absolute w-[24rem] bottom-0 -mx-6  z-100 bg-[#313437] ">
       <div className="flex justify-around p-4">
         <img src="./map.svg" alt="map" className="size-6 cursor-pointer" />
         <img

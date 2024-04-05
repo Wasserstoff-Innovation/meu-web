@@ -2,7 +2,7 @@ import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
-const RecommandedUsers = [
+const RecommendedUsers = [
   { id: 1, name: "John Doe", username: "john doe" },
   { id: 2, name: "John Doe", username: "john doe" },
   { id: 3, name: "John Doe", username: "john doe" },
@@ -20,23 +20,23 @@ const RecommandedUsers = [
   { id: 15, name: "John Doe", username: "john doe" },
 ];
 
-const Recommandation = () => {
-  const [users, setUsers] = useState(RecommandedUsers);
+const Recommendation = () => {
+  const [users, setUsers] = useState(RecommendedUsers);
 
-  const sendFriendRequest = (id: any) => {
-    console.log("Friend Request is sent...!");
+  const sendFriendRequest = (id: Number) => {
+    console.log("Friend Request is sent...!", id);
   };
 
-  const handleClick = (id: any) => {
+  const handleClick = (id: Number) => {
     const tempArr = users.filter((user) => user.id !== id);
     setUsers(tempArr);
   };
 
   return (
     <>
-      <div className="-mx-8 h-[100vh]">
+      <div className="">
         <Navbar />
-        <div className="flex flex-col gap-4 h-[80vh] overflow-y-auto">
+        <div className="flex flex-col gap-4 overflow-y-auto">
           <h1>Recommended Users</h1>
           {users.map((user) => (
             <div className="flex items-center justify-between px-4">
@@ -72,4 +72,4 @@ const Recommandation = () => {
   );
 };
 
-export default Recommandation;
+export default Recommendation;
