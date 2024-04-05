@@ -41,7 +41,7 @@ const Recommendation = () => {
           {users.map((user) => (
             <div className="flex items-center justify-between px-4">
               <div className="flex items-center gap-4">
-                <div className="rounded-full cursor-pointer size-12 bg-[url('https://s3-alpha-sig.figma.com/img/41bd/111a/617b61c4709a03d3444b62e630fc9ca2?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=fzFa2JZZQFXYmu2ML7zzufdA3URFClJHqeYGy2ifR40nDr8gYWI4FktGK4hFqXsnJ6GA~J3JhYmZLcNlSJKFvzY5mV6DQXcLnFAHIAJFlz2oKeIu6hXZuaeCgCXFt8j1anZ9MtY9vsvnN5scB1LgR9S30lC-p05jU3YBJkkYurfQ787CAo7TMJD53IHpHrK-cXQ45PIIQJam5iH~Nm3MZZAjL2nxljDTiZ0D-0C0udb1sfeghjooJ~LiPL-0l91dwifpbYgpOv9ygcVaDUX3eL5KGB1o8F3WaIbc2jbjx~t5enk2byc3YLnN3jSUGDHETbewpqKjQtyex4ryK6S0QA__')] bg-cover"></div>
+                <div className="rounded-full cursor-pointer size-12 bg-[url('./avatar.png')] bg-cover"></div>
 
                 <div>
                   <div className="text-[1rem] cursor-pointer">{user.name}</div>
