@@ -1,25 +1,33 @@
 import React, { useState } from "react";
+import { useNavigate  } from "react-router-dom";
 
 const EditProfile = () => {
   const [profileImg, setProfileImg] = useState(
     "https://s3-alpha-sig.figma.com/img/8132/945e/e84fd7afd04dcd00ef8308dad1467dd6?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OZh-nsOdoLNdeLZvapUL8hJxZV8kZ8fzTTghGH9mbJVZgn~HuQBQ5VRCvGSNT5taNL3PddwCHI8cjbnQl0BZIPDkNy2nXKt1nK6jh6bXj~c7V-S4pTngtuYo56LFjjHHVyD7jnqim8NNHOWopNd1Ulfcml00sbXRhnFD0CzB7SkN7txcEV2LG5GuqI0eIGM3I39oahwYTsJn3vFdxp~MxTO5nKeKh6yeikCaSEl5FQ4zHmVyBzRJdcwdyDOzaehIXppOAIXk2sO8XWqXajCvSJ32ucvlZIcU2ATfan0ha86fry65IMKtOuEV8~hjf-jg2czebA4zkR3BDj5mUTVJ-g__"
   );
-
-  const handleChange = (event) => {
-    const file = event.target.files[0];
+  const Navigate =useNavigate ();
+  const handleChange = (e: any) => {
+    const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfileImg(reader.result);
+        if (typeof reader.result === 'string') {
+          setProfileImg(reader.result);
+        } 
       };
       reader.readAsDataURL(file);
     }
   };
+  const backNavigate = () =>{
+    Navigate("/settings")
+  }
 
   return (
     <div className="flex flex-col justify-between gap-6">
       <div>
-        <div className="flex gap-2  text-2xl z-10 relative top-4 left-0 items-center">
+        <div className="flex gap-2  text-2xl z-10 relative top-4 left-0 items-center"
+        onClick={backNavigate}
+        >
           <img
             src="/left-arrow.svg"
             alt="back-navigation"

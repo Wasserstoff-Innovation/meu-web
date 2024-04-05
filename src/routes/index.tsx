@@ -17,6 +17,16 @@ import {
   Ob6,
   Ob7,
 } from "../pages/protected/onboarding";
+import Settings from "../pages/protected/Setting";
+import EditProfile from "../pages/protected/Setting/EditProfile";
+import Interests from "../pages/protected/Setting/Interests";
+import Other from "../pages/protected/Setting/Other";
+import Privacy from "../pages/protected/Setting/Privacy";
+import Help from "../pages/protected/Setting/Help";
+import RateMeu from "../pages/protected/Setting/RateMeu";
+import Share from "../pages/protected/Setting/Share";
+import About from "../pages/protected/Setting/About";
+import Purpose from "../pages/protected/Setting/Purpose";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +41,16 @@ export const router = createBrowserRouter(
           <Route path="ob6" element={<Ob6 />} />
           <Route path="ob7" element={<Ob7 />} />
         </Route>
+        <Route path="/settings" element={<Settings/>}/>
+          <Route path="/settings/help" element={<Help/>}/>
+          <Route path="/settings/editProfile" element={<EditProfile/>}/>
+          <Route path="/settings/interests" element={<Interests/>}/>
+          <Route path="/settings/purpose" element={<Purpose/>}/>
+          <Route path="/settings/other" element={<Other/>}/>
+          <Route path="/settings/privacy" element={<Privacy/>}/>
+          <Route path="/settings/rate" element={<RateMeu/>}/>
+          <Route path="/settings/share" element={<Share/>}/>
+          <Route path="/settings/about" element={<About/>}/>
         <Route index path="" element={<Home />} />
         <Route path="share-profile" element={<ShareProfile />} />
       </Route>
