@@ -6,7 +6,7 @@ interface MyProps {
   title :string
 }
 
-const Toggle:React.FC<MyProps>=({title})=> {
+const Toggle: React.FC<MyProps> = ({ title }) => {
   const [toggle, setToggle] = useState<boolean>(false);
   return (
     <div className="flex justify-between text-[11px]">
