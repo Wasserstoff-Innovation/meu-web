@@ -1,4 +1,4 @@
-import HomeLayout from "./Home"
+import HomeLayout from "./HomeLayout"
 import { ConnectionData } from './ConnectionsData'
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";

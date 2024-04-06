@@ -40,7 +40,7 @@ export const router = createBrowserRouter(
         path="/"
         loader={() => {
           const user = sessionStorage.getItem("user");
-          if (!user) {
+          if (user) {
             return redirect("/login");
           }
           return null;
