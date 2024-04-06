@@ -8,10 +8,12 @@ interface MyComponentProps {
 
 const HomeLayout: React.FC<MyComponentProps> = ({ children }) => {
   return (
-    <div className="">
+    <div className="flex flex-col gap-2">
       <div>Top bar from kuldeep's code</div>
-      <div className="flex flex-col gap-4 overflow-y-auto h-[88vh]">{children}</div>
-      <Footer />
+      {children}
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 };
