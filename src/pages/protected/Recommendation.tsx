@@ -2,7 +2,7 @@ import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
-const RecommandedUsers = [
+const RecommendedUsers = [
   { id: 1, name: "John Doe", username: "john doe" },
   { id: 2, name: "John Doe", username: "john doe" },
   { id: 3, name: "John Doe", username: "john doe" },
@@ -20,28 +20,28 @@ const RecommandedUsers = [
   { id: 15, name: "John Doe", username: "john doe" },
 ];
 
-const Recommandation = () => {
-  const [users, setUsers] = useState(RecommandedUsers);
+const Recommendation = () => {
+  const [users, setUsers] = useState(RecommendedUsers);
 
-  const sendFriendRequest = (id: any) => {
-    console.log("Friend Request is sent...!");
+  const sendFriendRequest = (id: number) => {
+    console.log("Friend Request is sent...!", id);
   };
 
-  const handleClick = (id: any) => {
+  const handleClick = (id: number) => {
     const tempArr = users.filter((user) => user.id !== id);
     setUsers(tempArr);
   };
 
   return (
     <>
-      <div className="-mx-8 h-[100vh]">
+      <div className="">
         <Navbar />
-        <div className="flex flex-col gap-4 h-[80vh] overflow-y-auto">
+        <div className="flex flex-col gap-4 overflow-y-auto">
           <h1>Recommended Users</h1>
           {users.map((user) => (
             <div className="flex items-center justify-between px-4">
               <div className="flex items-center gap-4">
-                <div className="rounded-full cursor-pointer size-12 bg-[url('https://s3-alpha-sig.figma.com/img/41bd/111a/617b61c4709a03d3444b62e630fc9ca2?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=fzFa2JZZQFXYmu2ML7zzufdA3URFClJHqeYGy2ifR40nDr8gYWI4FktGK4hFqXsnJ6GA~J3JhYmZLcNlSJKFvzY5mV6DQXcLnFAHIAJFlz2oKeIu6hXZuaeCgCXFt8j1anZ9MtY9vsvnN5scB1LgR9S30lC-p05jU3YBJkkYurfQ787CAo7TMJD53IHpHrK-cXQ45PIIQJam5iH~Nm3MZZAjL2nxljDTiZ0D-0C0udb1sfeghjooJ~LiPL-0l91dwifpbYgpOv9ygcVaDUX3eL5KGB1o8F3WaIbc2jbjx~t5enk2byc3YLnN3jSUGDHETbewpqKjQtyex4ryK6S0QA__')] bg-cover"></div>
+                <div className="rounded-full cursor-pointer size-12 bg-[url('./avatar.png')] bg-cover"></div>
 
                 <div>
                   <div className="text-[1rem] cursor-pointer">{user.name}</div>
@@ -72,4 +72,4 @@ const Recommandation = () => {
   );
 };
 
-export default Recommandation;
+export default Recommendation;

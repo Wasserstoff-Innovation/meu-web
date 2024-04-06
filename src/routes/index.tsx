@@ -5,7 +5,6 @@ import {
   redirect,
 } from "react-router-dom";
 import { Layout, OnBoardingLayout, ProtectedLayout } from "../layout/Layout";
-import Home from "../pages/protected/Home";
 import ShareProfile from "../pages/protected/ShareProfile";
 import Login from "../pages/public/Login";
 import RootError from "../layout/RootError";
@@ -28,7 +27,6 @@ import RateMeu from "../pages/protected/Setting/RateMeu";
 import Share from "../pages/protected/Setting/Share";
 import About from "../pages/protected/Setting/About";
 import Purpose from "../pages/protected/Setting/Purpose";
-import Contracts from '../pages/protected/Contracts/contracts'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -53,7 +51,7 @@ export const router = createBrowserRouter(
           <Route path="ob6" element={<Ob6 />} />
           <Route path="ob7" element={<Ob7 />} />
         </Route>
-        <Route index path="" element={<Home />} />
+        <Route index path="" element={<Recommendation />} />
         <Route path="share-profile" element={<ShareProfile />} />
         <Route path="settings" element={<Settings />} />
         <Route path="settings/help" element={<Help />} />

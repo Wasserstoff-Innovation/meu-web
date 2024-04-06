@@ -58,7 +58,13 @@ const Settings = () => {
   return (
     <div className="flex flex-col  gap-6">
       <div className="flex gap-2  text-2xl cursor-pointer">
-        <img src="/left-arrow.svg" alt="back-navigation w-4 h-4" />
+        <div
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <img src="/left-arrow.svg" alt="back-navigation w-4 h-4" />
+        </div>
         <div>setting</div>
       </div>
       <div className="flex flex-col justify-between h-full">
