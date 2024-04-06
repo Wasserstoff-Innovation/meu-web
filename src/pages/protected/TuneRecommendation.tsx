@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import SliderRange from "../../components/Home/SliderRange";
-import InputSearch from "../../components/Home/FilterPage";
+import FilterPage from "../../components/Home/FilterPage";
 
 const TuneRecommendation = () => {
   const Navigate = useNavigate();
   return (
+    <>
     <div className="py-4 flex flex-col gap-4">
       <div className="flex justify-between items-center">
         <div>
@@ -26,10 +27,11 @@ const TuneRecommendation = () => {
       <div className="flex flex-col gap-4">
         <div>What are you looking for on MEU?</div>
         <div>
-          <InputSearch />
+          <FilterPage />
         </div>
       </div>
     </div>
+    </>
   );
 };
 
