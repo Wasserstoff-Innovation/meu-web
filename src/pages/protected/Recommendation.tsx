@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import Navbar from "../../components/Home/Navbar";
+import Footer from "../../components/Home/Footer";
 
 const RecommendedUsers = [
   { id: 1, name: "John Doe", username: "john doe" },

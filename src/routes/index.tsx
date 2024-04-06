@@ -29,6 +29,7 @@ import About from "../pages/protected/Setting/About";
 import Purpose from "../pages/protected/Setting/Purpose";
 import Recommendation from "../pages/protected/Recommendation";
 import Contracts from '../pages/protected/Contracts/contracts'
+import TuneRecommendation from "../pages/protected/TuneRecommendation";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -54,6 +55,7 @@ export const router = createBrowserRouter(
           <Route path="ob7" element={<Ob7 />} />
         </Route>
         <Route index path="" element={<Recommendation />} />
+        <Route index path="tune-recommendation" element={<TuneRecommendation />} />
         <Route path="share-profile" element={<ShareProfile />} />
         <Route path="settings" element={<Settings />} />
         <Route path="settings/help" element={<Help />} />
