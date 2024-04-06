@@ -56,7 +56,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between h-[95vh] gap-6">
+    <div className="flex flex-col  gap-6">
       <div className="flex gap-2  text-2xl cursor-pointer">
         <div
           onClick={() => {
