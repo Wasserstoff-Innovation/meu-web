@@ -17,10 +17,11 @@ const Ob6 = (): ReactNode => {
       if (userDoc) {
         console.log("User data set successfully");
         setSavedUserData(userDoc);
-        navigate("/ob7");
+        // navigate("/onboard/ob7");
+        navigate("/share-profile");
       } else {
         console.error("Failed to set user data");
-        navigate("/");
+        navigate("/onboard/ob1");
       }
     })();
   }, [navigate, user, userData, setSavedUserData]);

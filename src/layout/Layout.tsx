@@ -17,15 +17,11 @@ const OnBoardingLayout = () => {
   const [showLoader, setShowLoader] = useState(true);
   const navigate = useNavigate();
 
-  console.log(user);
-
   useEffect(() => {
     (async () => {
       const userData = await getUserDataByOwner(user);
-      console.log(userData);
       if (userData) {
         navigate("/", { replace: true });
-        // redirect("/home");
       }
       setShowLoader(false);
     })();

@@ -39,7 +39,10 @@ const Recommendation = () => {
         <div className="flex flex-col gap-4 overflow-y-auto">
           <h1>Recommended Users</h1>
           {users.map((user) => (
-            <div className="flex items-center justify-between px-4">
+            <div
+              key={user.id}
+              className="flex items-center justify-between px-4"
+            >
               <div className="flex items-center gap-4">
                 <div className="rounded-full cursor-pointer size-12 bg-[url('./avatar.png')] bg-cover"></div>
 

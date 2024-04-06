@@ -76,7 +76,7 @@ const Ob1 = () => {
         mobile: data.mobile,
         location: data.location };
       dispatch(updateUserData(updatedUserData));
-      navigate("/ob2"); // Ensure "/ob2" is the correct path for navigation
+      navigate("/onboard/ob2"); // Ensure "/ob2" is the correct path for navigation
     }
   };
 

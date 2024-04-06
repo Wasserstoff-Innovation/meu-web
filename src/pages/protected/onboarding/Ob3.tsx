@@ -68,7 +68,7 @@ const Ob3 = () => {
       Interests: groupSelected,
     };
     dispatch(updateUserData(updatedUserData));
-    navigate("/ob4");
+    navigate("/onboard/ob4");
   };
 
   return (

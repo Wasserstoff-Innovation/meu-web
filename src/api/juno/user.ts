@@ -47,9 +47,24 @@ export const setUserData = async (
       doc: {
         key: data.username.toLowerCase(),
         data,
+        updated_at: BigInt(Date.now()),
       },
     });
     return createdDoc;
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
+};
+
+export const checkUsername = async (username: string) => {
+  try {
+    //TODO: write a function in node Server to check if username is already taken
+    const userDoc = await getDoc<IUser>({
+      collection: "users",
+      key: username.toLowerCase(),
+    });
+    return userDoc;
   } catch (e) {
     console.error(e);
     return undefined;
