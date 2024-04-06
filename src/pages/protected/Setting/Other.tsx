@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Switch } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 const Privacy = () => {
