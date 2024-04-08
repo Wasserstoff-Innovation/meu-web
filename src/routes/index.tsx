@@ -27,6 +27,8 @@ import RateMeu from "../pages/protected/Setting/RateMeu";
 import Share from "../pages/protected/Setting/Share";
 import About from "../pages/protected/Setting/About";
 import Purpose from "../pages/protected/Setting/Purpose";
+import Contracts from "../pages/protected/Contracts/contracts";
+import Recommendation from "../pages/protected/Recommendation";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
