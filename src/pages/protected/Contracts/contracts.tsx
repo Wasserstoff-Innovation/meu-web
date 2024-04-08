@@ -53,11 +53,11 @@ function Contracts() {
     </Navbar>
       <div className="rounded-lg ">
         {activeLink === 'link1' ? (
-          <div className='z-0'>
+          <div className=''>
             <ContractCardList />
           </div>
         ) : (
-          <div className='z-0'>
+          <div className=''>
             <SignOrRemindContract />
           </div>
         )}

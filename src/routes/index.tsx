@@ -43,7 +43,8 @@ export const router = createBrowserRouter(
           return null;
         }}
         element={<ProtectedLayout />}
-      >
+      > 
+        <Route path="contracts" element={<Contracts/>}/>
         <Route path="onboard" element={<OnBoardingLayout />}>
           <Route path="ob1" element={<Ob1 />} />
           <Route path="ob2" element={<Ob2 />} />
@@ -67,7 +68,7 @@ export const router = createBrowserRouter(
         <Route path="settings/about" element={<About />} />
       </Route>
       <Route path="login" element={<Login />} />
-      <Route path="contracts" element={<Contracts/>}/>
+      
     </Route>
   )
 );

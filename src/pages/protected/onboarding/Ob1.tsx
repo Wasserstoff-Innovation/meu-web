@@ -1,8 +1,13 @@
+import React, { useState } from "react";
 import { Button, Input } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
-import { useState } from "react";
+import { LoadScript, Autocomplete } from "@react-google-maps/api";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
+const GoogleMapsApiKey = "AIzaSyCtpFo2UiK9m9aklXh8-uGRUhEwfuv_YQw";
 
 interface UserData {
   name: string;
@@ -22,6 +27,7 @@ interface FormErrors {
 const Ob1 = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [autocomplete, setAutocomplete] = useState<any>(null);
   const { userData } = useAppSelector((state) => state.onBoarding);
   const [data, setData] = useState<UserData>({
     name: userData.name,
@@ -37,6 +43,15 @@ const Ob1 = () => {
       ...data,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handlePlaceSelect = () => {
+    if (autocomplete) {
+      const place = autocomplete.getPlace();
+      if (place && place.geometry) {
+        setData({ ...data, location: place.formatted_address || "" });
+      }
+    }
   };
 
   const handleNext = () => {
@@ -56,10 +71,13 @@ const Ob1 = () => {
 
     const mobilePattern = /^\+[1-9]\d{1,3}[ -]?\d{6,14}$/;
 
-    if ((data.countryCode + data.mobile).trim() !== "" && !mobilePattern.test(data.countryCode + data.mobile)) {
+    if (
+      (data.countryCode + data.mobile).trim() !== "" &&
+      !mobilePattern.test(data.countryCode + data.mobile)
+    ) {
       newErrors.mobile = "Invalid mobile number";
       hasError = true;
-  }
+    }
 
     if (data.location.trim() === "") {
       newErrors.location = "Location cannot be empty";
@@ -69,12 +87,7 @@ const Ob1 = () => {
     if (hasError) {
       setErrors(newErrors);
     } else {
-      const updatedUserData = { ...userData, 
-        name: data.name, 
-        email: data.email, 
-        countryCode: data.countryCode,
-        mobile: data.mobile,
-        location: data.location };
+      const updatedUserData = { ...userData, ...data };
       dispatch(updateUserData(updatedUserData));
       navigate("/ob2"); // Ensure "/ob2" is the correct path for navigation
     }
@@ -86,7 +99,7 @@ const Ob1 = () => {
         Tell us about yourself
       </h1>
       <div className="w-full">
-        <p className="text-white text-sm mb-1">Full Name </p>
+        <p className="text-white text-sm mb-1">Full Name</p>
         <Input
           name="name"
           type="text"
@@ -103,7 +116,7 @@ const Ob1 = () => {
         </p>
       </div>
       <div className="w-full">
-        <p className="text-white text-sm mb-1">Email </p>
+        <p className="text-white text-sm mb-1">Email</p>
         <Input
           name="email"
           type="email"
@@ -120,18 +133,16 @@ const Ob1 = () => {
         </p>
       </div>
       <div className="w-full">
-        <p className="text-white text-sm mb-1">Mobile </p>
-        <div className="flex w-full justify-center items-center">
-          <Input
-            name="countryCode"
-            type="tel"
-            placeholder="+91"
-            maxLength={3}
-            className="w-1/4"
-            onChange={handleChange}
-            value={data.countryCode}
+        <p className="text-white text-sm mb-1">Mobile</p>
+        <div className="flex justify-center items-center text-black w-1/4">
+          <PhoneInput
+            country={data.countryCode}
+            value={data.mobile}
+            onChange={(mobile) => setData({ ...data, mobile })}
+            inputStyle={{width:"21rem", borderRadius:"10px",height:"2.5rem"}}
+            dropdownStyle={{height:"2.5rem",borderRadius:"10px"}}
           />
-          <Input
+          {/* <Input
             name="mobile"
             isClearable
             type="tel"
@@ -139,7 +150,7 @@ const Ob1 = () => {
             className="ml-2"
             onChange={handleChange}
             value={data.mobile}
-          />
+          /> */}
         </div>
         {errors.mobile && (
           <p className="text-red-500 text-xs mt-1">{errors.mobile}</p>
@@ -149,22 +160,29 @@ const Ob1 = () => {
         </p>
       </div>
       <div className="w-full">
-        <p className="text-white text-sm mb-1">Location </p>
-        <Input
-          name="location"
-          type="text"
-          placeholder="Gurgugram, Haryana, India"
-          isClearable
-          onChange={handleChange}
-          value={data.location}
-        />
+        <p className="text-white text-sm mb-1">Location</p>
+        <LoadScript googleMapsApiKey={GoogleMapsApiKey} libraries={["places"]}>
+          <Autocomplete
+            onLoad={(autocomplete) => setAutocomplete(autocomplete)}
+            onPlaceChanged={handlePlaceSelect}
+          >
+            <Input
+              name="location"
+              type="text"
+              placeholder="Gurugram, Haryana, India"
+              isClearable
+              value={data.location}
+              onChange={(e) => setData({ ...data, location: e.target.value })}
+            />
+          </Autocomplete>
+        </LoadScript>
         {errors.location && (
           <p className="text-red-500 text-xs mt-1">{errors.location}</p>
         )}
         <p className="text-white text-xs mt-1">Please enter your location.</p>
       </div>
       <div className="w-full">
-        <p className="text-white text-xs mt-1 ">
+        <p className="text-white text-xs mt-1">
           By continuing, you agree to our{" "}
           <a href="#" className="text-primary-300">
             Terms of Service
