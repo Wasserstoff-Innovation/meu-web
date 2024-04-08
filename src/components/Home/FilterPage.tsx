@@ -101,6 +101,7 @@ export default function FilterPage() {
                     <div
                       className="flex gap-2 items-center p-2 px-4 cursor-pointer"
                       onClick={() => handleAdd(item.id)}
+                      key={item.id}
                     >
                       <div className="bg-[#8D8E90] rounded-sm size-4"></div>
                       <div>{item.label}</div>
