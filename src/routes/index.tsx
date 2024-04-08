@@ -33,6 +33,7 @@ import TuneRecommendation from "../pages/protected/TuneRecommendation";
 import Connections from "../pages/protected/Connections/Connections";
 import Requests from "../pages/protected/Connections/Requests";
 import Send from "../pages/protected/Connections/Send";
+// import Camera from '../components/Home/Camera'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -58,6 +59,15 @@ export const router = createBrowserRouter(
           <Route path="ob7" element={<Ob7 />} />
         </Route>
         <Route index path="" element={<Recommendation />} />
+        <Route
+          index
+          path="tune-recommendation"
+          element={<TuneRecommendation />}
+        />
+        <Route index path="connections" element={<Connections />} />
+        <Route index path="requests" element={<Requests />} />
+        <Route index path="send" element={<Send />} />
+        {/* <Route index path="camera" element={<Camera />} /> */}
         <Route path="tune-recommendation" element={<TuneRecommendation />} />
         <Route path="connections" element={<Connections />} />
         <Route path="requests" element={<Requests />} />
