@@ -30,6 +30,9 @@ import Purpose from "../pages/protected/Setting/Purpose";
 import Recommendation from "../pages/protected/Recommendation";
 import Contracts from '../pages/protected/Contracts/contracts'
 import TuneRecommendation from "../pages/protected/TuneRecommendation";
+import Connections from "../pages/protected/Connections/Connections";
+import Requests from "../pages/protected/Connections/Requests";
+import Send from "../pages/protected/Connections/Send";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -55,7 +58,26 @@ export const router = createBrowserRouter(
           <Route path="ob7" element={<Ob7 />} />
         </Route>
         <Route index path="" element={<Recommendation />} />
-        <Route index path="tune-recommendation" element={<TuneRecommendation />} />
+        <Route
+          index
+          path="tune-recommendation"
+          element={<TuneRecommendation />}
+        />
+        <Route
+          index
+          path="connections"
+          element={<Connections />}
+        />
+        <Route
+          index
+          path="requests"
+          element={<Requests />}
+        />
+        <Route
+          index
+          path="send"
+          element={<Send />}
+        />
         <Route path="share-profile" element={<ShareProfile />} />
         <Route path="settings" element={<Settings />} />
         <Route path="settings/help" element={<Help />} />
@@ -69,7 +91,7 @@ export const router = createBrowserRouter(
         <Route path="settings/about" element={<About />} />
       </Route>
       <Route path="login" element={<Login />} />
-      <Route path="contracts" element={<Contracts/>}/>
+      <Route path="contracts" element={<Contracts />} />
     </Route>
   )
 );

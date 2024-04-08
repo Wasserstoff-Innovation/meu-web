@@ -36,12 +36,12 @@ const Recommendation = () => {
     <>
       <div className="">
         <Navbar />
-        <div className="flex flex-col gap-4 overflow-y-auto">
+        <div className="flex flex-col gap-4 overflow-y-auto h-[83vh]">
           <h1>Recommended Users</h1>
           {users.map((user) => (
             <div
               key={user.id}
-              className="flex items-center justify-between px-4"
+              className="flex items-center justify-between "
             >
               <div className="flex items-center gap-4">
                 <div className="rounded-full cursor-pointer size-12 bg-[url('./avatar.png')] bg-cover"></div>
@@ -54,7 +54,7 @@ const Recommendation = () => {
               <div className="flex gap-4 items-center">
                 <button
                   color="primary"
-                  className="rounded-full p-2 bg-[#1272BA] px-8 cursor-pointer"
+                  className="rounded-full  bg-[#1272BA] px-6 p-1 cursor-pointer"
                   onClick={() => sendFriendRequest(user.id)}
                 >
                   Add
