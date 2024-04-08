@@ -7,7 +7,9 @@ export default function App() {
   return (
     <>
       <Navbar className="bg-[#11181C] ">
-        <NavbarBrand>
+        <NavbarBrand onClick={() => {
+          navigate("/settings")
+        }}>
           <div className=" size-10 ">
             <img src="./avatar.png" alt="avatar" className="rounded-full" />
           </div>
