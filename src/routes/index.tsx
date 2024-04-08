@@ -32,6 +32,7 @@ import Contracts from '../pages/protected/Contracts/contracts'
 import TuneRecommendation from "../pages/protected/TuneRecommendation";
 import Connections from "../pages/protected/Connections/Connections";
 import Requests from "../pages/protected/Connections/Requests";
+import Send from "../pages/protected/Connections/Send";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,7 +41,7 @@ export const router = createBrowserRouter(
         path="/"
         loader={() => {
           const user = sessionStorage.getItem("user");
-          if (user) {
+          if (!user) {
             return redirect("/login");
           }
           return null;
@@ -65,12 +66,17 @@ export const router = createBrowserRouter(
         <Route
           index
           path="connections"
-          element={<Connections isRequest={false} />}
+          element={<Connections />}
         />
         <Route
           index
           path="requests"
           element={<Requests />}
+        />
+        <Route
+          index
+          path="send"
+          element={<Send />}
         />
         <Route path="share-profile" element={<ShareProfile />} />
         <Route path="settings" element={<Settings />} />
