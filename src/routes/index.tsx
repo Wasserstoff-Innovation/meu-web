@@ -27,13 +27,14 @@ import RateMeu from "../pages/protected/Setting/RateMeu";
 import Share from "../pages/protected/Setting/Share";
 import About from "../pages/protected/Setting/About";
 import Purpose from "../pages/protected/Setting/Purpose";
-import Recommendation from "../pages/protected/Recommendation";
+import Recommendation from "../pages/protected/Home/Recommendation";
 import Contracts from "../pages/protected/Contracts/contracts";
 import TuneRecommendation from "../pages/protected/TuneRecommendation";
-import Connections from "../pages/protected/Connections/Connections";
+import Connections from "../pages/protected/Home/Connections";
 import Requests from "../pages/protected/Connections/Requests";
 import Send from "../pages/protected/Connections/Send";
 import QRScanner from "../components/Home/QRScanner";
+import MapView from "../pages/protected/Home/MapView";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,7 +43,7 @@ export const router = createBrowserRouter(
         path="/"
         loader={() => {
           const user = sessionStorage.getItem("user");
-          if (!user) {
+          if (user) {
             return redirect("/login");
           }
           return null;
@@ -64,6 +65,7 @@ export const router = createBrowserRouter(
           path="tune-recommendation"
           element={<TuneRecommendation />}
         />
+        <Route index path="map-view" element={<MapView />} />
         <Route index path="connections" element={<Connections />} />
         <Route index path="requests" element={<Requests />} />
         <Route index path="send" element={<Send />} />
