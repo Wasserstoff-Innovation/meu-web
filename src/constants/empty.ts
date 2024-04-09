@@ -5,7 +5,7 @@ export const EmptyUser = {
   mobile: "",
   location: "",
   username: "",
-  bio: "Hi! I’m on MEU, where are you?",
+  bio: "",
   avatar: "",
   pronounns: "",
   interests: [],

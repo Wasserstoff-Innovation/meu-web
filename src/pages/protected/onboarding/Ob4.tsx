@@ -11,7 +11,7 @@ const Ob4 = () => {
 
   const handleNext = () => {
     //TODO: Validate the form
-    navigate("/ob5");
+    navigate("/onboard/ob5");
   };
 
   return (
