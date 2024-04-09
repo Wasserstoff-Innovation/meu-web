@@ -1,47 +1,32 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+const topBarData = [
+  { heading: "Connections", path: "/connections" },
+  { heading: "Requests", path: "/requests" },
+  { heading: "Sent", path: "/sent" },
+];
+
 const App: React.FC = () => {
   const Navigate = useNavigate();
   const pathName = window.location.pathname;
   return (
     <div className=" -mx-6 px-4 pt-4 p-1 flex flex-col gap-4">
-      <div className="bg-[#313437] rounded-full p-2  flex justify-between items-center">
-        <div
-          className={`cursor-pointer ${
-            pathName === "/connections" && "bg-[#6E4E51] p-2 px-4 rounded-full"
-          }`}
-          onClick={() => Navigate("/connections")}
-        >
-          Connections
-        </div>
-        <div
-          className={` cursor-pointer ${
-            pathName === "/requests" && "bg-[#6E4E51] p-2 px-4 rounded-full"
-          }`}
-          onClick={() => Navigate("/requests")}
-        >
-          Requests
-        </div>
-        <div
-          className={` cursor-pointer ${
-            pathName === "/send" && "bg-[#6E4E51] p-2 px-4 rounded-full"
-          }`}
-          onClick={() => Navigate("/send")}
-        >
-          Send
-        </div>
+      <div className="bg-[#313437] rounded-full px-2 p-1 flex justify-between items-center">
+        
+        {topBarData.map((top, index) => (
+          <div
+            key={index}
+            className={` cursor-pointer w-full flex justify-center ${
+              pathName === top.path && "bg-[#5F6164]  rounded-full"
+            }`}
+            onClick={() => Navigate(`${top.path}`)}
+          >
+            <p className="p-1">{top.heading}</p>
+          </div>
+        ))}
       </div>
     </div>
-    // <Navbar className="bg-[#11181C] ">
-    //   <div className="bg-[#313437] rounded-full p-2 py-4 text-[14px] flex justify-between w-full">
-    //     <div className="flex justify-center">
-    //       connections
-    //     </div>
-    //     <div>2</div>
-    //     <div>3</div>
-    //   </div>
-    // </Navbar>
   );
 };
 

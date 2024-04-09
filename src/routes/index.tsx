@@ -32,7 +32,7 @@ import Contracts from "../pages/protected/Contracts/contracts";
 import TuneRecommendation from "../pages/protected/TuneRecommendation";
 import Connections from "../pages/protected/Home/Connections";
 import Requests from "../pages/protected/Connections/Requests";
-import Send from "../pages/protected/Connections/Send";
+import Sent from "../pages/protected/Connections/Sent";
 import QRScanner from "../components/Home/QRScanner";
 import MapView from "../pages/protected/Home/MapView";
 
@@ -65,15 +65,14 @@ export const router = createBrowserRouter(
           path="tune-recommendation"
           element={<TuneRecommendation />}
         />
+        {/* home routes */}
         <Route index path="map-view" element={<MapView />} />
         <Route index path="connections" element={<Connections />} />
         <Route index path="requests" element={<Requests />} />
-        <Route index path="send" element={<Send />} />
+        <Route index path="sent" element={<Sent />} />
         <Route index path="qr-scanner" element={<QRScanner />} />
         <Route path="tune-recommendation" element={<TuneRecommendation />} />
-        <Route path="connections" element={<Connections />} />
-        <Route path="requests" element={<Requests />} />
-        <Route path="send" element={<Send />} />
+        {/*  */}
         <Route path="share-profile" element={<ShareProfile />} />
         <Route path="settings" element={<Settings />} />
         <Route path="settings/help" element={<Help />} />
