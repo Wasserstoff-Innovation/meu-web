@@ -1,31 +1,11 @@
-import { User, getDoc, listDocs, setDoc } from "@junobuild/core";
+import { User, listDocs, setDoc } from "@junobuild/core";
 import { IUser } from "../../types/user";
 
-export const getUserDataByUsername = async (
-  user: User | null,
-  username: string
-) => {
-  try {
-    if (!user || user === null) return undefined;
-    const userDoc = await getDoc<IUser>({
-      collection: "users",
-      key: username.toLowerCase(),
-    });
-    return userDoc;
-  } catch (e) {
-    console.error(e);
-    return undefined;
-  }
-};
-
-export const getUserDataByOwner = async (user: User | null | undefined) => {
+export const getUserDataCards = async (user: User | null | undefined) => {
   try {
     if (!user || user === null) return undefined;
     const docs = await listDocs<IUser>({
-      collection: "users",
-      filter: {
-        owner: user.key,
-      },
+      collection: "cards",
     });
     console.log(docs);
     return docs.items[0];
@@ -43,28 +23,14 @@ export const setUserData = async (
     if (!user || user === null) return undefined;
     console.log(data);
     const createdDoc = await setDoc<IUser>({
-      collection: "users",
+      collection: "cards",
       doc: {
-        key: data.username.toLowerCase(),
+        key: crypto.randomUUID(),
         data,
         updated_at: BigInt(Date.now()),
       },
     });
     return createdDoc;
-  } catch (e) {
-    console.error(e);
-    return undefined;
-  }
-};
-
-export const checkUsername = async (username: string) => {
-  try {
-    //TODO: write a function in node Server to check if username is already taken
-    const userDoc = await getDoc<IUser>({
-      collection: "users",
-      key: username.toLowerCase(),
-    });
-    return userDoc;
   } catch (e) {
     console.error(e);
     return undefined;

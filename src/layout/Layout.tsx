@@ -2,7 +2,7 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/Auth";
 import { Spinner } from "@nextui-org/react";
-import { getUserDataByOwner } from "../api/juno/user";
+import { getUserDataCards } from "../api/juno/user";
 
 const ProtectedLayout = () => {
   return (
@@ -19,7 +19,7 @@ const OnBoardingLayout = () => {
 
   useEffect(() => {
     (async () => {
-      const userData = await getUserDataByOwner(user);
+      const userData = await getUserDataCards(user);
       if (userData) {
         navigate("/", { replace: true });
       }

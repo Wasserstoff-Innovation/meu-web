@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
 import { useState } from "react";
+import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 
 interface UserData {
   name: string;
@@ -23,6 +24,7 @@ const Ob1 = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
+  console.log("userData", userData);
   const [data, setData] = useState<UserData>({
     name: userData.name,
     email: userData.email,
@@ -56,10 +58,13 @@ const Ob1 = () => {
 
     const mobilePattern = /^\+[1-9]\d{1,3}[ -]?\d{6,14}$/;
 
-    if ((data.countryCode + data.mobile).trim() !== "" && !mobilePattern.test(data.countryCode + data.mobile)) {
+    if (
+      (data.countryCode + data.mobile).trim() !== "" &&
+      !mobilePattern.test(data.countryCode + data.mobile)
+    ) {
       newErrors.mobile = "Invalid mobile number";
       hasError = true;
-  }
+    }
 
     if (data.location.trim() === "") {
       newErrors.location = "Location cannot be empty";
@@ -69,12 +74,14 @@ const Ob1 = () => {
     if (hasError) {
       setErrors(newErrors);
     } else {
-      const updatedUserData = { ...userData, 
-        name: data.name, 
-        email: data.email, 
+      const updatedUserData = {
+        ...userData,
+        name: data.name,
+        email: data.email,
         countryCode: data.countryCode,
         mobile: data.mobile,
-        location: data.location };
+        location: data.location,
+      };
       dispatch(updateUserData(updatedUserData));
       navigate("/onboard/ob2"); // Ensure "/ob2" is the correct path for navigation
     }
@@ -85,6 +92,24 @@ const Ob1 = () => {
       <h1 className="self-stretch text-2xl text-primary-300 font-bold">
         Tell us about yourself
       </h1>
+      <div className="w-full flex  justify-center gap-5">
+        <Button className=" text-sm center" color="default">
+          <img src="/linkedin.svg" alt="Linkedin" className="h-6 w-6" />
+          LinkedIn
+        </Button>
+        {/* <a> */}
+        <Button
+          className=" text-sm center"
+          color="default"
+          isDisabled={Boolean(userData.twitter.id)}
+          onClick={() => {
+            window.location.href = getTwitterOAuthUrl();
+          }}
+        >
+          <img src="/x.svg" alt="X" className="h-6 w-6" />X (Twitter)
+        </Button>
+        {/* </a> */}
+      </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Full Name </p>
         <Input

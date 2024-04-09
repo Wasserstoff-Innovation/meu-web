@@ -17,9 +17,9 @@ export const onBoardingSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    updateUserData: (state, action: PayloadAction<IUser>) => {
-
-      state.userData = action.payload;
+    updateUserData: (state, action: PayloadAction<Partial<IUser>>) => {
+      state.userData = { ...state.userData, ...action.payload };
+      console.log("state.userData", state.userData);
     },
   },
 });

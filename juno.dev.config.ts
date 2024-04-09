@@ -5,7 +5,7 @@ export default defineDevConfig(() => ({
     collections: {
       db: [
         {
-          collection: "users",
+          collection: "cards",
           read: "managed" as PermissionText,
           write: "managed" as PermissionText,
           memory: "heap" as MemoryText,

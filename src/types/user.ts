@@ -10,9 +10,11 @@ export type IUser = {
   pronounns: string;
   interests: string[];
   purpose: string;
-  socials: {
-    linkedin: string;
-    twitter: string;
-    telegram: string;
+  linkedin: string;
+  twitter: {
+    id: string;
+    username: string;
+    name: string;
   };
+  telegram: string;
 };

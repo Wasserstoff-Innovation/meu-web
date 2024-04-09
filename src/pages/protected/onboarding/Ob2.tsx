@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
 //import ImagePickerModal from '../../../components/Modal'
 import { useState } from "react";
-import { checkUsername } from "../../../api/juno/user";
 
 interface UserData {
   avatar: string;
@@ -96,9 +95,6 @@ const Ob2: React.FC = () => {
       case !/^[a-zA-Z0-9_.]+$/.test(data.username):
         newErrors.username =
           "Username must not include any special characters except '.' and '_'";
-        break;
-      case (await checkUsername(data.username)) !== undefined:
-        newErrors.username = "Username is already taken";
         break;
       default:
         break;
