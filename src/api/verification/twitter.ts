@@ -1,9 +1,9 @@
 export const AuthUrl = import.meta.env.VITE_AUTH_API_URL as string;
 const clientId = import.meta.env.VITE_TWITTER_CLIENT_ID as string;
-const redirectURI = import.meta.env.VITE_TWITTER_REDIRECT_URI as string;
+const frontendURL = import.meta.env.VITE_FRONTEND_URL as string;
 
-export const TWITTER_STATE = "twitter-csrf-token";
-const redirectURL = redirectURI;
+export const TWITTER_STATE = import.meta.env.VITE_CSRF_TOKEN;
+const redirectURL = `${frontendURL}/auth/callback/twitter`;
 const TWITTER_CODE_CHALLENGE = "challenge";
 const TWITTER_AUTH_URL = "https://twitter.com/i/oauth2/authorize";
 const TWITTER_SCOPE = ["tweet.read", "users.read", "offline.access"].join(" ");

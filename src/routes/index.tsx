@@ -34,6 +34,7 @@ import Connections from "../pages/protected/Connections/Connections";
 import Requests from "../pages/protected/Connections/Requests";
 import Send from "../pages/protected/Connections/Send";
 import Twitter from "../pages/auth/Twitter";
+import LinkedIn from "../pages/auth/LinkedIn";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -78,6 +79,7 @@ export const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="contracts" element={<Contracts />} />
       <Route path="auth/callback/twitter" element={<Twitter />} />
+      <Route path="auth/callback/linkedin" element={<LinkedIn />} />
     </Route>
   )
 );

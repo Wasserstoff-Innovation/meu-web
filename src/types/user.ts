@@ -10,7 +10,12 @@ export type IUser = {
   pronounns: string;
   interests: string[];
   purpose: string;
-  linkedin: string;
+  linkedin: {
+    email: string;
+    email_verified: boolean;
+    name: string;
+    picture: string;
+  };
   twitter: {
     id: string;
     username: string;

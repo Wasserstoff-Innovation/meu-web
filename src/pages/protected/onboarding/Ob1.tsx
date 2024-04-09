@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
 import { useState } from "react";
 import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
+import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
 
 interface UserData {
   name: string;
@@ -93,7 +94,14 @@ const Ob1 = () => {
         Tell us about yourself
       </h1>
       <div className="w-full flex  justify-center gap-5">
-        <Button className=" text-sm center" color="default">
+        <Button
+          className=" text-sm center"
+          color="default"
+          isDisabled={Boolean(userData.linkedin.email)}
+          onClick={() => {
+            window.location.href = getLinkedinOAuthUrl();
+          }}
+        >
           <img src="/linkedin.svg" alt="Linkedin" className="h-6 w-6" />
           LinkedIn
         </Button>

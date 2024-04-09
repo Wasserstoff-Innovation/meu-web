@@ -10,7 +10,12 @@ export const EmptyUser = {
   pronounns: "",
   interests: [],
   purpose: "",
-  linkedin: "",
+  linkedin: {
+    email: "",
+    email_verified: false,
+    name: "",
+    picture: "",
+  },
   twitter: {
     id: "",
     username: "",
