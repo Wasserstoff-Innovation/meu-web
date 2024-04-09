@@ -1,78 +1,78 @@
 export const ConnectionData = [
   {
     id: 1,
-    name: "Amit",
-    username: "amitpatel",
+    name: "Amit1",
+    username: "amitpatel1",
     connectedLocation: "Pragati Maidan",
     connectedDate:"29 Feb 2014"
   },
   {
     id: 2,
-    name: "Amit",
-    username: "amitpatel",
+    name: "Amit2",
+    username: "amitpatel2",
     connectedLocation: "Pragati Maidan",
     connectedDate:"29 Feb 2014"
   },
   {
     id: 3,
-    name: "Amit",
-    username: "amitpatel",
+    name: "Amit3",
+    username: "amitpatel3",
     connectedLocation: "Pragati Maidan",
     connectedDate:"29 Feb 2014"
   },
   {
     id: 4,
-    name: "Amit",
-    username: "amitpatel",
+    name: "Amit4",
+    username: "amitpatel4",
     connectedLocation: "Pragati Maidan",
     connectedDate:"29 Feb 2014"
   },
   {
     id: 5,
-    name: "Amit",
-    username: "amitpatel",
+    name: "Amit5",
+    username: "amitpatel5",
     connectedLocation: "Pragati Maidan",
     connectedDate:"29 Feb 2014"
   },
   {
     id: 6,
-    name: "Amit",
-    username: "amitpatel",
+    name: "Amit6",
+    username: "amitpatel6",
     connectedLocation: "Pragati Maidan",
     connectedDate:"29 Feb 2014"
   },
   {
     id: 7,
-    name: "Amit",
-    username: "amitpatel",
+    name: "Amit7",
+    username: "amitpatel7",
     connectedLocation: "Pragati Maidan",
     connectedDate:"29 Feb 2014"
   },
   {
     id: 8,
-    name: "Amit",
-    username: "amitpatel",
+    name: "Amit8",
+    username: "amitpatel8",
     connectedLocation: "Pragati Maidan",
     connectedDate:"29 Feb 2014"
   },
   {
     id: 9,
-    name: "Amit",
-    username: "amitpatel",
+    name: "Amit9",
+    username: "amitpatel9",
     connectedLocation: "Pragati Maidan",
     connectedDate:"29 Feb 2014"
   },
   {
     id: 10,
-    name: "Amit",
-    username: "amitpatel",
+    name: "Amit10",
+    username: "amitpatel10",
     connectedLocation: "Pragati Maidan",
     connectedDate:"29 Feb 2014"
   },
   {
     id: 11,
-    name: "Amit",
-    username: "amitpatel",
+    name: "Amit11",
+    username: "amitpatel11",
     connectedLocation: "Pragati Maidan",
     connectedDate:"29 Feb 2014"
   },

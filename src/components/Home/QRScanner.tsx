@@ -1,25 +1,64 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import jsQR from "jsqr";
+import QrReader from "jsqr";
 import { useNavigate } from "react-router-dom";
 
-const CameraComponent: React.FC = () => {
+const QRScanner: React.FC = () => {
   const Navigate = useNavigate();
+  const [result, setResult] = useState("");
   const videoRef = useRef<HTMLVideoElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   let stream: MediaStream | null = null;
-
   const [qrCodeResult, setQrCodeResult] = useState<string | null>(null);
-  const [isCameraStopped, setIsCameraStopped] = useState<boolean>(false);
+  // const [start, setStart] = useState(true);
+
+  const scanQRCode = () => {
+    if (
+      videoRef.current &&
+      videoRef.current.videoWidth &&
+      videoRef.current.videoHeight
+    ) {
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+
+      if (context) {
+        canvas.width = videoRef.current.videoWidth;
+        canvas.height = videoRef.current.videoHeight;
+
+        context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+        const imageData = context.getImageData(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+        const code = QrReader(
+          imageData.data,
+          imageData.width,
+          imageData.height
+        );
+        if (code) {
+          setResult(code.data);
+          stopCamera();
+        }
+      }
+    }
+  };
+
+  console.log("QR Code -> ", result);
 
   const startCamera = async () => {
     try {
-      stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: false,
+      });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.play();
       }
       console.log(stream);
-      detectQRCode();
     } catch (err) {
       console.error("Error accessing camera:", err);
     }
@@ -32,30 +71,6 @@ const CameraComponent: React.FC = () => {
       });
       if (videoRef.current) {
         videoRef.current.srcObject = null;
-      }
-    }
-  };
-
-  const detectQRCode = () => {
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
-
-    if (videoRef.current && context) {
-      canvas.width = videoRef.current.videoWidth;
-      canvas.height = videoRef.current.videoHeight;
-      context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-
-      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-      const code = jsQR(imageData.data, imageData.width, imageData.height);
-
-      if (code) {
-        setQrCodeResult(code.data);
-        setIsCameraStopped(true);
-      } else {
-        setQrCodeResult(null);
-        if (!isCameraStopped) {
-          requestAnimationFrame(detectQRCode);
-        }
       }
     }
   };
@@ -102,11 +117,31 @@ const CameraComponent: React.FC = () => {
     fileInputRef.current?.onclick;
   };
 
+  useEffect(() => {
+    const interval = setInterval(scanQRCode, 1000); // Adjust scan interval as needed
+    return () => clearInterval(interval);
+  }, []);
+
+  // useEffect(() => {
+  //   if (start) {
+  //     startCamera();
+  //   }
+  //   setStart(false)
+  // }, [start]);
+
   return (
     <div className="p-2">
       <div className="flex items-center justify-between py-4 ">
         <div>
-          <img src="./arrow_left_alt.svg" alt="right arrow" />
+          <img
+            src="./arrow_left_alt.svg"
+            alt="right arrow"
+            className="cursor-pointer"
+            onClick={() => {
+              stopCamera();
+              Navigate("/");
+            }}
+          />
         </div>
         <div className=" w-full flex justify-center">
           <h1>Scan QR</h1>
@@ -115,11 +150,8 @@ const CameraComponent: React.FC = () => {
       <div className="flex flex-col gap-4 items-center justify-center h-[85vh]">
         <div className="flex flex-col gap-4">
           <div className="flex justify-between items-center">
-            {!isCameraStopped && (
-              <>
-                <button onClick={startCamera}>Start Camera</button>
-              </>
-            )}
+            <button onClick={startCamera}>Start Camera</button>
+
             <button onClick={stopCamera}>Stop Camera</button>
           </div>
 
@@ -181,4 +213,4 @@ const CameraComponent: React.FC = () => {
   );
 };
 
-export default CameraComponent;
+export default QRScanner;

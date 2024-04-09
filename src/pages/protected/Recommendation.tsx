@@ -1,24 +1,7 @@
 import { useState } from "react";
 import Navbar from "../../components/Home/Navbar";
 import Footer from "../../components/Home/Footer";
-
-const RecommendedUsers = [
-  { id: 1, name: "John Doe", username: "john doe" },
-  { id: 2, name: "John Doe", username: "john doe" },
-  { id: 3, name: "John Doe", username: "john doe" },
-  { id: 4, name: "John Doe", username: "john doe" },
-  { id: 5, name: "John Doe", username: "john doe" },
-  { id: 6, name: "John Doe", username: "john doe" },
-  { id: 7, name: "John Doe", username: "john doe" },
-  { id: 8, name: "John Doe", username: "john doe" },
-  { id: 9, name: "John Doe", username: "john doe" },
-  { id: 10, name: "John Doe", username: "john doe" },
-  { id: 11, name: "John Doe", username: "john doe" },
-  { id: 12, name: "John Doe", username: "john doe" },
-  { id: 13, name: "John Doe", username: "john doe" },
-  { id: 14, name: "John Doe", username: "john doe" },
-  { id: 15, name: "John Doe", username: "john doe" },
-];
+import { RecommendedUsers } from "./RecommendationUsers";
 
 const Recommendation = () => {
   const [users, setUsers] = useState(RecommendedUsers);
@@ -63,7 +46,7 @@ const Recommendation = () => {
                   onClick={() => handleClick(user.id)}
                   src="./close.svg"
                   alt="close"
-                  className="size-5 cursor-pointer"
+                  className="size-3 cursor-pointer"
                 />
               </div>
             </div>

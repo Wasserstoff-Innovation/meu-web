@@ -1,3 +1,8 @@
+interface ObjectType {
+    label: string;
+    value: string;
+}
+
 export type IUser = {
   id: string;
   name: string;
@@ -8,7 +13,7 @@ export type IUser = {
   bio: string;
   avatar: string;
   pronounns: string;
-  interests: string[];
+  interests: ObjectType[];
   purpose: string;
   socials: {
     linkedin: string;

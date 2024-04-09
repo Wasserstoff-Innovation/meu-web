@@ -5,7 +5,7 @@ const App: React.FC = () => {
   const Navigate = useNavigate();
   const pathName = window.location.pathname;
   return (
-    <div className=" -mx-6 p-4 flex flex-col gap-4">
+    <div className=" -mx-6 px-4 pt-4 p-1 flex flex-col gap-4">
       <div className="bg-[#313437] rounded-full p-2  flex justify-between items-center">
         <div
           className={`cursor-pointer ${

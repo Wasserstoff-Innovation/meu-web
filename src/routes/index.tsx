@@ -33,7 +33,7 @@ import TuneRecommendation from "../pages/protected/TuneRecommendation";
 import Connections from "../pages/protected/Connections/Connections";
 import Requests from "../pages/protected/Connections/Requests";
 import Send from "../pages/protected/Connections/Send";
-// import Camera from '../components/Home/Camera'
+import QRScanner from "../components/Home/QRScanner";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -67,7 +67,7 @@ export const router = createBrowserRouter(
         <Route index path="connections" element={<Connections />} />
         <Route index path="requests" element={<Requests />} />
         <Route index path="send" element={<Send />} />
-        {/* <Route index path="camera" element={<Camera />} /> */}
+        <Route index path="qr-scanner" element={<QRScanner />} />
         <Route path="tune-recommendation" element={<TuneRecommendation />} />
         <Route path="connections" element={<Connections />} />
         <Route path="requests" element={<Requests />} />
