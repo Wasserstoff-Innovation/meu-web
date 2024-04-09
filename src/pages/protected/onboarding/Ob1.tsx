@@ -5,6 +5,8 @@ import { updateUserData } from "../../../redux/features/onBoardingSlice";
 import { useState } from "react";
 import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 interface UserData {
   name: string;
@@ -153,25 +155,17 @@ const Ob1 = () => {
         </p>
       </div>
       <div className="w-full">
-        <p className="text-white text-sm mb-1">Mobile </p>
-        <div className="flex w-full justify-center items-center">
-          <Input
-            name="countryCode"
-            type="tel"
-            placeholder="+91"
-            maxLength={3}
-            className="w-1/4"
-            onChange={handleChange}
-            value={data.countryCode}
-          />
-          <Input
-            name="mobile"
-            isClearable
-            type="tel"
-            placeholder="99999 99999 99999"
-            className="ml-2"
-            onChange={handleChange}
+        <p className="text-white text-sm mb-1">Mobile</p>
+        <div className="flex justify-center items-center text-black w-1/4">
+          <PhoneInput
+            country={data.countryCode}
             value={data.mobile}
+            onChange={(mobile) => setData({ ...data, mobile })}
+            inputStyle={{
+              width: "21rem",
+              borderRadius: "10px",
+              height: "2.5rem",
+            }}
           />
         </div>
         {errors.mobile && (

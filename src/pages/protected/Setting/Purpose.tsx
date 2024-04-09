@@ -1,11 +1,10 @@
-
 import { useNavigate  } from "react-router-dom";
 import { Radio, RadioGroup } from "@nextui-org/react";
 import { purposes } from "../../../constants/purpose";
 
 const Purpose = () => {
 
-  const Navigate =useNavigate ();
+  const Navigate =useNavigate();
   const backNavigate = () =>{
     Navigate("/settings")
   }

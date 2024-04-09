@@ -30,59 +30,7 @@ const Ob2: React.FC = () => {
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
-  // const handleOpenModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // const handleCloseModal = () => {
-  //   setIsModalOpen(false);
-  // };
-
-  // const handleCameraOpen = async () => {
-  //   try {
-  //     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-  //     const track = stream.getVideoTracks()[0];
-  //     const imageCapture = new ImageCapture(track);
-  //     const photoBlob = await imageCapture.takePhoto();
-  //     const imageUrl = URL.createObjectURL(photoBlob);
-
-  //     setData((prevData) => ({
-  //       ...prevData,
-  //       avatar: imageUrl,
-  //     }));
-
-  //     handleCloseModal();
-  //   } catch (error) {
-  //     console.error("Error accessing camera:", error);
-  //   }
-  // };
-  // const handleSaveImage = (imageData: any) => {
-  // }
-
-  // const handleGalleryOpen = () => {
-  //   // Open the file input to select image from gallery
-  //   const input = document.createElement("input");
-  //   input.type = "file";
-  //   input.accept = "image/*";
-  //   input.style.display = "none"; // Hide the input
-  //   input.addEventListener("change", (event) => {
-  //     // Handle the selected file
-  //     const file = (event.target as HTMLInputElement).files?.[0];
-  //     if (file) {
-  //       const imageUrl = URL.createObjectURL(file);
-  //       setData((prevData) => ({
-  //         ...prevData,
-  //         avatar: imageUrl,
-  //       }));
-  //       handleCloseModal();
-  //     }
-  //   });
-  //   document.body.appendChild(input); // Append the input element to the body
-  //   input.click(); // Simulate click event
-  //   document.body.removeChild(input); // Remove the input element after use
-  // };
-
-  const validateForm = async () => {
+  const validateForm = () => {
     const newErrors: FormErrors = {};
 
     switch (true) {
@@ -153,7 +101,7 @@ const Ob2: React.FC = () => {
         }
         setData((prev) => ({
           ...prev,
-          avatar: filePath,
+          avatar: filePath, // Set the file path to the avatar field
         }));
       };
       reader.readAsDataURL(file);
@@ -179,10 +127,8 @@ const Ob2: React.FC = () => {
         type="file"
         id="avatar-input"
         accept="image/*"
-        value={data.avatar}
         onChange={handleAvatarChange}
         style={{ display: "none" }}
-        // onClick={handleOpenModal}
       />
 
       <div className="w-full">

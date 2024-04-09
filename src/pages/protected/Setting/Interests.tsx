@@ -1,4 +1,3 @@
-
 import { useNavigate  } from "react-router-dom";
 import Interests from "../../../components/profile/Interests";
 
