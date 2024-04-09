@@ -19,7 +19,7 @@ const Login = (): ReactNode => {
     <>
       <Header />
       <div className="flex flex-1 flex-col justify-between ">
-        <h1 className=" inline-flex gap-2 text-2xl text-primary-300 font-bold">
+        <h1 className=" inline-flex gap-1 text-2xl text-primary-300 font-bold">
           Find your next
           <TypewriterComponent
             options={{
@@ -31,15 +31,15 @@ const Login = (): ReactNode => {
         </h1>
         <div className="flex-col  text-white text-md mt-6 ">
           <p>MEU is redefining the way you network at events.</p>
-          <p className="mt-8 ">
+          <p className="mt-5 ">
             It provides secure identity verification, networking, and digital
             contracts signing facilities.
           </p>
-          <p className=" mt-8">100% on blockchain with low carbon footprint.</p>
+          <p className=" mt-5">100% on blockchain with low carbon footprint.</p>
         </div>
         <div className="flex justify-center">
           <Button
-            className="mt-8 text-sm center"
+            className="mt-5 text-sm center"
             color="default"
             onClick={async () => {
               try {
@@ -58,7 +58,7 @@ const Login = (): ReactNode => {
             Continue with Internet Identity
           </Button>
         </div>
-        <div className="w-full max-w-md h-64 overflow-hidden mx-auto mt-10">
+        <div className="w-full max-w-md h-64 overflow-hidden mx-auto mt-8">
           <Lottie animationData={EarthLottie} loop={true} />
         </div>
       </div>
