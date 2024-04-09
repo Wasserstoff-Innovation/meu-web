@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 import { useNavigate  } from "react-router-dom";
 import { Radio, RadioGroup } from "@nextui-org/react";
 import { purposes } from "../../../constants/purpose";
