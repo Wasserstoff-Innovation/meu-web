@@ -3,7 +3,8 @@ import { useState } from "react";
 import { findPlaces } from "../../utils/places";
 
 const PlaceSearch = () => {
-  const [value, setValue] = useState<string | null>(null);
+  // const [value, setValue] = useState<string | null>(null);
+
   const [results, setResults] = useState<google.maps.places.Place[]>([]);
   return (
     <Autocomplete
@@ -18,7 +19,7 @@ const PlaceSearch = () => {
       }}
       items={results}
       className="max-w-xs"
-      selectedKey={value}
+      // selectedKey={value}
       onSelectionChange={(e) => {
         console.log(e);
       }}
