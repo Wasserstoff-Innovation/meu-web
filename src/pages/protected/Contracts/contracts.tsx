@@ -4,7 +4,7 @@ import ContractCardList from './ContractList';
 import SignOrRemindContract from './SignOrRemindContract';
 import { Navbar,} from "@nextui-org/react";
 //import { contracts } from '../../../constants/contractdata'; 
-import Footer from '../../../components/Footer';
+// import Footer from '../../../components/Footer';
 
 function Contracts() {
   const [activeLink, setActiveLink] = useState('link1');

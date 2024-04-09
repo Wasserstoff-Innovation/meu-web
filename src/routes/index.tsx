@@ -27,14 +27,16 @@ import RateMeu from "../pages/protected/Setting/RateMeu";
 import Share from "../pages/protected/Setting/Share";
 import About from "../pages/protected/Setting/About";
 import Purpose from "../pages/protected/Setting/Purpose";
-import Recommendation from "../pages/protected/Recommendation";
+import Recommendation from "../pages/protected/Home/Recommendation";
 import Contracts from "../pages/protected/Contracts/contracts";
 import TuneRecommendation from "../pages/protected/TuneRecommendation";
-import Connections from "../pages/protected/Connections/Connections";
+import Connections from "../pages/protected/Home/Connections";
 import Requests from "../pages/protected/Connections/Requests";
-import Send from "../pages/protected/Connections/Send";
 import Twitter from "../pages/auth/Twitter";
 import LinkedIn from "../pages/auth/LinkedIn";
+import Sent from "../pages/protected/Connections/Sent";
+import QRScanner from "../components/Home/QRScanner";
+import MapView from "../pages/protected/Home/MapView";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -60,10 +62,19 @@ export const router = createBrowserRouter(
           <Route path="ob7" element={<Ob7 />} />
         </Route>
         <Route index path="" element={<Recommendation />} />
+        <Route
+          index
+          path="tune-recommendation"
+          element={<TuneRecommendation />}
+        />
+        {/* home routes */}
+        <Route index path="map-view" element={<MapView />} />
+        <Route index path="connections" element={<Connections />} />
+        <Route index path="requests" element={<Requests />} />
+        <Route index path="sent" element={<Sent />} />
+        <Route index path="qr-scanner" element={<QRScanner />} />
         <Route path="tune-recommendation" element={<TuneRecommendation />} />
-        <Route path="connections" element={<Connections />} />
-        <Route path="requests" element={<Requests />} />
-        <Route path="send" element={<Send />} />
+        {/*  */}
         <Route path="share-profile" element={<ShareProfile />} />
         <Route path="settings" element={<Settings />} />
         <Route path="settings/help" element={<Help />} />

@@ -4,7 +4,14 @@ import UserList from "./UserList";
 const Requests = () => {
   return (
     <HomeLayout>
-      <UserList isRequest={false} />
+      <UserList
+        path="requests"
+        heading={{
+          first: "Are you sure you want to delete the request from johndoe?",
+          second: "johndoe will not be notified.",
+        }}
+        Action="Confirm"
+      />
     </HomeLayout>
   );
 }

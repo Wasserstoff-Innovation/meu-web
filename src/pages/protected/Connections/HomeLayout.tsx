@@ -1,18 +1,19 @@
 import { ReactNode } from "react";
-import Footer from "../../../components/Home/Footer";
+import TopBar from "./TopBar";
+import Layout from '../../protected/Home/Layout'
 
 interface MyComponentProps {
-  children: ReactNode; 
+  children: ReactNode;
 }
-
 
 const HomeLayout: React.FC<MyComponentProps> = ({ children }) => {
   return (
-    <div className="">
-      <div>Top bar from kuldeep's code</div>
-      <div className="flex flex-col gap-4 overflow-y-auto h-[88vh]">{children}</div>
-      <Footer />
-    </div>
+    <Layout>
+      <TopBar />
+      <div className="flex flex-col gap-4 overflow-y-auto h-[88vh] mt-3">
+        {children}
+      </div>
+    </Layout>
   );
 };
 

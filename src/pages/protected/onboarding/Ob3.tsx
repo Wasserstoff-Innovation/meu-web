@@ -63,9 +63,10 @@ const Ob3 = () => {
       console.log("Selected Interest must be greater than 2.");
       return;
     }
+    console.log(groupSelected);
     const updatedUserData = {
       ...userData,
-      Interests: groupSelected,
+      interests: groupSelected,
     };
     dispatch(updateUserData(updatedUserData));
     navigate("/onboard/ob4");
@@ -88,26 +89,28 @@ const Ob3 = () => {
         <div className=" flex flex-col">
           {/* search  */}
           <div
-            className="h-10 bg-[#313437] flex items-center justify-center p-2 gap-2 border-[#4A4D50] border-[3px] rounded-md"
+            className="h-10 bg-[#313437] flex items-center p-2 gap-2 border-[#4A4D50] border-[3px] rounded-md"
             onClick={(e) => {
               e.stopPropagation();
               setActive(true);
             }}
           >
-            <img src="./search.svg" alt="search" />
-            <input
-              type="text"
-              name="searchInput"
-              id=""
-              onChange={(e) => {
-                setSearchInput(e.target.value);
-                FilteredData(e.target.value);
-              }}
-              value={searchInput}
-              className=" bg-[#313437] w-full outline-none placeholder:text-white"
-              placeholder="Search"
-              // onFocus={() => setActive(true)}
-            />
+            <div><img src="/search.svg" alt="search" /></div>
+            <div>
+              <input
+                type="text"
+                name="searchInput"
+                id=""
+                onChange={(e) => {
+                  setSearchInput(e.target.value);
+                  FilteredData(e.target.value);
+                }}
+                value={searchInput}
+                className=" bg-[#313437] w-full outline-none placeholder:text-white"
+                placeholder="Search"
+                // onFocus={() => setActive(true)}
+              />
+            </div>
           </div>
           {/* select tab */}
           <div
@@ -138,9 +141,9 @@ const Ob3 = () => {
               {groupSelected.map((select, index) => (
                 <div
                   key={index}
-                  className="bg-white text-black flex gap-2 p-2 px-4 rounded-full text-[14px] font-medium"
+                  className="bg-white text-black flex gap-2 p-2 px-4 rounded-full text-[14px] "
                 >
-                  <div>{select.label}</div>
+                  <div className="font-medium">{select.label}</div>
                   <button onClick={() => handleRemove(select.value)}>x</button>
                 </div>
               ))}
