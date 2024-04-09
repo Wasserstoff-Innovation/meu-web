@@ -19,7 +19,7 @@ const Login = (): ReactNode => {
     <>
       <Header />
       <div className="flex flex-1 flex-col justify-between ">
-        <h1 className=" inline-flex gap-1 text-2xl text-primary-300 font-bold">
+        <h1 className="text-center text-2xl text-primary-300 font-bold">
           Find your next
           <TypewriterComponent
             options={{
