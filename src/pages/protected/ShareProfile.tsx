@@ -1,34 +1,47 @@
 import { useState } from "react";
 import QRCode from "qrcode.react";
+import { useNavigate } from "react-router-dom";
 
 const ShareProfile = () => {
   const [username] = useState("johndoe");
+  const navigate = useNavigate();
 
   const socialIcons = [
     {
       icon: "/whatsapp.svg",
-      url: `https://api.whatsapp.com/send?text=http://localhost:5173/${username}`
+      url: `https://api.whatsapp.com/send?text=http://localhost:5173/${username}`,
     },
     {
       icon: "/facebook.svg",
-      url: `https://www.facebook.com/sharer/sharer.php?u=http://localhost:5173/${username}`
+      url: `https://www.facebook.com/sharer/sharer.php?u=http://localhost:5173/${username}`,
     },
     {
       icon: "/insta.svg",
-      url: `https://www.instagram.com/?url=http://localhost:5173/${username}`
+      url: `https://www.instagram.com/?url=http://localhost:5173/${username}`,
     },
     {
       icon: "/telegram.svg",
-      url: `https://t.me/share/url?url=http://localhost:5173/${username}`
-    }
+      url: `https://t.me/share/url?url=http://localhost:5173/${username}`,
+    },
   ];
-  
+
   return (
     <div className="flex flex-col justify-center">
-      <img src="/left-arrow.svg" alt="navigation-back" className="w-5 h-5 mb-4"/>
+      <img
+        src="/left-arrow.svg"
+        alt="navigation-back"
+        className="w-5 h-5 mb-4"
+        onClick={() => {
+          navigate("/");
+        }}
+      />
       <div className="flex flex-col justify-between h-[70vh] bg-[#E8F4FD] rounded-lg">
         <div className="flex justify-center items-center m-2 rounded-lg">
-          <QRCode value={`http://localhost:5173/${username}`}  size={320} className="rounded-lg" />
+          <QRCode
+            value={`http://localhost:5173/${username}`}
+            size={320}
+            className="rounded-lg"
+          />
         </div>
         <div className="flex justify-between m-4 text-[#1A1D21]">
           <div className="flex flex-col gap-2">
