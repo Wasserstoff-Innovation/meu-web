@@ -1,10 +1,14 @@
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../../redux/hooks";
+import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
+import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 // import { CustomCheckbox } from "../../../components/CustomCheckbox";
 // import { useState } from "react";
 
 const Ob5 = () => {
   const navigate = useNavigate();
+  const { userData } = useAppSelector((state) => state.onBoarding);
 
   // const [groupSelected, setGroupSelected] = useState<string[]>([]);
 
@@ -19,11 +23,25 @@ const Ob5 = () => {
         Verify your Identity
       </h1>
       <div className="w-full flex-col flex mt-40  gap-5">
-        <Button className=" text-sm center" color="default">
+        <Button
+          className=" text-sm center"
+          color="default"
+          isDisabled={Boolean(userData.linkedin.email)}
+          onClick={() => {
+            window.location.href = getLinkedinOAuthUrl();
+          }}
+        >
           <img src="/linkedin.svg" alt="Linkedin" className="h-6 w-6" />
           Authenticate LinkedIn
         </Button>
-        <Button className=" text-sm center" color="default">
+        <Button
+          className=" text-sm center"
+          color="default"
+          isDisabled={Boolean(userData.twitter.id)}
+          onClick={() => {
+            window.location.href = getTwitterOAuthUrl();
+          }}
+        >
           <img src="/x.svg" alt="X" className="h-6 w-6" />
           Authenticate X (Twitter)
         </Button>

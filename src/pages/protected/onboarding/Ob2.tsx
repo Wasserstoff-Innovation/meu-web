@@ -7,7 +7,6 @@ import { useState } from "react";
 
 interface UserData {
   avatar: string;
-  username: string;
   bio: string;
   pronounns: string;
 }
@@ -24,7 +23,6 @@ const Ob2: React.FC = () => {
   const { userData } = useAppSelector((state) => state.onBoarding);
   const [data, setData] = useState<UserData>({
     avatar: userData.avatar,
-    username: userData.username,
     bio: userData.bio,
     pronounns: userData.pronounns,
   });
@@ -32,21 +30,6 @@ const Ob2: React.FC = () => {
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
-
-    switch (true) {
-      case !data.username.trim().length:
-        newErrors.username = "Username is required";
-        break;
-      case data.username.length < 2 || data.username.length > 30:
-        newErrors.username = "Username must be between 2 and 30 characters";
-        break;
-      case !/^[a-zA-Z0-9_.]+$/.test(data.username):
-        newErrors.username =
-          "Username must not include any special characters except '.' and '_'";
-        break;
-      default:
-        break;
-    }
 
     switch (true) {
       case data.bio.length < 2 || data.bio.length > 150:
@@ -72,9 +55,7 @@ const Ob2: React.FC = () => {
     const isFormValid = await validateForm();
     if (isFormValid) {
       const updatedUserData = {
-        ...userData,
         avatar: data.avatar,
-        username: data.username,
         bio: data.bio,
         pronounns: data.pronounns,
       };
@@ -131,7 +112,7 @@ const Ob2: React.FC = () => {
         style={{ display: "none" }}
       />
 
-      <div className="w-full">
+      {/* <div className="w-full">
         <p className="text-white text-sm mb-1">Username </p>
         <Input
           type="text"
@@ -145,9 +126,9 @@ const Ob2: React.FC = () => {
           Your username can have 2-30 characters and must not include any
           special characters except from “.” & “_”
         </p>
-      </div>
+      </div> */}
       <div className="w-full">
-        <p className="text-white text-sm mb-1">Bio </p>
+        <p className="text-white text-sm mb-1">Bio/Headline </p>
         <Input
           type="text"
           isClearable
@@ -159,7 +140,7 @@ const Ob2: React.FC = () => {
           Your bio can have 2-150 characters.
         </p>
       </div>
-      <div className="w-full">
+      <div className="w-full mb-64">
         <p className="text-white text-sm mb-1">Pronouns </p>
         <Input
           type="text"

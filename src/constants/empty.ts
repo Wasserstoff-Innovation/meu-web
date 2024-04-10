@@ -6,7 +6,7 @@ export const EmptyUser = {
   location: "",
   username: "",
   bio: "",
-  avatar: "",
+  avatar: "Hi , I am using MEU",
   pronounns: "",
   interests: [],
   purpose: "",
