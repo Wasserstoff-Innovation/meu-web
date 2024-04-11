@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomAvatar from "../../../components/common/CustomAvatar";
 import { AuthContext } from "../../../context/Auth";
@@ -6,21 +6,12 @@ import { AuthContext } from "../../../context/Auth";
 const EditProfile = () => {
   const { savedUserData } = useContext(AuthContext);
   const Navigate = useNavigate();
-  // const handleChange = (e: any) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       if (typeof reader.result === "string") {
-  //         setProfileImg(reader.result);
-  //       }
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
   const backNavigate = () => {
     Navigate("/settings");
   };
+  const [avatar, setAvatar] = useState<string>(
+    savedUserData?.data.avatar || ""
+  );
 
   return (
     <div className="flex flex-col justify-between gap-6">
@@ -37,7 +28,7 @@ const EditProfile = () => {
           <div>Edit Profile</div>
         </div>
         <div className="flex justify-center mt-10">
-          <CustomAvatar srcData={savedUserData?.data.avatar} />
+          <CustomAvatar setSrc={setAvatar} src={avatar} />
         </div>
         {/* <div className="-m-[28px] bg-gradient-to-b to-black-900 from-black-0">
           <img src={profileImg} alt="profileimg" />
