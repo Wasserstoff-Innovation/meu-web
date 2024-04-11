@@ -2,26 +2,12 @@ import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
-  redirect,
 } from "react-router-dom";
-import {
-  DashboardLayout,
-  Layout,
-  OnBoardingLayout,
-  ProtectedLayout,
-} from "../layout/Layout";
+import { Layout, ProtectedLayout } from "../layout/Layout";
 import ShareProfile from "../pages/protected/ShareProfile";
 import Login from "../pages/public/Login";
 import RootError from "../layout/RootError";
-import {
-  Ob1,
-  Ob2,
-  Ob3,
-  Ob4,
-  Ob5,
-  Ob6,
-  Ob7,
-} from "../pages/protected/onboarding";
+import { Ob1, Ob2, Ob3, Ob4, Ob5, Ob7 } from "../pages/protected/onboarding";
 import Settings from "../pages/protected/Setting";
 import EditProfile from "../pages/protected/Setting/EditProfile";
 import Interests from "../pages/protected/Setting/Interests";
@@ -42,48 +28,23 @@ import LinkedIn from "../pages/auth/LinkedIn";
 import Sent from "../pages/protected/Connections/Sent";
 import QRScanner from "../components/Home/QRScanner";
 import MapView from "../pages/protected/Home/MapView";
+import { homeLoader, onBoardingLoader, protectedLoader } from "./loaders";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<RootError />}>
-      <Route
-        path="/"
-        loader={() => {
-          const user = sessionStorage.getItem("user");
-          if (!user) {
-            return redirect("/login");
-          }
-          return null;
-        }}
-        element={<ProtectedLayout />}
-      >
-        <Route path="contracts" element={<Contracts />} />
-        <Route path="onboard" element={<OnBoardingLayout />}>
-          <Route path="ob1" element={<Ob1 />} />
-          <Route path="ob2" element={<Ob2 />} />
-          <Route path="ob3" element={<Ob3 />} />
-          <Route path="ob4" element={<Ob4 />} />
-          <Route path="ob5" element={<Ob5 />} />
-          <Route path="ob6" element={<Ob6 />} />
-          <Route path="ob7" element={<Ob7 />} />
-          <Route path="share-profile" element={<ShareProfile />} />
-        </Route>
-        <Route path="" element={<DashboardLayout />}>
+      <Route path="" loader={protectedLoader} element={<ProtectedLayout />}>
+        <Route path="" loader={homeLoader} element={<Layout />}>
           <Route index element={<Recommendation />} />
-          <Route
-            index
-            path="tune-recommendation"
-            element={<TuneRecommendation />}
-          />
-          {/* home routes */}
-          <Route index path="map-view" element={<MapView />} />
-          <Route index path="connections" element={<Connections />} />
-          <Route index path="requests" element={<Requests />} />
-          <Route index path="sent" element={<Sent />} />
-          <Route index path="qr-scanner" element={<QRScanner />} />
+          <Route path="tune-recommendation" element={<TuneRecommendation />} />
+          <Route path="map-view" element={<MapView />} />
+          <Route path="connections" element={<Connections />} />
+          <Route path="requests" element={<Requests />} />
+          <Route path="sent" element={<Sent />} />
+          <Route path="qr-scanner" element={<QRScanner />} />
           <Route path="tune-recommendation" element={<TuneRecommendation />} />
           <Route path="share-profile" element={<ShareProfile />} />
-
+          <Route path="contracts" element={<Contracts />} />
           <Route path="settings" element={<Settings />} />
           <Route path="settings/help" element={<Help />} />
           <Route path="settings/editProfile" element={<EditProfile />} />
@@ -95,9 +56,18 @@ export const router = createBrowserRouter(
           <Route path="settings/share" element={<Share />} />
           <Route path="settings/about" element={<About />} />
         </Route>
+
+        <Route path="onboard" loader={onBoardingLoader} element={<Layout />}>
+          <Route path="ob1" element={<Ob1 />} />
+          <Route path="ob2" element={<Ob2 />} />
+          <Route path="ob3" element={<Ob3 />} />
+          <Route path="ob4" element={<Ob4 />} />
+          <Route path="ob5" element={<Ob5 />} />
+          {/* <Route path="ob6" element={<Ob6 />} /> */}
+          <Route path="ob7" element={<Ob7 />} />
+        </Route>
       </Route>
       <Route path="login" element={<Login />} />
-      <Route path="contracts" element={<Contracts />} />
       <Route path="auth/callback/twitter" element={<Twitter />} />
       <Route path="auth/callback/linkedin" element={<LinkedIn />} />
     </Route>

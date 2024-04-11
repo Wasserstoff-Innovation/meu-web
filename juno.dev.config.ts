@@ -12,7 +12,15 @@ export default defineDevConfig(() => ({
           mutablePermissions: false,
         },
       ],
-      storage: [],
+      storage: [
+        {
+          collection: "avatar",
+          read: "public" as PermissionText,
+          write: "private" as PermissionText,
+          memory: "stable" as MemoryText,
+          mutablePermissions: false,
+        },
+      ],
     },
     controllers: [],
   },

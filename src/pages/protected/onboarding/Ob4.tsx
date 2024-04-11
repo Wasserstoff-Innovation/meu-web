@@ -1,11 +1,16 @@
 import { Button, Radio, RadioGroup } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { purposes } from "../../../constants/purpose";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { updateUserData } from "../../../redux/features/onBoardingSlice";
 // import { CustomCheckbox } from "../../../components/CustomCheckbox";
 // import { useState } from "react";
 
 const Ob4 = () => {
   const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+  const { userData } = useAppSelector((state) => state.onBoarding);
 
   // const [groupSelected, setGroupSelected] = useState<string[]>([]);
 
@@ -28,7 +33,10 @@ const Ob4 = () => {
         <RadioGroup
           // label="Select your favorite city"
           color="secondary"
-          defaultValue="networking"
+          value={userData.purpose}
+          onChange={(e) => {
+            dispatch(updateUserData({ purpose: e.target.value }));
+          }}
         >
           {purposes.map((purpose) => (
             <Radio key={purpose.value} value={purpose.value} className="mb-1">

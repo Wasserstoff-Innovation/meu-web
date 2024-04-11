@@ -36,3 +36,25 @@ export const setUserData = async (
     return undefined;
   }
 };
+
+export const updateUserData = async (
+  user: User | null | undefined,
+  key: string,
+  data: IUser
+) => {
+  try {
+    if (!user || user === null) return undefined;
+    const updatedDoc = await setDoc<IUser>({
+      collection: "cards",
+      doc: {
+        key,
+        data,
+        updated_at: BigInt(Date.now()),
+      },
+    });
+    return updatedDoc;
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
+};

@@ -1,12 +1,12 @@
-import { Avatar, Button, Input } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
 //import ImagePickerModal from '../../../components/Modal'
 import { useState } from "react";
+import CustomAvatar from "../../../components/common/CustomAvatar";
 
 interface UserData {
-  avatar: string;
   bio: string;
   pronounns: string;
 }
@@ -21,8 +21,8 @@ const Ob2: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
+  const [avatar, setAvatar] = useState<string>(userData.avatar);
   const [data, setData] = useState<UserData>({
-    avatar: userData.avatar,
     bio: userData.bio,
     pronounns: userData.pronounns,
   });
@@ -55,7 +55,7 @@ const Ob2: React.FC = () => {
     const isFormValid = await validateForm();
     if (isFormValid) {
       const updatedUserData = {
-        avatar: data.avatar,
+        avatar: avatar,
         bio: data.bio,
         pronounns: data.pronounns,
       };
@@ -71,62 +71,14 @@ const Ob2: React.FC = () => {
     }));
   };
 
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const filePath = reader.result as string;
-        if (!filePath) {
-          return console.error("Error reading file");
-        }
-        setData((prev) => ({
-          ...prev,
-          avatar: filePath, // Set the file path to the avatar field
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleAvatarClick = () => {
-    document.getElementById("avatar-input")?.click();
-  };
-
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 ">
-      <h1 className="self-stretch text-2xl text-primary-300 font-bold">
+      <h1 className="self-stretch mt-4 text-2xl text-primary-300 font-bold">
         Setup your Profile
       </h1>
-      <Avatar
-        src={data.avatar}
-        size="lg"
-        className="self-center w-32 h-32 cursor-pointer"
-        onClick={handleAvatarClick}
-      />
-      <input
-        type="file"
-        id="avatar-input"
-        accept="image/*"
-        onChange={handleAvatarChange}
-        style={{ display: "none" }}
-      />
-
-      {/* <div className="w-full">
-        <p className="text-white text-sm mb-1">Username </p>
-        <Input
-          type="text"
-          placeholder="johndoe"
-          isClearable
-          value={data.username}
-          onChange={(e) => handleChange("username", e.target.value)}
-        />
-        <p className="text-red-500 text-xs mt-1">{errors.username}</p>
-        <p className="text-white text-xs mt-1">
-          Your username can have 2-30 characters and must not include any
-          special characters except from “.” & “_”
-        </p>
-      </div> */}
+      <div className="w-full flex flex-row justify-center items-center">
+        <CustomAvatar src={avatar} setSrc={setAvatar} />
+      </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Bio/Headline </p>
         <Input
@@ -156,7 +108,7 @@ const Ob2: React.FC = () => {
       </div>
       <div className="flex w-full justify-end">
         <Button
-          className="mt-2 text-sm"
+          className="my-4 text-sm"
           color="primary"
           size="lg"
           onClick={handleNext}

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import QRCode from "qrcode.react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/Auth";
+import { Avatar, Chip } from "@nextui-org/react";
 
 const ShareProfile = () => {
   const { savedUserData } = useContext(AuthContext);
@@ -27,7 +28,7 @@ const ShareProfile = () => {
   ];
 
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-1 flex-col justify-around ">
       <img
         src="/left-arrow.svg"
         alt="navigation-back"
@@ -36,21 +37,48 @@ const ShareProfile = () => {
           navigate("/");
         }}
       />
-      <div className="flex flex-col justify-between h-[70vh] bg-[#E8F4FD] rounded-lg">
+      <div className="flex flex-col justify-between  bg-[#E8F4FD] rounded-lg">
         <div className="flex justify-center items-center m-2 rounded-lg">
           <QRCode
             value={`http://localhost:5173/${savedUserData?.data.name}`}
             size={320}
-            className="rounded-lg"
+            className="rounded-lg mt-6"
           />
         </div>
+        {/* <User
+          className="text-black"
+          name={savedUserData?.data.name}
+          description={savedUserData?.data.purpose}
+          avatarProps={{
+            src: savedUserData?.data.avatar,
+          }}
+        /> */}
         <div className="flex justify-between m-4 text-[#1A1D21]">
           <div className="flex flex-col gap-2">
-            <div className="self-stretch text-3xl font-bold ">John Doe</div>
-            <div className="text-lg">@{savedUserData?.data.name}</div>
-            <div className="text-sm">I'm an MEU, where are you</div>
+            <div className="self-stretch text-3xl font-bold ">
+              {savedUserData?.data.name}
+            </div>
+            <div className="text-sm">{savedUserData?.data.bio}</div>
+            <div className="text-sm">{savedUserData?.data.email}</div>
+            <div className="text-sm">{savedUserData?.data.mobile}</div>
+            <div className="text-sm">{savedUserData?.data.location}</div>
+            <Chip color="success" className="text-sm">
+              {savedUserData?.data.purpose}
+            </Chip>
           </div>
-          <div className="w-24 h-24 bg-black rounded-lg border border-black"></div>
+          <Avatar src={savedUserData?.data.avatar} className="min-w-32 h-32" />
+        </div>
+        <div className="flex flex-wrap justify-center space-x-4">
+          {savedUserData?.data.interests.map((int) => (
+            <Chip
+              color="primary"
+              key={int.value}
+              isDisabled
+              className="mb-2 mr-1"
+            >
+              {int.label}
+            </Chip>
+          ))}
         </div>
       </div>
       <div className="flex flex-col space-y-4 text-xl mt-4 font-semibold text-white">
