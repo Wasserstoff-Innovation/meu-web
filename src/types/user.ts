@@ -1,6 +1,6 @@
 interface ObjectType {
-    label: string;
-    value: string;
+  label: string;
+  value: string;
 }
 
 export type IUser = {
@@ -9,7 +9,6 @@ export type IUser = {
   email: string;
   mobile: string;
   location: string;
-  username: string;
   bio: string;
   avatar: string;
   pronounns: string;

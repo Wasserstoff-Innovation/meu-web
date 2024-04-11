@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import onBoardingReducer from "./features/onBoardingSlice";
+import mainReducer from "./features/mainSlice";
 
 const rootReducer = combineReducers({
   onBoarding: onBoardingReducer,
+  main: mainReducer,
 });
 
 export const store = configureStore({

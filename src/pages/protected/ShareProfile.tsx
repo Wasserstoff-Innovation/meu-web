@@ -1,27 +1,28 @@
-import { useState } from "react";
+import { useContext } from "react";
 import QRCode from "qrcode.react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/Auth";
 
 const ShareProfile = () => {
-  const [username] = useState("johndoe");
+  const { savedUserData } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const socialIcons = [
     {
       icon: "/whatsapp.svg",
-      url: `https://api.whatsapp.com/send?text=http://localhost:5173/${username}`,
+      url: `https://api.whatsapp.com/send?text=http://localhost:5173/${savedUserData?.data.name}`,
     },
     {
       icon: "/facebook.svg",
-      url: `https://www.facebook.com/sharer/sharer.php?u=http://localhost:5173/${username}`,
+      url: `https://www.facebook.com/sharer/sharer.php?u=http://localhost:5173/${savedUserData?.data.name}`,
     },
     {
       icon: "/insta.svg",
-      url: `https://www.instagram.com/?url=http://localhost:5173/${username}`,
+      url: `https://www.instagram.com/?url=http://localhost:5173/${savedUserData?.data.name}`,
     },
     {
       icon: "/telegram.svg",
-      url: `https://t.me/share/url?url=http://localhost:5173/${username}`,
+      url: `https://t.me/share/url?url=http://localhost:5173/${savedUserData?.data.name}`,
     },
   ];
 
@@ -38,7 +39,7 @@ const ShareProfile = () => {
       <div className="flex flex-col justify-between h-[70vh] bg-[#E8F4FD] rounded-lg">
         <div className="flex justify-center items-center m-2 rounded-lg">
           <QRCode
-            value={`http://localhost:5173/${username}`}
+            value={`http://localhost:5173/${savedUserData?.data.name}`}
             size={320}
             className="rounded-lg"
           />
@@ -46,7 +47,7 @@ const ShareProfile = () => {
         <div className="flex justify-between m-4 text-[#1A1D21]">
           <div className="flex flex-col gap-2">
             <div className="self-stretch text-3xl font-bold ">John Doe</div>
-            <div className="text-lg">@{username}</div>
+            <div className="text-lg">@{savedUserData?.data.name}</div>
             <div className="text-sm">I'm an MEU, where are you</div>
           </div>
           <div className="w-24 h-24 bg-black rounded-lg border border-black"></div>

@@ -4,7 +4,12 @@ import {
   createRoutesFromElements,
   redirect,
 } from "react-router-dom";
-import { Layout, OnBoardingLayout, ProtectedLayout } from "../layout/Layout";
+import {
+  DashboardLayout,
+  Layout,
+  OnBoardingLayout,
+  ProtectedLayout,
+} from "../layout/Layout";
 import ShareProfile from "../pages/protected/ShareProfile";
 import Login from "../pages/public/Login";
 import RootError from "../layout/RootError";
@@ -51,8 +56,8 @@ export const router = createBrowserRouter(
           return null;
         }}
         element={<ProtectedLayout />}
-      > 
-        <Route path="contracts" element={<Contracts/>}/>
+      >
+        <Route path="contracts" element={<Contracts />} />
         <Route path="onboard" element={<OnBoardingLayout />}>
           <Route path="ob1" element={<Ob1 />} />
           <Route path="ob2" element={<Ob2 />} />
@@ -61,32 +66,35 @@ export const router = createBrowserRouter(
           <Route path="ob5" element={<Ob5 />} />
           <Route path="ob6" element={<Ob6 />} />
           <Route path="ob7" element={<Ob7 />} />
+          <Route path="share-profile" element={<ShareProfile />} />
         </Route>
-        <Route index path="" element={<Recommendation />} />
-        <Route
-          index
-          path="tune-recommendation"
-          element={<TuneRecommendation />}
-        />
-        {/* home routes */}
-        <Route index path="map-view" element={<MapView />} />
-        <Route index path="connections" element={<Connections />} />
-        <Route index path="requests" element={<Requests />} />
-        <Route index path="sent" element={<Sent />} />
-        <Route index path="qr-scanner" element={<QRScanner />} />
-        <Route path="tune-recommendation" element={<TuneRecommendation />} />
-        {/*  */}
-        <Route path="share-profile" element={<ShareProfile />} />
-        <Route path="settings" element={<Settings />} />
-        <Route path="settings/help" element={<Help />} />
-        <Route path="settings/editProfile" element={<EditProfile />} />
-        <Route path="settings/interests" element={<Interests />} />
-        <Route path="settings/purpose" element={<Purpose />} />
-        <Route path="settings/other" element={<Other />} />
-        <Route path="settings/privacy" element={<Privacy />} />
-        <Route path="settings/rate" element={<RateMeu />} />
-        <Route path="settings/share" element={<Share />} />
-        <Route path="settings/about" element={<About />} />
+        <Route path="" element={<DashboardLayout />}>
+          <Route index element={<Recommendation />} />
+          <Route
+            index
+            path="tune-recommendation"
+            element={<TuneRecommendation />}
+          />
+          {/* home routes */}
+          <Route index path="map-view" element={<MapView />} />
+          <Route index path="connections" element={<Connections />} />
+          <Route index path="requests" element={<Requests />} />
+          <Route index path="sent" element={<Sent />} />
+          <Route index path="qr-scanner" element={<QRScanner />} />
+          <Route path="tune-recommendation" element={<TuneRecommendation />} />
+          <Route path="share-profile" element={<ShareProfile />} />
+
+          <Route path="settings" element={<Settings />} />
+          <Route path="settings/help" element={<Help />} />
+          <Route path="settings/editProfile" element={<EditProfile />} />
+          <Route path="settings/interests" element={<Interests />} />
+          <Route path="settings/purpose" element={<Purpose />} />
+          <Route path="settings/other" element={<Other />} />
+          <Route path="settings/privacy" element={<Privacy />} />
+          <Route path="settings/rate" element={<RateMeu />} />
+          <Route path="settings/share" element={<Share />} />
+          <Route path="settings/about" element={<About />} />
+        </Route>
       </Route>
       <Route path="login" element={<Login />} />
       <Route path="contracts" element={<Contracts />} />

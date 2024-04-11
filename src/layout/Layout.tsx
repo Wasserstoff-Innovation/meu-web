@@ -40,7 +40,34 @@ const OnBoardingLayout = () => {
   );
 };
 
+const DashboardLayout = () => {
+  const { user } = useContext(AuthContext);
+  const [showLoader, setShowLoader] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    (async () => {
+      const userData = await getUserDataCards(user);
+      if (!userData) {
+        navigate("/onboard/ob1", { replace: true });
+      }
+      setShowLoader(false);
+    })();
+  }, [navigate, user]);
+
+  return (
+    <Fragment>
+      {showLoader ? (
+        <div className="flex-1 justify-center content-center">
+          <Spinner color="primary" size="lg" />
+        </div>
+      ) : (
+        <Outlet />
+      )}
+    </Fragment>
+  );
+};
 const Layout = () => {
   return <Outlet />;
 };
-export { ProtectedLayout, OnBoardingLayout, Layout };
+export { DashboardLayout, ProtectedLayout, OnBoardingLayout, Layout };

@@ -4,13 +4,6 @@ import { interests } from "../../../constants/interests";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
-// import { CustomCheckbox } from "../../../components/CustomCheckbox";
-// import { useState } from "react";
-
-// interface Interest {
-//   label: string;
-//   value: string;
-// }
 
 const Ob3 = () => {
   const dispatch = useAppDispatch();
