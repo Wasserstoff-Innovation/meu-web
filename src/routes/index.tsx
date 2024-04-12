@@ -28,7 +28,12 @@ import LinkedIn from "../pages/auth/LinkedIn";
 import Sent from "../pages/protected/Connections/Sent";
 import QRScanner from "../components/Home/QRScanner";
 import MapView from "../pages/protected/Home/MapView";
-import { homeLoader, onBoardingLoader, protectedLoader } from "./loaders";
+import {
+  homeLoader,
+  loginLoader,
+  onBoardingLoader,
+  protectedLoader,
+} from "./loaders";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -67,7 +72,7 @@ export const router = createBrowserRouter(
           <Route path="ob7" element={<Ob7 />} />
         </Route>
       </Route>
-      <Route path="login" element={<Login />} />
+      <Route path="login" loader={loginLoader} element={<Login />} />
       <Route path="auth/callback/twitter" element={<Twitter />} />
       <Route path="auth/callback/linkedin" element={<LinkedIn />} />
     </Route>

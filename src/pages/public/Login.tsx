@@ -1,20 +1,21 @@
-import { Button } from "@nextui-org/react";
+import { Button, Spinner } from "@nextui-org/react";
 import Lottie from "lottie-react";
 import EarthLottie from "../../lottie/earth.json";
 import TypewriterComponent from "typewriter-effect-csattrs";
-import { ReactNode, useContext } from "react";
+import { ReactNode, useContext, useState } from "react";
 import { signIn } from "@junobuild/core";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/Auth";
 import Header from "../../layout/Header";
+import { getUserDataCards } from "../../api/juno/user";
+import { toast } from "react-toastify";
+import { sleep } from "../../utils";
 
 const Login = (): ReactNode => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
-  if (user) {
-    return <Navigate to="/" />;
-  }
   return (
     <>
       <Header />
@@ -41,20 +42,33 @@ const Login = (): ReactNode => {
           <Button
             className="mt-5 text-sm center"
             color="default"
+            isDisabled={loading}
             onClick={async () => {
               try {
-                const value = await signIn({
+                setLoading(true);
+                await signIn({
                   windowed: false,
                 });
+                await sleep(2);
+                const userCard = await getUserDataCards(user);
+                if (userCard) {
+                  navigate("/");
+                }
                 navigate("/onboard/ob1");
-                console.log("Sign in value", value);
               } catch (e) {
                 console.error("Caught error", e);
+                toast.error("Error signing in with Internet Identity");
                 //TODO: Show error Toast here
+              } finally {
+                setLoading(false);
               }
             }}
           >
-            <img src="/II.svg" alt="Internet Identity" className="h-6 w-6" />
+            {loading ? (
+              <Spinner />
+            ) : (
+              <img src="/II.svg" alt="Internet Identity" className="h-6 w-6" />
+            )}
             Continue with Internet Identity
           </Button>
         </div>

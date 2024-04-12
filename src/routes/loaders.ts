@@ -8,6 +8,14 @@ export const protectedLoader = () => {
   return null;
 };
 
+export const loginLoader = () => {
+  const user = sessionStorage.getItem("user");
+  if (user) {
+    return redirect("/");
+  }
+  return null;
+}
+
 export const onBoardingLoader = () => {
   const isOnBoarded = sessionStorage.getItem("isOnBoarded");
   if (isOnBoarded === "true") {

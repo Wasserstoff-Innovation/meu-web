@@ -25,7 +25,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     (async () => {
       const satelliteId = import.meta.env.VITE_SATELLITE_ID as string;
       const container = import.meta.env.VITE_CONTAINER_MODE === "true";
-      console.log({ satelliteId, container });
       await initJuno({
         satelliteId,
         container,
@@ -38,7 +37,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const unsubscribe = authSubscribe((user) => {
-      console.log("User", user);
       setUser(user);
       if (user) {
         sessionStorage.setItem("user", JSON.stringify(user.key));

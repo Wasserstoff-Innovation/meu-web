@@ -156,16 +156,11 @@ const Ob1 = () => {
       </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Mobile</p>
-        <div className="flex justify-center items-center text-black w-1/4">
+        <div className="w-full flex justify-center items-center text-black ">
           <PhoneInput
             country={data.countryCode}
             value={data.mobile}
             onChange={(mobile) => setData({ ...data, mobile })}
-            inputStyle={{
-              width: "21rem",
-              borderRadius: "10px",
-              height: "2.5rem",
-            }}
           />
         </div>
         {errors.mobile && (
