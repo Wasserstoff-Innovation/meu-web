@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
-// import { AuthContext } from "../context/Auth";
-// import { Spinner } from "@nextui-org/react";
+import { SocketProvider } from "../context/Socket";
 
 const ProtectedLayout = () => {
   return (
@@ -12,51 +11,19 @@ const ProtectedLayout = () => {
 };
 
 const OnBoardingLayout = () => {
-  // const { savedUserData } = useContext(AuthContext);
-  // const [showLoader, setShowLoader] = useState(true);
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (savedUserData) {
-  //     navigate("/", { replace: true });
-  //   }
-  //   setShowLoader(false);
-  // }, [navigate, savedUserData]);
-
   return (
     <Fragment>
-      {/* {showLoader ? (
-        <div className="flex-1 justify-center content-center">
-          <Spinner color="primary" size="lg" />
-        </div>
-      ) : ( */}
-        <Outlet />
-      {/* )} */}
+      <Outlet />
     </Fragment>
   );
 };
 
 const DashboardLayout = () => {
-  // const { savedUserData } = useContext(AuthContext);
-  // const [showLoader, setShowLoader] = useState(true);
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (!savedUserData) {
-  //     navigate("/onboard/ob1", { replace: true });
-  //   }
-  //   setShowLoader(false);
-  // }, [navigate, savedUserData]);
-
   return (
     <Fragment>
-      {/* {showLoader ? (
-        <div className="flex-1 justify-center content-center">
-          <Spinner color="primary" size="lg" />
-        </div>
-      ) : ( */}
+      <SocketProvider>
         <Outlet />
-      {/* )} */}
+      </SocketProvider>
     </Fragment>
   );
 };

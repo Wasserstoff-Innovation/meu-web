@@ -3,7 +3,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import { Layout, ProtectedLayout } from "../layout/Layout";
+import { DashboardLayout, Layout, ProtectedLayout } from "../layout/Layout";
 import ShareProfile from "../pages/protected/ShareProfile";
 import Login from "../pages/public/Login";
 import RootError from "../layout/RootError";
@@ -39,7 +39,7 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<RootError />}>
       <Route path="" loader={protectedLoader} element={<ProtectedLayout />}>
-        <Route path="" loader={homeLoader} element={<Layout />}>
+        <Route path="" loader={homeLoader} element={<DashboardLayout />}>
           <Route index element={<Recommendation />} />
           <Route path="tune-recommendation" element={<TuneRecommendation />} />
           <Route path="map-view" element={<MapView />} />
@@ -47,7 +47,6 @@ export const router = createBrowserRouter(
           <Route path="requests" element={<Requests />} />
           <Route path="sent" element={<Sent />} />
           <Route path="qr-scanner" element={<QRScanner />} />
-          <Route path="tune-recommendation" element={<TuneRecommendation />} />
           <Route path="share-profile" element={<ShareProfile />} />
           <Route path="contracts" element={<Contracts />} />
           <Route path="settings" element={<Settings />} />
