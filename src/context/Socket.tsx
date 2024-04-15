@@ -51,7 +51,7 @@ const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     const socketSetter = async () => {
       setSocket(await getSocket());
     };
-    socketSetter();
+    // socketSetter();
   }, [userDoc]);
 
   // mount and unmount listeners

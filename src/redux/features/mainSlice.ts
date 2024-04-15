@@ -16,12 +16,12 @@ export const mainSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
-    updateUserData: (state, action: PayloadAction<Doc<IUser>>) => {
-      state.userDoc = { ...state.userDoc, ...action.payload };
+    updateUserDoc: (state, action: PayloadAction<Doc<IUser> | undefined>) => {
+      state.userDoc = action.payload;
     },
   },
 });
 
-export const { updateUserData } = mainSlice.actions;
+export const { updateUserDoc } = mainSlice.actions;
 
 export default mainSlice.reducer;

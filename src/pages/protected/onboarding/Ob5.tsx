@@ -1,6 +1,6 @@
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
 import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 import { useContext, useState } from "react";
@@ -8,11 +8,13 @@ import Lottie from "lottie-react";
 import EarthLottie from "../../../lottie/earth.json";
 import { setUserData } from "../../../api/juno/user";
 import { AuthContext } from "../../../context/Auth";
+import { updateUserDoc } from "../../../redux/features/mainSlice";
 
 const Ob5 = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
-  const { user, setSavedUserData } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [showLoader, setShowLoader] = useState(false);
 
 
@@ -21,7 +23,7 @@ const Ob5 = () => {
     const userDoc = await setUserData(user, userData);
     if (userDoc) {
       console.log("User data set successfully");
-      setSavedUserData(userDoc);
+      dispatch(updateUserDoc(userDoc));
       sessionStorage.setItem("isOnBoarded", "true")
       navigate("/share-profile");
     } else {

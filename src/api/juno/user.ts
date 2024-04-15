@@ -1,5 +1,6 @@
 import { User, listDocs, setDoc } from "@junobuild/core";
 import { IUser } from "../../types/user";
+import { correctTimeStamps } from "../../utils";
 
 export const getUserDataCards = async (user: User | null | undefined) => {
   try {
@@ -8,7 +9,7 @@ export const getUserDataCards = async (user: User | null | undefined) => {
       collection: "cards",
     });
     console.log(docs);
-    return docs.items[0];
+    return correctTimeStamps(docs.items[0]);
   } catch (e) {
     console.error(e);
     return undefined;
@@ -30,7 +31,7 @@ export const setUserData = async (
         updated_at: BigInt(Date.now()),
       },
     });
-    return createdDoc;
+    return correctTimeStamps(createdDoc);
   } catch (e) {
     console.error(e);
     return undefined;
@@ -52,7 +53,7 @@ export const updateUserData = async (
         updated_at: BigInt(Date.now()),
       },
     });
-    return updatedDoc;
+    return correctTimeStamps(updatedDoc);
   } catch (e) {
     console.error(e);
     return undefined;

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Ob6 = (): ReactNode => {
   const { userData } = useAppSelector((state) => state.onBoarding);
-  const { user, setSavedUserData } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,14 +16,13 @@ const Ob6 = (): ReactNode => {
       const userDoc = await setUserData(user, userData);
       if (userDoc) {
         console.log("User data set successfully");
-        setSavedUserData(userDoc);
         navigate("/onboard/share-profile");
       } else {
         console.error("Failed to set user data");
         navigate("/onboard/ob1");
       }
     })();
-  }, [navigate, user, userData, setSavedUserData]);
+  }, [navigate, user, userData]);
 
   return (
     <div className="flex flex-1 flex-col justify-end ">

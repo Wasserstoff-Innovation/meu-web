@@ -1,16 +1,16 @@
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomAvatar from "../../../components/common/CustomAvatar";
-import { AuthContext } from "../../../context/Auth";
+import { useAppSelector } from "../../../redux/hooks";
 
 const EditProfile = () => {
-  const { savedUserData } = useContext(AuthContext);
+  const { userDoc} = useAppSelector((state) => state.main);
   const Navigate = useNavigate();
   const backNavigate = () => {
     Navigate("/settings");
   };
   const [avatar, setAvatar] = useState<string>(
-    savedUserData?.data.avatar || ""
+    userDoc?.data.avatar || ""
   );
 
   return (

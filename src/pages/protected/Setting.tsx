@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { signOut } from "@junobuild/core";
-import { useContext } from "react";
-import { AuthContext } from "../../context/Auth";
+import { useAppSelector } from "../../redux/hooks";
 
 const Settings = () => {
   const navigate = useNavigate();
-  const { savedUserData } = useContext(AuthContext);
+  const { userDoc } = useAppSelector((state) => state.main);
   const Data = [
     {
       icon: "/interests.svg",
@@ -73,77 +72,73 @@ const Settings = () => {
         </div>
       </div>
       <div className="flex flex-col flex-1 h-[70vh]">
-      <div
-        className="flex gap-3 bg-[#313437] p-5 rounded-md cursor-pointer"
-        onClick={handlenavigate}
-      >
-        <div className="w-12 h-12 rounded-full bg-white">
-          <img
-            src={savedUserData?.data.avatar}
-            alt="avatar"
-            className="rounded-full"
-          />
-        </div>
-        <div className="flex flex-col">
-          <div className="font-bold text-xl">{savedUserData?.data.name}</div>
-          <div className="font-semibold text-sm">
-            {savedUserData?.data.purpose}
+        <div
+          className="flex gap-3 bg-[#313437] p-5 rounded-md cursor-pointer"
+          onClick={handlenavigate}
+        >
+          <div className="w-12 h-12 rounded-full bg-white">
+            <img
+              src={userDoc?.data.avatar}
+              alt="avatar"
+              className="rounded-full"
+            />
           </div>
-          {savedUserData?.updated_at ? (
-            <div className="text-sm">
-              Last Updated on:{" "}
-              {new Date(
-                Number(savedUserData?.updated_at) / 1000000
-              ).toDateString()}
-            </div>
-          ) : null}
-        </div>
-      </div>
-
-      <div className="font-semibold text-lg mt-4">SETTING</div>
-      <div className="flex flex-col bg-[#313437] rounded-md cursor-pointer">
-        {Data.map((data, index) => (
-          <div key={index} onClick={() => handleNavigation(data.path)}>
-            <div className="flex gap-2 items-center p-2 ">
-              <img src={data.icon} alt="icon" className="w-4 h-4" />
-              <div>{data.name}</div>
-            </div>
-            {data.name !== "Other" && (
-              <hr className="border-[#D9D9D9] border-[0.5px]" />
-            )}
+          <div className="flex flex-col">
+            <div className="font-bold text-xl">{userDoc?.data.name}</div>
+            <div className="font-semibold text-sm">{userDoc?.data.purpose}</div>
+            {userDoc?.updated_at ? (
+              <div className="text-sm">
+                Last Updated on:{" "}
+                {new Date(Number(userDoc?.updated_at)).toDateString()}
+              </div>
+            ) : null}
           </div>
-        ))}
-      </div>
+        </div>
 
-      <div className="font-semibold text-lg mt-4">ABOUT</div>
-      <div className="flex flex-col bg-[#313437] rounded-md">
-        {About.map((data, index) => (
-          <div key={index}>
-            <div onClick={() => handleNavigation(data.path)}>
-              <div className="flex gap-2 items-center p-2 cursor-pointer">
+        <div className="font-semibold text-lg mt-4">SETTING</div>
+        <div className="flex flex-col bg-[#313437] rounded-md cursor-pointer">
+          {Data.map((data, index) => (
+            <div key={index} onClick={() => handleNavigation(data.path)}>
+              <div className="flex gap-2 items-center p-2 ">
                 <img src={data.icon} alt="icon" className="w-4 h-4" />
                 <div>{data.name}</div>
               </div>
-              {index < About.length - 1 && (
+              {data.name !== "Other" && (
                 <hr className="border-[#D9D9D9] border-[0.5px]" />
               )}
             </div>
-          </div>
-        ))}
-      </div>
-      <div>
-        <div
-          className="w-full text-center mt-6 bg-[#313437] text-[#DB4437] p-2"
-          onClick={async () => {
-            console.log("signing out");
-            await signOut();
-            sessionStorage.removeItem("user");
-            sessionStorage.removeItem("isOnBoarded");
-            navigate("/login");
-          }}
-        >
-          <button>Logout</button>
+          ))}
         </div>
+
+        <div className="font-semibold text-lg mt-4">ABOUT</div>
+        <div className="flex flex-col bg-[#313437] rounded-md">
+          {About.map((data, index) => (
+            <div key={index}>
+              <div onClick={() => handleNavigation(data.path)}>
+                <div className="flex gap-2 items-center p-2 cursor-pointer">
+                  <img src={data.icon} alt="icon" className="w-4 h-4" />
+                  <div>{data.name}</div>
+                </div>
+                {index < About.length - 1 && (
+                  <hr className="border-[#D9D9D9] border-[0.5px]" />
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div>
+          <div
+            className="w-full text-center mt-6 bg-[#313437] text-[#DB4437] p-2"
+            onClick={async () => {
+              console.log("signing out");
+              await signOut();
+              sessionStorage.removeItem("user");
+              sessionStorage.removeItem("isOnBoarded");
+              navigate("/login");
+            }}
+          >
+            <button>Logout</button>
+          </div>
         </div>
         <div className="h-10  bg-foreground text-center text-white p-4 w-full">
           <p>Made with ❤️ in India, at Wasserstoff</p>
