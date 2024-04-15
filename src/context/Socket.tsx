@@ -2,24 +2,26 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import socketio from "socket.io-client";
 import { useAppSelector } from "../redux/hooks";
 import { toast } from "react-toastify";
+import { unsafeIdentity } from "@junobuild/core";
 
-// const getNonceAndSignature = async (wallet: Wallet | null) => {
-//   const nonce = randomString();
-//   const signature = await wallet?.signMessage(nonce);
-//   return {
-//     nonce: nonce,
-//     signature: signature,
-//   };
-// };
+const getNonceAndSignature = async () => {
+  const identity = await unsafeIdentity();
+  const principal = identity.getPrincipal();
+  console.log({ principal });
+  return {
+    principal: principal.toText(),
+  };
+};
 // // Function to establish a socket connection with authorization token
 const getSocket = async () => {
-  // const auth = await getNonceAndSignature(wallet);
+  const auth = await getNonceAndSignature();
+  // console.log("auth", auth);
 
   // Create a socket connection with the provided URI and authentication
   const socket = socketio(import.meta.env.VITE_SOCKET_URL, {
     withCredentials: true,
     autoConnect: true,
-    // auth: auth,
+    auth: auth,
   });
   return socket;
 };
@@ -43,9 +45,9 @@ const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const { userDoc } = useAppSelector((state) => state.main);
   // Set up the socket connection when the component mounts
   useEffect(() => {
-    if (!userDoc) {
-      return;
-    }
+    // if (!userDoc) {
+    //   return;
+    // }
     const socketSetter = async () => {
       setSocket(await getSocket());
     };
