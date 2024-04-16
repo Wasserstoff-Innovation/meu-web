@@ -2,18 +2,26 @@ import { Button, Input } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
-import { useState } from "react";
+import React, { useState } from "react";
 import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import { countryOptions } from '../../../constants/country';
+import LocationSearch from '../../../components/LocationSearch'
+
+
 
 interface UserData {
   name: string;
   email: string;
   countryCode: string;
   mobile: string;
-  location: string;
+  location: {
+    city:string,
+    country:string,
+    state:string,
+    latitude:number,
+    longitude:number
+  };
 }
 
 interface FormErrors {
@@ -27,7 +35,7 @@ const Ob1 = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
-  console.log("userData", userData);
+  //console.log("userData", userData);
   const [data, setData] = useState<UserData>({
     name: userData.name,
     email: userData.email,
@@ -69,9 +77,13 @@ const Ob1 = () => {
       hasError = true;
     }
 
-    if (data.location.trim() === "") {
+    // if (data.locationError.trim() === "") {
+    //   newErrors.locationError = "Location cannot be empty";
+    //   hasError = true;
+    // }
+    if(data.location == undefined){
       newErrors.location = "Location cannot be empty";
-      hasError = true;
+      hasError = true
     }
 
     if (hasError) {
@@ -90,6 +102,17 @@ const Ob1 = () => {
     }
   };
 
+  function handleLocationChange(address:any)  {
+    //console.log("=========================>",typeof address)
+    setData({...data, location: {
+      city:address.city,
+      state:address.state,
+      country:address.country,
+      latitude:address.latitude,
+      longitude:address.longitude
+    }})
+  }
+
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
       <h1 className="self-stretch text-2xl text-primary-300 font-bold">
@@ -107,7 +130,7 @@ const Ob1 = () => {
           <img src="/linkedin.svg" alt="Linkedin" className="h-6 w-6" />
           LinkedIn
         </Button>
-        {/* <a> */}
+    
         <Button
           className=" text-sm center"
           color="default"
@@ -156,16 +179,24 @@ const Ob1 = () => {
       </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Mobile</p>
-        <div className="flex justify-center items-center text-black w-1/4">
-          <PhoneInput
-            country={data.countryCode}
+        <div className="flex justify-center items-center text-black ">
+        <select className="w-1/4 rounded-md p-2 hover:bg-[#e5e7eb]" name="countryCode" id="" onChange={(e)=>{
+            setData((prev)=>(
+               {...prev,countryCode:e.target.value }
+            ))
+          }}>
+            {countryOptions.map((country,index)=>(
+              <option key={index} value={country.value} selected={country.value===data.countryCode}>{country.value===data.countryCode ? data.countryCode:country.label}</option>
+            ))}
+          </select>
+          <Input
+            name="mobile"
+            isClearable
+            type="tel"
+            placeholder="99999 99999 99999"
+            className="ml-2 hover:bg-[#e5e7eb] rounded-md"
+            onChange={handleChange}
             value={data.mobile}
-            onChange={(mobile) => setData({ ...data, mobile })}
-            inputStyle={{
-              width: "21rem",
-              borderRadius: "10px",
-              height: "2.5rem",
-            }}
           />
         </div>
         {errors.mobile && (
@@ -177,14 +208,11 @@ const Ob1 = () => {
       </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Location </p>
-        <Input
-          name="location"
-          type="text"
-          placeholder="Gurgugram, Haryana, India"
-          isClearable
-          onChange={handleChange}
-          value={data.location}
-        />
+
+
+        <div className="w-full ">
+        <LocationSearch onLocationChange={handleLocationChange} />
+        </div>
         {errors.location && (
           <p className="text-red-500 text-xs mt-1">{errors.location}</p>
         )}

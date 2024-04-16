@@ -3,7 +3,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import { Layout, ProtectedLayout } from "../layout/Layout";
+import { DashboardLayout, Layout, ProtectedLayout } from "../layout/Layout";
 import ShareProfile from "../pages/protected/ShareProfile";
 import Login from "../pages/public/Login";
 import RootError from "../layout/RootError";
@@ -28,13 +28,18 @@ import LinkedIn from "../pages/auth/LinkedIn";
 import Sent from "../pages/protected/Connections/Sent";
 import QRScanner from "../components/Home/QRScanner";
 import MapView from "../pages/protected/Home/MapView";
-import { homeLoader, onBoardingLoader, protectedLoader } from "./loaders";
+import {
+  homeLoader,
+  loginLoader,
+  onBoardingLoader,
+  protectedLoader,
+} from "./loaders";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<RootError />}>
       <Route path="" loader={protectedLoader} element={<ProtectedLayout />}>
-        <Route path="" loader={homeLoader} element={<Layout />}>
+        <Route path="" loader={homeLoader} element={<DashboardLayout />}>
           <Route index element={<Recommendation />} />
           <Route path="tune-recommendation" element={<TuneRecommendation />} />
           <Route path="map-view" element={<MapView />} />
@@ -42,7 +47,6 @@ export const router = createBrowserRouter(
           <Route path="requests" element={<Requests />} />
           <Route path="sent" element={<Sent />} />
           <Route path="qr-scanner" element={<QRScanner />} />
-          <Route path="tune-recommendation" element={<TuneRecommendation />} />
           <Route path="share-profile" element={<ShareProfile />} />
           <Route path="contracts" element={<Contracts />} />
           <Route path="settings" element={<Settings />} />
@@ -67,7 +71,7 @@ export const router = createBrowserRouter(
           <Route path="ob7" element={<Ob7 />} />
         </Route>
       </Route>
-      <Route path="login" element={<Login />} />
+      <Route path="login" loader={loginLoader} element={<Login />} />
       <Route path="auth/callback/twitter" element={<Twitter />} />
       <Route path="auth/callback/linkedin" element={<LinkedIn />} />
     </Route>

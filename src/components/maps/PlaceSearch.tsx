@@ -3,9 +3,8 @@ import { useState } from "react";
 import { findPlaces } from "../../utils/places";
 
 const PlaceSearch = () => {
-  // const [value, setValue] = useState<string | null>(null);
+  const [results, setResults] = useState<any[]>([]);
 
-  const [results, setResults] = useState<google.maps.places.Place[]>([]);
   return (
     <Autocomplete
       name="location"
@@ -17,11 +16,12 @@ const PlaceSearch = () => {
         const places = await findPlaces(e.target.value);
         setResults(places);
       }}
-      items={results}
-      className="max-w-xs"
-      // selectedKey={value}
-      onSelectionChange={(e) => {
-        console.log(e);
+      items={results.map((place) => ({ id: place.id, displayName: place.name }))}
+      className="max-w-xs bg-slate-100 text-black"
+      onSelectionChange={(selectedItem) => {
+        if (selectedItem) {
+          console.log(selectedItem); 
+        }
       }}
     >
       {(item) => (

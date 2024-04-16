@@ -3,11 +3,23 @@ interface ObjectType {
   value: string;
 }
 
+// city:address.city,
+//       state:address.state,
+//       country:address.country,
+//       lattitude:address.lattitude,
+//       longitude:address.longitude
+
 export type IUser = {
   name: string;
   email: string;
   mobile: string;
-  location: string;
+  location: {
+    city:string,
+    country:string,
+    state:string,
+    latitude:number,
+    longitude:number
+  };
   bio: string;
   avatar: string;
   pronounns: string;
