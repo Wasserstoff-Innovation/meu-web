@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           "isOnBoarded",
           Boolean(latestUserData?.data).toString()
         );
-        console.log({ latestUserData });
+        // console.log({ latestUserData });
         dispatch(updateUserDoc(latestUserData));
       }
     };

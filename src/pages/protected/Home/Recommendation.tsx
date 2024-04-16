@@ -1,20 +1,19 @@
-import { useState } from "react";
 import Navbar from "../../../components/Home/Navbar";
-// import Footer from "../../../components/Home/Footer";
-import { RecommendedUsers } from "../RecommendationUsers";
 import Layout from "./Layout";
+import { useAppSelector } from "../../../redux/hooks";
 
 const Recommendation = () => {
-  const [users, setUsers] = useState(RecommendedUsers);
+  // const [users, setUsers] = useState(RecommendedUsers);
+  const { recommendedCards } = useAppSelector((state) => state.main);
 
-  const sendFriendRequest = (id: number) => {
+  const sendFriendRequest = (id: string) => {
     console.log("Friend Request is sent...!", id);
   };
 
-  const handleClick = (id: number) => {
-    const tempArr = users.filter((user) => user.id !== id);
-    setUsers(tempArr);
-  };
+  // const handleClick = (id: number) => {
+  //   const tempArr = users.filter((user) => user.id !== id);
+  //   setUsers(tempArr);
+  // };
 
   return (
     <>
@@ -23,7 +22,7 @@ const Recommendation = () => {
           <Navbar />
           <div className="flex flex-col gap-4 overflow-y-auto h-[83vh]">
             <h1>Recommended Users</h1>
-            {users.map((user) => (
+            {recommendedCards.map((user) => (
               <div key={user.id} className="flex items-center justify-between ">
                 <div className="flex items-center gap-4">
                   <div className="rounded-full cursor-pointer size-12 bg-[url('./avatar.png')] bg-cover"></div>
@@ -32,7 +31,7 @@ const Recommendation = () => {
                     <div className="text-[1rem] cursor-pointer">
                       {user.name}
                     </div>
-                    <div className="text-[0.8rem]">{user.username}</div>
+                    <div className="text-[0.8rem]">{user.bio}</div>
                   </div>
                 </div>
                 <div className="flex gap-4 items-center">
@@ -44,7 +43,7 @@ const Recommendation = () => {
                     Add
                   </button>
                   <img
-                    onClick={() => handleClick(user.id)}
+                    // onClick={() => handleClick(user.id)}
                     src="./close.svg"
                     alt="close"
                     className="size-3 cursor-pointer"

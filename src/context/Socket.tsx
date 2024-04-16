@@ -1,26 +1,28 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import socketio from "socket.io-client";
-import { useAppSelector } from "../redux/hooks";
-import { toast } from "react-toastify";
-import { unsafeIdentity } from "@junobuild/core";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { Doc, unsafeIdentity } from "@junobuild/core";
+import { IUser } from "../types/user";
+import { socketEventHandler } from "../socket";
+// import { checkDelegationChain } from "../utils";
 
-const getNonceAndSignature = async () => {
+const getAuthData = async (userDoc: Doc<IUser>) => {
+  // checkDelegationChain();
   const identity = await unsafeIdentity();
   const principal = identity.getPrincipal();
-  console.log({ principal });
   return {
     principal: principal.toText(),
+    key: userDoc.key,
   };
 };
 // // Function to establish a socket connection with authorization token
-const getSocket = async () => {
-  const auth = await getNonceAndSignature();
-  // console.log("auth", auth);
+const getSocket = async (userDoc: Doc<IUser>) => {
+  const auth = await getAuthData(userDoc);
 
   // Create a socket connection with the provided URI and authentication
   const socket = socketio(import.meta.env.VITE_SOCKET_URL, {
     withCredentials: true,
-    autoConnect: true,
+    autoConnect: false,
     auth: auth,
   });
   return socket;
@@ -42,51 +44,36 @@ const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     null
   );
 
+  const dispatch = useAppDispatch();
+
   const { userDoc } = useAppSelector((state) => state.main);
   // Set up the socket connection when the component mounts
   useEffect(() => {
-    // if (!userDoc) {
-    //   return;
-    // }
-    const socketSetter = async () => {
-      setSocket(await getSocket());
-    };
-    // socketSetter();
-  }, [userDoc]);
-
-  // mount and unmount listeners
-  useEffect(() => {
-    if (!socket) {
+    if (!userDoc?.data.id) {
       return;
     }
-    socket.on("connect", () => {
-      console.log("connected");
-    });
-
-    // socket.on('ai-message', async (data) => {
-    //   // console.log('chat-message', data);
-    //   // dispatch(updateChats(data));
-    //   // const saved =
-    //   await addChat(realm, data);
-    //   // console.log('saved Chat Message', saved);
-    // });
-
-    socket.on("socket-error-event", (errMsg) => {
-      console.log("socket-error-event", errMsg);
-      toast.error(errMsg);
-    });
-
-    socket.on("disconnect", () => {
-      console.log("socket disconnected");
-    });
-    return () => {
-      socket.off("connect");
-      socket.off("chat-message");
-      socket.off("socket-error-event");
-      socket.off("disconnect");
+    const socketSetter = async () => {
+      setSocket(await getSocket(userDoc));
     };
+    socketSetter();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (socket && userDoc?.data.id) {
+      socket.connect();
+      socketEventHandler(socket, userDoc.data, dispatch);
+    }
+    return () => {
+      if (socket) {
+        socket.disconnect();
+      }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
+
+
   return (
     <SocketContext.Provider value={{ socket }}>
       {children}
@@ -94,6 +81,5 @@ const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-// Export the SocketProvider component and the useSocket hook for other components to use
 // eslint-disable-next-line react-refresh/only-export-components
 export { SocketProvider, useSocket };

@@ -8,7 +8,7 @@ export const getUserDataCards = async (user: User | null | undefined) => {
     const docs = await listDocs<IUser>({
       collection: "cards",
     });
-    console.log(docs);
+    // console.log(docs);
     return correctTimeStamps(docs.items[0]);
   } catch (e) {
     console.error(e);
@@ -23,11 +23,12 @@ export const setUserData = async (
   try {
     if (!user || user === null) return undefined;
     console.log(data);
+    const id = crypto.randomUUID();
     const createdDoc = await setDoc<IUser>({
       collection: "cards",
       doc: {
-        key: crypto.randomUUID(),
-        data,
+        key: id,
+        data: { ...data, id: id },
         updated_at: BigInt(Date.now()),
       },
     });
