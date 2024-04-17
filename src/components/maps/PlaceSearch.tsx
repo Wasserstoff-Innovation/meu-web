@@ -1,31 +1,33 @@
+import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useState } from "react";
 import { findPlaces } from "../../utils/places";
 
 const PlaceSearch = () => {
   const [results, setResults] = useState<any[]>([]);
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const places = await findPlaces(e.target.value);
-    setResults(places);
-    console.log("result---------------->",places);
-  };
-
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Gurgugram, Haryana, India"
-        onChange={handleChange}
-        className="max-w-xs bg-slate-100 text-black"
-      />
-      {results.length > 0 && (
-        <ul>
-          {results.map((place) => (
-            <li key={place.id}>{place.name}</li>
-          ))}
-        </ul>
+    <Autocomplete
+      name="location"
+      type="text"
+      placeholder="Gurgugram, Haryana, India"
+      isClearable
+      variant="bordered"
+      onChange={async (e) => {
+        const places = await findPlaces(e.target.value);
+        setResults(places);
+      }}
+      items={results.map((place) => ({ id: place.id, displayName: place.name }))}
+      className="max-w-xs bg-slate-100 text-black"
+      onSelectionChange={(selectedItem) => {
+        if (selectedItem) {
+          console.log(selectedItem); 
+        }
+      }}
+    >
+      {(item) => (
+        <AutocompleteItem key={item.id}>{item.displayName}</AutocompleteItem>
       )}
-    </div>
+    </Autocomplete>
   );
 };
 

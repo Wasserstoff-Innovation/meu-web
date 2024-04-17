@@ -71,7 +71,7 @@ export const router = createBrowserRouter(
           <Route path="ob7" element={<Ob7 />} />
         </Route>
       </Route>
-      <Route path="ob1" loader={loginLoader} element={<Ob1 />} />
+      <Route path="login" loader={loginLoader} element={<Login />} />
       <Route path="auth/callback/twitter" element={<Twitter />} />
       <Route path="auth/callback/linkedin" element={<LinkedIn />} />
     </Route>
