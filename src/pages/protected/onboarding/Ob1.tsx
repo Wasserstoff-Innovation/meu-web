@@ -11,8 +11,11 @@ import LocationSearch from "../../../components/LocationSearch";
 interface UserData {
   name: string;
   email: string;
-  countryCode: string;
-  mobile: string;
+  // countryCode: string;
+  mobile: {
+    countryCode: string;
+    mobileNumber: string;
+  };
   location: {
     city: string;
     country: string;
@@ -35,11 +38,20 @@ const Ob1 = () => {
   const { userData } = useAppSelector((state) => state.onBoarding);
   //console.log("userData", userData);
   const [data, setData] = useState<UserData>({
-    name: userData.name,
-    email: userData.email,
-    countryCode: "+91",
-    mobile: userData.mobile,
-    location: userData.location,
+    name: "",
+    email: "",
+
+    mobile: {
+      countryCode: "+91",
+      mobileNumber: "",
+    },
+    location: {
+      city: "",
+      state: "",
+      country: "",
+      latitude: 0,
+      longitude: 0,
+    },
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -54,7 +66,11 @@ const Ob1 = () => {
     const newErrors: FormErrors = {};
     let hasError = false;
 
-    if (data.name.length < 2 || data.name.length > 50) {
+    if (
+      data.name.trim().length === 0 ||
+      data.name.length < 2 ||
+      data.name.length > 50
+    ) {
       newErrors.name = "Name must be between 2 and 50 characters";
       hasError = true;
     }
@@ -68,18 +84,18 @@ const Ob1 = () => {
     const mobilePattern = /^\+[1-9]\d{1,3}[ -]?\d{6,14}$/;
 
     if (
-      (data.countryCode + data.mobile).trim() !== "" &&
-      !mobilePattern.test(data.countryCode + data.mobile)
+      (data.mobile.countryCode.trim() !== "" ||
+        data.mobile.mobileNumber.trim() !== "") &&
+      !mobilePattern.test(data.mobile.countryCode + data.mobile.mobileNumber)
     ) {
       newErrors.mobile = "Invalid mobile number";
       hasError = true;
     }
 
-    // if (data.locationError.trim() === "") {
-    //   newErrors.locationError = "Location cannot be empty";
-    //   hasError = true;
-    // }
-    if (data.location == undefined) {
+    if (
+      data.location.city.trim() === "" ||
+      data.location.country.trim() === ""
+    ) {
       newErrors.location = "Location cannot be empty";
       hasError = true;
     }
@@ -91,12 +107,14 @@ const Ob1 = () => {
         ...userData,
         name: data.name,
         email: data.email,
-        countryCode: data.countryCode,
-        mobile: data.mobile,
+        mobile: {
+          countryCode: data.mobile.countryCode,
+          mobileNumber: data.mobile.mobileNumber,
+        },
         location: data.location,
       };
       dispatch(updateUserData(updatedUserData));
-      navigate("/onboard/ob2"); // Ensure "/ob2" is the correct path for navigation
+      navigate("/onboard/ob2");
     }
   };
 
@@ -134,7 +152,6 @@ const Ob1 = () => {
         >
           <img src="/x.svg" alt="X" className="h-6 w-6" />X (Twitter)
         </Button>
-        {/* </a> */}
       </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Full Name </p>
@@ -179,7 +196,13 @@ const Ob1 = () => {
             id=""
             value={data.countryCode}
             onChange={(e) => {
-              setData((prev) => ({ ...prev, countryCode: e.target.value }));
+              setData((prev) => ({
+                ...prev,
+                mobile: {
+                  countryCode: e.target.value,
+                  mobileNumber: data.mobile.mobileNumber,
+                },
+              }));
             }}
           >
             {countryOptions.map((country, index) => (
@@ -188,8 +211,8 @@ const Ob1 = () => {
                 value={country.value}
                 // selected={country.value === data.countryCode}
               >
-                {country.value === data.countryCode
-                  ? data.countryCode
+                {country.value === data.mobile.countryCode
+                  ? data.mobile.countryCode
                   : country.label}
               </option>
             ))}
@@ -200,8 +223,8 @@ const Ob1 = () => {
             type="tel"
             placeholder="99999 99999 99999"
             className="ml-2 hover:bg-[#e5e7eb] rounded-md"
-            onChange={handleChange}
-            value={data.mobile}
+            onChange={handleChangeMobile}
+            value={data.mobile.mobileNumber}
           />
         </div>
         {errors.mobile && (
