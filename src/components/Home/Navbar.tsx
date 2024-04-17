@@ -1,7 +1,7 @@
 import { Navbar, NavbarBrand } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 
-export default function App() {
+export default function App({ avatar }: { avatar?: string }) {
   const Navigate = useNavigate();
 
   return (
@@ -13,7 +13,7 @@ export default function App() {
           }}
         >
           <div className=" size-10 ">
-            <img src="./avatar.png" alt="avatar" className="rounded-full" />
+            <img src={avatar ? avatar : "./avatar.png"} alt="avatar" className="rounded-full" />
           </div>
         </NavbarBrand>
         <div className="flex gap-8 ">

@@ -1,31 +1,36 @@
 import Navbar from "../../../components/Home/Navbar";
 import Layout from "./Layout";
 import { useAppSelector } from "../../../redux/hooks";
+import { useNavigate } from "react-router-dom";
 
 const Recommendation = () => {
-  // const [users, setUsers] = useState(RecommendedUsers);
-  const { recommendedCards } = useAppSelector((state) => state.main);
-
+  const { recommendedCards, userDoc } = useAppSelector((state) => state.main);
+  const navigate = useNavigate();
   const sendFriendRequest = (id: string) => {
     console.log("Friend Request is sent...!", id);
   };
-
-  // const handleClick = (id: number) => {
-  //   const tempArr = users.filter((user) => user.id !== id);
-  //   setUsers(tempArr);
-  // };
 
   return (
     <>
       <Layout>
         <div className="">
-          <Navbar />
+          <Navbar avatar={userDoc?.data.avatar} />
           <div className="flex flex-col gap-4 overflow-y-auto h-[83vh]">
             <h1>Recommended Users</h1>
             {recommendedCards.map((user) => (
-              <div key={user.id} className="flex items-center justify-between ">
+              <div
+                key={user.id}
+                className="flex items-center justify-between"
+                onClick={() => {
+                  navigate(`/card/${user.id}`);
+                }}
+              >
                 <div className="flex items-center gap-4">
-                  <div className="rounded-full cursor-pointer size-12 bg-[url('./avatar.png')] bg-cover"></div>
+                  <img
+                    src={user.avatar}
+                    alt="avatar"
+                    className="rounded-full size-10"
+                  />
 
                   <div>
                     <div className="text-[1rem] cursor-pointer">

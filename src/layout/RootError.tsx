@@ -7,14 +7,18 @@ const RootError = (): ReactNode => {
   const err = useRouteError() as Error & {
     status?: number;
     statusText?: string;
+    data?: { message: string };
   };
+  console.log(err);
 
   return (
     <>
       <Header />
       <div className="flex flex-1 justify-center items-center">
-        <strong>Error {err.status || 500}</strong>:{" "}
-        {err.statusText ?? err.message}
+        <p>
+          <strong>Error {err.status || 500}</strong>: {err?.data?.message}
+          {err.statusText ?? err.message}
+        </p>
       </div>
       <Footer />
     </>

@@ -32,8 +32,10 @@ import {
   homeLoader,
   loginLoader,
   onBoardingLoader,
+  profileLoader,
   protectedLoader,
 } from "./loaders";
+import Profile from "../pages/protected/Profile";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -67,11 +69,11 @@ export const router = createBrowserRouter(
           <Route path="ob3" element={<Ob3 />} />
           <Route path="ob4" element={<Ob4 />} />
           <Route path="ob5" element={<Ob5 />} />
-          {/* <Route path="ob6" element={<Ob6 />} /> */}
           <Route path="ob7" element={<Ob7 />} />
         </Route>
       </Route>
       <Route path="login" loader={loginLoader} element={<Login />} />
+      <Route path="card/:id" loader={profileLoader} element={<Profile />} />
       <Route path="auth/callback/twitter" element={<Twitter />} />
       <Route path="auth/callback/linkedin" element={<LinkedIn />} />
     </Route>

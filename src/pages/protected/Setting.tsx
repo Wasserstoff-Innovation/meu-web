@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { signOut } from "@junobuild/core";
 import { useAppSelector } from "../../redux/hooks";
 import { persistor } from "../../redux/store";
+import { Avatar } from "@nextui-org/react";
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -77,13 +78,7 @@ const Settings = () => {
           className="flex gap-3 bg-[#313437] p-5 rounded-md cursor-pointer"
           onClick={handlenavigate}
         >
-          <div className="w-12 h-12 rounded-full bg-white">
-            <img
-              src={userDoc?.data.avatar}
-              alt="avatar"
-              className="rounded-full"
-            />
-          </div>
+          <Avatar src={userDoc?.data.avatar} size="lg" />
           <div className="flex flex-col">
             <div className="font-bold text-xl">{userDoc?.data.name}</div>
             <div className="font-semibold text-sm">{userDoc?.data.purpose}</div>

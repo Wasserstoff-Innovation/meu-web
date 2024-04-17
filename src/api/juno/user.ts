@@ -1,4 +1,4 @@
-import { User, listDocs, setDoc } from "@junobuild/core";
+import { User, getDoc, listDocs, setDoc } from "@junobuild/core";
 import { IUser } from "../../types/user";
 import { correctTimeStamps } from "../../utils";
 
@@ -46,12 +46,16 @@ export const updateUserData = async (
 ) => {
   try {
     if (!user || user === null) return undefined;
+    const latestDoc = await getDoc<IUser>({
+      collection: "cards",
+      key,
+    });
     const updatedDoc = await setDoc<IUser>({
       collection: "cards",
       doc: {
         key,
         data,
-        updated_at: BigInt(Date.now()),
+        updated_at: latestDoc?.updated_at,
       },
     });
     return correctTimeStamps(updatedDoc);

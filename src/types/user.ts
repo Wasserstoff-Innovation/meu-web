@@ -3,12 +3,6 @@ interface ObjectType {
   value: string;
 }
 
-// city:address.city,
-//       state:address.state,
-//       country:address.country,
-//       lattitude:address.lattitude,
-//       longitude:address.longitude
-
 export type IUser = {
   id: string;
   name: string;
@@ -26,7 +20,7 @@ export type IUser = {
   };
   bio: string;
   avatar: string;
-  pronounns: string;
+  pronouns: string;
   interests: ObjectType[];
   purpose: string;
   linkedin: {

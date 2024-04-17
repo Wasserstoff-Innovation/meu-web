@@ -1,16 +1,31 @@
-const data = [
-  { icon: "./04 Infinity Mark HEX black @2x.svg", name: "infinite" },
-  { icon: "./Vector.svg", name: "linkedin" },
+import { IUser } from "../../types/user";
 
-  { icon: "./telegram.svg", name: "telegram" },
-  { icon: "./twitter.svg", name: "twitter" },
-  { icon: "./internet.svg", name: "internet" },
-  { icon: "./link.svg", name: "link" },
-];
+type SocialMediaProps = {
+  linkedIn?: IUser["linkedin"];
+  twitter?: IUser["twitter"];
+};
 
-const SocialMedia = () => {
+const SocialMedia = ({ linkedIn, twitter }: SocialMediaProps) => {
+  const data = [
+    // { icon: "../04 Infinity Mark HEX black @2x.svg", name: "infinite" },
+    {
+      icon: "../Vector.svg",
+      name: "linkedin",
+      verified: !!linkedIn?.email_verified,
+      url: `https://www.linkedin.com/in/${linkedIn?.name}`,
+    },
+    // { icon: "../telegram.svg", name: "telegram" },
+    {
+      icon: "../twitter.svg",
+      name: "twitter",
+      verified: !!twitter?.username,
+      url: `https://twitter.com/${twitter?.username}`,
+    },
+    // { icon: "../internet.svg", name: "internet" },
+    // { icon: "../link.svg", name: "link" },
+  ];
   return (
-    <div className="flex gap-2 justify-evenly">
+    <div className="flex gap-4 justify-start">
       {data.map((social, index) => (
         <div
           className="bg-white p-1 sm:p-2 sm:px-4 cursor-pointer rounded-full"

@@ -1,17 +1,43 @@
-import {  useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomAvatar from "../../../components/common/CustomAvatar";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { Button } from "@nextui-org/react";
+import { updateUserData } from "../../../api/juno/user";
+import { AuthContext } from "../../../context/Auth";
+import { updateUserDoc } from "../../../redux/features/mainSlice";
 
 const EditProfile = () => {
-  const { userDoc} = useAppSelector((state) => state.main);
+  const { userDoc } = useAppSelector((state) => state.main);
+  const { user } = useContext(AuthContext);
   const Navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const backNavigate = () => {
     Navigate("/settings");
   };
-  const [avatar, setAvatar] = useState<string>(
-    userDoc?.data.avatar || ""
-  );
+  const [avatar, setAvatar] = useState<string>(userDoc?.data.avatar || "");
+  const [data, setData] = useState({
+    name: userDoc?.data.name || "",
+    pronouns: userDoc?.data.pronouns || "",
+    bio: userDoc?.data.bio || "",
+  });
+
+  const saveData = async () => {
+    try {
+      if (!userDoc?.key) return;
+      const savedDoc = await updateUserData(user, userDoc.key, {
+        ...userDoc.data,
+        ...data,
+        avatar,
+      });
+      console.log(savedDoc);
+      if (!savedDoc) return;
+      dispatch(updateUserDoc(savedDoc));
+      Navigate("/settings");
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <div className="flex flex-col justify-between gap-6">
@@ -30,22 +56,6 @@ const EditProfile = () => {
         <div className="flex justify-center mt-10">
           <CustomAvatar setSrc={setAvatar} src={avatar} />
         </div>
-        {/* <div className="-m-[28px] bg-gradient-to-b to-black-900 from-black-0">
-          <img src={profileImg} alt="profileimg" />
-        </div> */}
-        {/* <div className="flex gap-2 justify-center text-xl font-semibold">
-          <label htmlFor="profile-picture" className="cursor-pointer flex gap-2 justify-center">
-            <img src="/camara.svg" alt="profileimg" />
-            <div>Update Profile Picture</div>
-          </label>
-          <input
-            id="profile-picture"
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleChange}
-          />
-        </div> */}
       </div>
       <div className="flex flex-col gap-4">
         <div className="text-xl font-semibold">BASIC DETAILS</div>
@@ -55,45 +65,39 @@ const EditProfile = () => {
             className="bg-[#313437] border border-white rounded-md px-3 py-2 text-white w-full"
             name="name"
             type="text"
-            placeholder="John Doe"
-            // onChange={handleChange}
+            value={data.name}
+            onChange={(e) => setData({ ...data, name: e.target.value })}
           />
         </div>
-        <div className="w-full">
-          <p className="text-white text-lg mb-1">Username</p>
-          <input
-            className="bg-[#313437] border border-white rounded-md px-3 py-2 text-white w-full"
-            name="name"
-            type="text"
-            placeholder="@johndoe"
-            // onChange={handleChange}
-          />
-        </div>
+
         <div className="w-full">
           <p className="text-white text-lg mb-1">Pronouns </p>
           <input
             className="bg-[#313437] border border-white rounded-md px-3 py-2 text-white w-full"
-            name="name"
             type="text"
-            placeholder="he/her"
-            // onChange={handleChange}
+            value={data.pronouns}
+            onChange={(e) => setData({ ...data, pronouns: e.target.value })}
           />
         </div>
         <div className="w-full">
           <p className="text-white text-lg mb-1">Bio </p>
           <input
             className="bg-[#313437] border border-white rounded-md px-3 py-2 text-white w-full"
-            name="name"
             type="text"
             placeholder="Bio..."
-            // onChange={handleChange}
+            value={data.bio}
+            onChange={(e) => setData({ ...data, bio: e.target.value })}
           />
         </div>
+
+        <div className="w-full flex  justify-center mt-4">
+          <Button onClick={saveData}>Save</Button>
+        </div>
       </div>
-      <hr className="border-[#D9D9D9] border-[0.5px]" />
+      {/* <hr className="border-[#D9D9D9] border-[0.5px]" />
       <div>
         <div className="text-xl font-semibold">PROFESSIONAL DETAILS</div>
-      </div>
+      </div> */}
     </div>
   );
 };
