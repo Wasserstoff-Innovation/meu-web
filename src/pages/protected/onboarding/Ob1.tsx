@@ -13,9 +13,9 @@ interface UserData {
   email: string;
   // countryCode: string;
   mobile: {
-    countryCode:string,
-    mobileNumber:string
-  },
+    countryCode: string;
+    mobileNumber: string;
+  };
   location: {
     city: string;
     country: string;
@@ -38,14 +38,20 @@ const Ob1 = () => {
   const { userData } = useAppSelector((state) => state.onBoarding);
   //console.log("userData", userData);
   const [data, setData] = useState<UserData>({
-    name: userData.name,
-    email: userData.email,
-    
+    name: "",
+    email: "",
+
     mobile: {
       countryCode: "+91",
-      mobileNumber:userData.mobile.mobileNumber
+      mobileNumber: "",
     },
-    location: userData.location,
+    location: {
+      city: "",
+      state: "",
+      country: "",
+      latitude: 0,
+      longitude: 0,
+    },
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -60,7 +66,11 @@ const Ob1 = () => {
     const newErrors: FormErrors = {};
     let hasError = false;
 
-    if (data.name.length < 2 || data.name.length > 50) {
+    if (
+      data.name.trim().length === 0 ||
+      data.name.length < 2 ||
+      data.name.length > 50
+    ) {
       newErrors.name = "Name must be between 2 and 50 characters";
       hasError = true;
     }
@@ -74,18 +84,18 @@ const Ob1 = () => {
     const mobilePattern = /^\+[1-9]\d{1,3}[ -]?\d{6,14}$/;
 
     if (
-      (data.mobile.countryCode + data.mobile.mobileNumber).trim() !== "" &&
+      (data.mobile.countryCode.trim() !== "" ||
+        data.mobile.mobileNumber.trim() !== "") &&
       !mobilePattern.test(data.mobile.countryCode + data.mobile.mobileNumber)
     ) {
       newErrors.mobile = "Invalid mobile number";
       hasError = true;
     }
 
-    // if (data.locationError.trim() === "") {
-    //   newErrors.locationError = "Location cannot be empty";
-    //   hasError = true;
-    // }
-    if (data.location == undefined) {
+    if (
+      data.location.city.trim() === "" ||
+      data.location.country.trim() === ""
+    ) {
       newErrors.location = "Location cannot be empty";
       hasError = true;
     }
@@ -97,14 +107,14 @@ const Ob1 = () => {
         ...userData,
         name: data.name,
         email: data.email,
-        mobile:{
+        mobile: {
           countryCode: data.mobile.countryCode,
-          mobileNumber:data.mobile.mobileNumber
+          mobileNumber: data.mobile.mobileNumber,
         },
         location: data.location,
       };
       dispatch(updateUserData(updatedUserData));
-      navigate("/onboard/ob2"); 
+      navigate("/onboard/ob2");
     }
   };
 
@@ -122,15 +132,15 @@ const Ob1 = () => {
     });
   }
 
-  const handleChangeMobile = (e:React.ChangeEvent<HTMLInputElement>)=>{
+  const handleChangeMobile = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({
       ...data,
-      mobile:{
-        countryCode:data.mobile.countryCode,
-        mobileNumber:e.target.value
-      }
-    })
-  }
+      mobile: {
+        countryCode: data.mobile.countryCode,
+        mobileNumber: e.target.value,
+      },
+    });
+  };
 
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
@@ -160,7 +170,6 @@ const Ob1 = () => {
         >
           <img src="/x.svg" alt="X" className="h-6 w-6" />X (Twitter)
         </Button>
-        {/* </a> */}
       </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Full Name </p>
@@ -204,7 +213,13 @@ const Ob1 = () => {
             name="countryCode"
             id=""
             onChange={(e) => {
-              setData((prev) => ({ ...prev, mobile:{countryCode: e.target.value , mobileNumber:data.mobile.mobileNumber} }));
+              setData((prev) => ({
+                ...prev,
+                mobile: {
+                  countryCode: e.target.value,
+                  mobileNumber: data.mobile.mobileNumber,
+                },
+              }));
             }}
           >
             {countryOptions.map((country, index) => (
