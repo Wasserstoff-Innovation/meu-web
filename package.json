@@ -11,6 +11,7 @@
     "postinstall": "node -e \"require('fs').cpSync('node_modules/@junobuild/core/dist/workers/', './public/workers', {recursive: true});\""
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.6",
     "@junobuild/core": "^0.0.47",
     "@junobuild/vite-plugin": "^0.0.8",
     "@nextui-org/react": "^2.2.10",

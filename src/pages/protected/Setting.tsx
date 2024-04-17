@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { signOut } from "@junobuild/core";
 import { useAppSelector } from "../../redux/hooks";
+import { persistor } from "../../redux/store";
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -134,6 +135,7 @@ const Settings = () => {
               await signOut();
               sessionStorage.removeItem("user");
               sessionStorage.removeItem("isOnBoarded");
+              await persistor.purge();
               navigate("/login");
             }}
           >

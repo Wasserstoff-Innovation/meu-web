@@ -1,7 +1,5 @@
-const apiKey = "AIzaSyCtpFo2UiK9m9aklXh8-uGRUhEwfuv_YQw";
-import React, { useEffect, useRef} from "react";
-
-const mapApiJs = "https://maps.googleapis.com/maps/api/js";
+import { Loader } from "@googlemaps/js-api-loader";
+import React, { useEffect, useRef } from "react";
 
 interface Address {
   city: string;
@@ -15,19 +13,11 @@ interface Address {
 interface LocationSearchProps {
   onLocationChange: (location: Address) => void;
 }
-
-function loadAsyncScript(src: string): Promise<HTMLScriptElement> {
-  return new Promise((resolve) => {
-    const script = document.createElement("script");
-    Object.assign(script, {
-      type: "text/javascript",
-      async: true,
-      src,
-    });
-    script.addEventListener("load", () => resolve(script));
-    document.head.appendChild(script);
-  });
-}
+const loader = new Loader({
+  apiKey: "AIzaSyCtpFo2UiK9m9aklXh8-uGRUhEwfuv_YQw",
+  version: "weekly",
+  libraries: ["places"],
+});
 
 const extractAddress = (
   place: google.maps.places.PlaceResult | undefined
@@ -68,7 +58,7 @@ const extractAddress = (
 
   if (place && place.geometry && place.geometry.location) {
     address.latitude = place.geometry.location.lat();
-   // console.log("=============>lat",address.latitude)
+    // console.log("=============>lat",address.latitude)
     address.longitude = place.geometry.location.lng();
     //console.log("=============>long",address.longitude)
   }
@@ -76,16 +66,10 @@ const extractAddress = (
   return address;
 };
 
-const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationChange }) => {
+const LocationSearch: React.FC<LocationSearchProps> = ({
+  onLocationChange,
+}) => {
   const searchInput = useRef<HTMLInputElement>(null);
-
-  const initMapScript = () => {
-    if (window.google) {
-      return Promise.resolve();
-    }
-    const src = `${mapApiJs}?key=${apiKey}&libraries=places&v=weekly`;
-    return loadAsyncScript(src);
-  };
 
   const onChangeAddress = (autocomplete: google.maps.places.Autocomplete) => {
     const place = autocomplete.getPlace();
@@ -100,13 +84,14 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationChange }) => 
       searchInput.current
     );
     autocomplete.setFields(["address_component", "geometry"]);
-    autocomplete.addListener("place_changed", () =>
-      onChangeAddress(autocomplete)
-    );
+    autocomplete.addListener("place_changed", () => {
+      onChangeAddress(autocomplete);
+      
+    });
   };
 
   useEffect(() => {
-    initMapScript().then(() => initAutocomplete());
+    loader.importLibrary("places").then(() => initAutocomplete());
   }, []);
 
   return (

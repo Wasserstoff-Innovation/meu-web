@@ -100,19 +100,11 @@ const Ob1 = () => {
     }
   };
 
-  function handleLocationChange(address: any) {
+  const handleLocationChange = (address: UserData["location"]) => {
+    // console.log("address", address);
     //console.log("=========================>",typeof address)
-    setData({
-      ...data,
-      location: {
-        city: address.city,
-        state: address.state,
-        country: address.country,
-        latitude: address.latitude,
-        longitude: address.longitude,
-      },
-    });
-  }
+    return setData((prev) => ({ ...prev, location: address }));
+  };
 
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
@@ -185,6 +177,7 @@ const Ob1 = () => {
             className="w-1/4 rounded-md p-2 hover:bg-[#e5e7eb]"
             name="countryCode"
             id=""
+            value={data.countryCode}
             onChange={(e) => {
               setData((prev) => ({ ...prev, countryCode: e.target.value }));
             }}
@@ -193,7 +186,7 @@ const Ob1 = () => {
               <option
                 key={index}
                 value={country.value}
-                selected={country.value === data.countryCode}
+                // selected={country.value === data.countryCode}
               >
                 {country.value === data.countryCode
                   ? data.countryCode

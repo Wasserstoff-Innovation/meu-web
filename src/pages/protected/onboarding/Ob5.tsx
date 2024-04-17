@@ -9,6 +9,8 @@ import EarthLottie from "../../../lottie/earth.json";
 import { setUserData } from "../../../api/juno/user";
 import { AuthContext } from "../../../context/Auth";
 import { updateUserDoc } from "../../../redux/features/mainSlice";
+import { updateUserData } from "../../../redux/features/onBoardingSlice";
+import { EmptyUser } from "../../../constants/empty";
 
 const Ob5 = () => {
   const navigate = useNavigate();
@@ -17,14 +19,14 @@ const Ob5 = () => {
   const { user } = useContext(AuthContext);
   const [showLoader, setShowLoader] = useState(false);
 
-
   const handleNext = async () => {
     setShowLoader(true);
     const userDoc = await setUserData(user, userData);
     if (userDoc) {
       console.log("User data set successfully");
       dispatch(updateUserDoc(userDoc));
-      sessionStorage.setItem("isOnBoarded", "true")
+      dispatch(updateUserData(EmptyUser));
+      sessionStorage.setItem("isOnBoarded", "true");
       navigate("/share-profile");
     } else {
       console.error("Failed to set user data");
