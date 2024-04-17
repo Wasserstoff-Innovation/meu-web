@@ -13,7 +13,10 @@ export type IUser = {
   id: string;
   name: string;
   email: string;
-  mobile: string;
+  mobile: {
+    countryCode:string,
+    mobileNumber:string
+  };
   location: {
     city:string,
     country:string,

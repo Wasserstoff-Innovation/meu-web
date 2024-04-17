@@ -2,7 +2,10 @@ export const EmptyUser = {
   id: "",
   name: "",
   email: "",
-  mobile: "",
+  mobile: {
+    countryCode:"+91",
+    mobileNumber:""
+  },
   location: {
     city:"",
     state:"",
