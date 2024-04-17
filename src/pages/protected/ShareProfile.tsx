@@ -1,11 +1,10 @@
-
 import QRCode from "qrcode.react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, Chip } from "@nextui-org/react";
 import { useAppSelector } from "../../redux/hooks";
 
 const ShareProfile = () => {
-  const { userDoc} = useAppSelector((state) => state.main);
+  const { userDoc } = useAppSelector((state) => state.main);
   const navigate = useNavigate();
 
   const socialIcons = [
@@ -60,8 +59,13 @@ const ShareProfile = () => {
             </div>
             <div className="text-sm">{userDoc?.data.bio}</div>
             <div className="text-sm">{userDoc?.data.email}</div>
-            <div className="text-sm">{userDoc?.data.mobile}</div>
-            <div className="text-sm">{userDoc?.data.location.city} , {userDoc?.data.location.country}</div>
+            <div className="text-sm">
+              {userDoc?.data.mobile.countryCode}{" "}
+              {userDoc?.data.mobile.mobileNumber}
+            </div>
+            <div className="text-sm">
+              {userDoc?.data.location.city} , {userDoc?.data.location.country}
+            </div>
             <Chip color="success" className="text-sm">
               {userDoc?.data.purpose}
             </Chip>

@@ -7,7 +7,6 @@ interface Address {
   country: string;
   latitude: number;
   longitude: number;
-  plain(): string;
 }
 
 interface LocationSearchProps {
@@ -28,11 +27,6 @@ const extractAddress = (
     country: "",
     latitude: 0,
     longitude: 0,
-    plain() {
-      const city = this.city ? this.city + ", " : "";
-      const state = this.state ? this.state + ", " : "";
-      return city + state + this.country;
-    },
   };
 
   if (!Array.isArray(place?.address_components)) {

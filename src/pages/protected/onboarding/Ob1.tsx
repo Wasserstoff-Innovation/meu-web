@@ -38,20 +38,10 @@ const Ob1 = () => {
   const { userData } = useAppSelector((state) => state.onBoarding);
   //console.log("userData", userData);
   const [data, setData] = useState<UserData>({
-    name: "",
-    email: "",
-
-    mobile: {
-      countryCode: "+91",
-      mobileNumber: "",
-    },
-    location: {
-      city: "",
-      state: "",
-      country: "",
-      latitude: 0,
-      longitude: 0,
-    },
+    name: userData.name,
+    email: userData.email,
+    mobile: userData.mobile,
+    location: userData.location,
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -194,7 +184,7 @@ const Ob1 = () => {
             className="w-1/4 rounded-md p-2 hover:bg-[#e5e7eb]"
             name="countryCode"
             id=""
-            value={data.countryCode}
+            value={data.mobile.countryCode}
             onChange={(e) => {
               setData((prev) => ({
                 ...prev,
@@ -223,7 +213,15 @@ const Ob1 = () => {
             type="tel"
             placeholder="99999 99999 99999"
             className="ml-2 hover:bg-[#e5e7eb] rounded-md"
-            onChange={handleChangeMobile}
+            onChange={(e) => {
+              setData((prev) => ({
+                ...prev,
+                mobile: {
+                  countryCode: data.mobile.countryCode,
+                  mobileNumber: e.target.value,
+                },
+              }));
+            }}
             value={data.mobile.mobileNumber}
           />
         </div>
