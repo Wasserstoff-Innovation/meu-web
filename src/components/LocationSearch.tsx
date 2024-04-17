@@ -115,7 +115,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationChange }) => 
         ref={searchInput}
         type="text"
         placeholder="Search location..."
-        className="w-full p-2 rounded-lg text-black hover:bg-[#e5e7eb]"
+        className="w-full p-2 rounded-lg text-black  bg-slate-50 hover:bg-[#e5e7eb]"
       />
     </div>
   );
