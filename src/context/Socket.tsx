@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Doc, unsafeIdentity } from "@junobuild/core";
 import { IUser } from "../types/user";
 import { socketEventHandler } from "../socket";
+import { getPublicData } from "../utils";
 // import { checkDelegationChain } from "../utils";
 
 const getAuthData = async (userDoc: Doc<IUser>) => {
@@ -63,16 +64,15 @@ const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (socket && userDoc?.data.id) {
       socket.connect();
-      socketEventHandler(socket, userDoc.data, dispatch);
+      socketEventHandler(socket, getPublicData(userDoc.data), dispatch);
     }
     return () => {
       if (socket) {
         socket.disconnect();
       }
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
-
 
   return (
     <SocketContext.Provider value={{ socket }}>

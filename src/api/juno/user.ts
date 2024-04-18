@@ -1,6 +1,7 @@
 import { User, getDoc, listDocs, setDoc } from "@junobuild/core";
 import { IUserwithPrivateData } from "../../types/user";
 import { correctTimeStamps } from "../../utils";
+import { nanoid } from "nanoid";
 
 export const getUserDataCards = async (user: User | null | undefined) => {
   try {
@@ -8,7 +9,6 @@ export const getUserDataCards = async (user: User | null | undefined) => {
     const docs = await listDocs<IUserwithPrivateData>({
       collection: "cards",
     });
-    // console.log(docs);
     return correctTimeStamps(docs.items[0]);
   } catch (e) {
     console.error(e);
@@ -23,7 +23,7 @@ export const setUserData = async (
   try {
     if (!user || user === null) return undefined;
     console.log(data);
-    const id = crypto.randomUUID();
+    const id = nanoid();
     const createdDoc = await setDoc<IUserwithPrivateData>({
       collection: "cards",
       doc: {

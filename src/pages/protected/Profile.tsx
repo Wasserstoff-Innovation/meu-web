@@ -59,10 +59,10 @@ const Profile = () => {
         </div>
         <div>
           <p className="text-[#8D8E90]">{card.purpose}</p>
-          <p className="text-[#8D8E90]">
+          {/* <p className="text-[#8D8E90]">
             {card.location.city} , {card.location.state} ,{" "}
             {card.location.country}
-          </p>
+          </p> */}
         </div>
         {/* {isConnection && (
         <div className="text-[#8D8E90]">

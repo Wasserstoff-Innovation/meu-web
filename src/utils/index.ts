@@ -6,6 +6,7 @@ import {
   DelegationIdentity,
   Ed25519KeyIdentity,
 } from "@dfinity/identity";
+import { IUserwithPrivateData } from "../types/user";
 
 export const sleep = async (secs: number) => {
   await new Promise((r) => setTimeout(r, secs * 1000));
@@ -16,6 +17,12 @@ export const correctTimeStamps = <T>(doc: Doc<T>) => {
     updated_at: new Date(Number(doc?.updated_at) / 1000000).valueOf(),
     created_at: new Date(Number(doc?.created_at) / 1000000).valueOf(),
   });
+};
+
+export const getPublicData = (user: IUserwithPrivateData) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { privateData, ...publicData } = user;
+  return publicData;
 };
 
 export const checkDelegationChain = async (): Promise<{
@@ -32,7 +39,10 @@ export const checkDelegationChain = async (): Promise<{
   const sessionId = Ed25519KeyIdentity.generate();
   if (delegation !== null) {
     const identity = DelegationIdentity.fromDelegation(sessionId, delegation);
-    console.log("Delegation Identity sign",(await identity.sign(new ArrayBuffer(0))));
+    console.log(
+      "Delegation Identity sign",
+      await identity.sign(new ArrayBuffer(0))
+    );
   }
   console.log({
     valid: delegation !== null && isDelegationValid(delegation),
