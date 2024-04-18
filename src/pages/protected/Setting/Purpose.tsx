@@ -30,7 +30,7 @@ const Purpose = () => {
         >
           {purposes.map((purpose) => (
             <Radio key={purpose.value} value={purpose.value} className="mb-1">
-              <p className="text-white">{purpose.label}</p>
+              <p className="text-white" >{purpose.label}</p>
             </Radio>
           ))}
         </RadioGroup>

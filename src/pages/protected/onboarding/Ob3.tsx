@@ -1,6 +1,5 @@
 import Interests from "../../../components/onboarding/Interests";
 import { useNavigate } from "react-router-dom";
-import { IInterest } from "../../../constants/interests";
 import { Button } from "@nextui-org/react";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
@@ -12,7 +11,7 @@ const Ob3 = () => {
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
   const navigate = useNavigate();
-  const [groupSelected, setGroupSelected] = useState<IInterest[]>([]);
+  const [groupSelected, setGroupSelected] = useState<string []>([]);
 
 
   const handleNext = () => {

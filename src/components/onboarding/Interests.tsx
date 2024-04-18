@@ -1,14 +1,14 @@
-import { IInterest, interests } from "../../constants/interests";
+import { interests } from "../../constants/interests";
 import React, { useState } from "react";
 
 interface MyProps {
   active:boolean,
   setActive:(props : boolean) => void,
-  groupSelected:typeof interests,
-  setGroupSelected: any;
+  groupSelected:string [],
+  setGroupSelected: (props:string [])=>void;
 }
 
-const Ob3:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSelected} ) => {
+const Interests:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSelected} ) => {
   
   const [searchInput, setSearchInput] = useState("");
   const [userInterest, setUserInterest] = useState(interests);
@@ -17,28 +17,28 @@ const Ob3:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSelected
 
   const FilteredData = (value: string) => {
     const filterInterest = interests.filter((interest) =>
-      interest.label.toLowerCase().includes(value.toLowerCase())
+      interest.toLowerCase().includes(value.toLowerCase())
     );
     setUserInterest(filterInterest);
   };
 
   const handleClick = (value: string) => {
-    const find = groupSelected.find((interest) => interest.value === value);
+    const find = groupSelected.find((interest) => interest === value);
     if (find) {
       return;
     }
     const selectedInterest = userInterest.find(
-      (interest) => interest.value === value
+      (interest) => interest === value
     );
     if (selectedInterest) {
-      setGroupSelected((prev: IInterest[]) => [...prev, selectedInterest]);
+      setGroupSelected( [...groupSelected, selectedInterest]);
     }
     setSearchInput("");
   };
 
   const handleRemove = (value: string) => {
     const selectedInterestIndex = groupSelected.findIndex(
-      (interest) => interest.value === value
+      (interest) => interest === value
     );
 
     if (selectedInterestIndex !== -1) {
@@ -90,7 +90,7 @@ const Ob3:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSelected
           <div
             className={`${
               active &&
-              "p-2 flex flex-col gap-2 bg-white text-black font-thin rounded-md"
+              " p-2 flex flex-col gap-2 bg-white text-black font-thin rounded-md"
             }  `}
           >
             {active &&
@@ -98,13 +98,13 @@ const Ob3:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSelected
               userInterest.map((interest, index) => (
                 <div
                   key={index}
-                  className="cursor-pointer"
+                  className="cursor-pointer text-[13px]"
                   onClick={(e) => {
-                    handleClick(interest.value);
+                    handleClick(interest);
                     e.stopPropagation();
                   }}
                 >
-                  {interest.label}
+                  {interest}
                 </div>
               ))}
           </div>
@@ -117,12 +117,13 @@ const Ob3:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSelected
                   key={index}
                   className="bg-white text-black flex gap-2 p-2 px-4 rounded-full text-[14px] "
                 >
-                  <div className="font-medium">{select.label}</div>
-                  <button onClick={() => handleRemove(select.value)}>x</button>
+                  <div className="font-medium">{select}</div>
+                  <button onClick={() => handleRemove(select)}>x</button>
                 </div>
               ))}
             </div>
           )}
+          {/* {groupSelected.length==0 && <div>There is not selected interest</div>} */}
         </div>
       </div>
 
@@ -130,4 +131,4 @@ const Ob3:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSelected
   );
 };
 
-export default Ob3;
+export default Interests;

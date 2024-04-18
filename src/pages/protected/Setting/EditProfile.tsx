@@ -37,6 +37,7 @@ const EditProfile = () => {
     } catch (e) {
       console.error(e);
     }
+    console.log(userDoc)
   };
 
   return (
