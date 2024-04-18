@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SearchBox from "../../../components/SearchBox";
+import SearchBox from "../../../../components/SearchBox";
 import ContractCardList from "./ContractList";
 import SignOrRemindContract from "./SignOrRemindContract";
 //import { contracts } from '../../../constants/contractdata';

@@ -1,4 +1,4 @@
-import { contracts } from "../../../constants/contractdata";
+import { contracts } from "../../../../constants/contractdata";
 import {
 
   Button,

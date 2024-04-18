@@ -7,23 +7,24 @@ import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
 import { countryOptions } from "../../../constants/country";
 import LocationSearch from "../../../components/LocationSearch";
+import { IUserwithPrivateData } from "../../../types/user";
 
-interface UserData {
-  name: string;
-  email: string;
-  // countryCode: string;
-  mobile: {
-    countryCode: string;
-    mobileNumber: string;
-  };
-  location: {
-    city: string;
-    country: string;
-    state: string;
-    latitude: number;
-    longitude: number;
-  };
-}
+// interface UserData {
+//   name: string;
+//   email: string;
+//   // countryCode: string;
+//   mobile: {
+//     countryCode: string;
+//     mobileNumber: string;
+//   };
+//   location: {
+//     city: string;
+//     country: string;
+//     state: string;
+//     latitude: number;
+//     longitude: number;
+//   };
+// }
 
 interface FormErrors {
   name?: string;
@@ -37,11 +38,11 @@ const Ob1 = () => {
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
   //console.log("userData", userData);
-  const [data, setData] = useState<UserData>({
+  const [data, setData] = useState({
     name: userData.name,
-    email: userData.email,
-    mobile: userData.mobile,
-    location: userData.location,
+    email: userData.privateData.email,
+    mobile: userData.privateData.mobile,
+    location: userData.privateData.location,
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -93,24 +94,27 @@ const Ob1 = () => {
     if (hasError) {
       setErrors(newErrors);
     } else {
-      const updatedUserData = {
-        ...userData,
-        name: data.name,
-        email: data.email,
-        mobile: {
-          countryCode: data.mobile.countryCode,
-          mobileNumber: data.mobile.mobileNumber,
-        },
-        location: data.location,
-      };
-      dispatch(updateUserData(updatedUserData));
+      dispatch(
+        updateUserData({
+          name: data.name,
+          privateData: {
+            ...userData.privateData,
+            email: data.email,
+            mobile: {
+              countryCode: data.mobile.countryCode,
+              mobileNumber: data.mobile.mobileNumber,
+            },
+            location: data.location,
+          },
+        })
+      );
       navigate("/onboard/ob2");
     }
   };
 
-  const handleLocationChange = (address: UserData["location"]) => {
-    // console.log("address", address);
-    //console.log("=========================>",typeof address)
+  const handleLocationChange = (
+    address: IUserwithPrivateData["privateData"]["location"]
+  ) => {
     return setData((prev) => ({ ...prev, location: address }));
   };
 
@@ -123,7 +127,7 @@ const Ob1 = () => {
         <Button
           className=" text-sm center"
           color="default"
-          isDisabled={Boolean(userData.linkedin.email)}
+          isDisabled={Boolean(userData.privateData.linkedin.email)}
           onClick={() => {
             window.location.href = getLinkedinOAuthUrl();
           }}
@@ -135,7 +139,7 @@ const Ob1 = () => {
         <Button
           className=" text-sm center"
           color="default"
-          isDisabled={Boolean(userData.twitter.id)}
+          isDisabled={Boolean(userData.privateData.twitter.id)}
           onClick={() => {
             window.location.href = getTwitterOAuthUrl();
           }}

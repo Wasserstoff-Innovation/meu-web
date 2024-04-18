@@ -1,11 +1,11 @@
 import { User, getDoc, listDocs, setDoc } from "@junobuild/core";
-import { IUser } from "../../types/user";
+import { IUserwithPrivateData } from "../../types/user";
 import { correctTimeStamps } from "../../utils";
 
 export const getUserDataCards = async (user: User | null | undefined) => {
   try {
     if (!user || user === null) return undefined;
-    const docs = await listDocs<IUser>({
+    const docs = await listDocs<IUserwithPrivateData>({
       collection: "cards",
     });
     // console.log(docs);
@@ -18,13 +18,13 @@ export const getUserDataCards = async (user: User | null | undefined) => {
 
 export const setUserData = async (
   user: User | null | undefined,
-  data: IUser
+  data: IUserwithPrivateData
 ) => {
   try {
     if (!user || user === null) return undefined;
     console.log(data);
     const id = crypto.randomUUID();
-    const createdDoc = await setDoc<IUser>({
+    const createdDoc = await setDoc<IUserwithPrivateData>({
       collection: "cards",
       doc: {
         key: id,
@@ -42,15 +42,15 @@ export const setUserData = async (
 export const updateUserData = async (
   user: User | null | undefined,
   key: string,
-  data: IUser
+  data: IUserwithPrivateData
 ) => {
   try {
     if (!user || user === null) return undefined;
-    const latestDoc = await getDoc<IUser>({
+    const latestDoc = await getDoc<IUserwithPrivateData>({
       collection: "cards",
       key,
     });
-    const updatedDoc = await setDoc<IUser>({
+    const updatedDoc = await setDoc<IUserwithPrivateData>({
       collection: "cards",
       doc: {
         key,

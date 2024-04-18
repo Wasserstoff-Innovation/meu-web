@@ -57,7 +57,7 @@ const Ob5 = () => {
         <Button
           className=" text-sm center"
           color="default"
-          isDisabled={Boolean(userData.linkedin.email)}
+          isDisabled={Boolean(userData.privateData.linkedin.email)}
           onClick={() => {
             window.location.href = getLinkedinOAuthUrl();
           }}
@@ -68,7 +68,7 @@ const Ob5 = () => {
         <Button
           className=" text-sm center"
           color="default"
-          isDisabled={Boolean(userData.twitter.id)}
+          isDisabled={Boolean(userData.privateData.twitter.id)}
           onClick={() => {
             window.location.href = getTwitterOAuthUrl();
           }}

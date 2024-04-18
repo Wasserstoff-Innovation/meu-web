@@ -58,14 +58,14 @@ const ShareProfile = () => {
               {userDoc?.data.name}
             </div>
             <div className="text-sm">{userDoc?.data.bio}</div>
-            <div className="text-sm">{userDoc?.data.email}</div>
-            <div className="text-sm">
+            {/* <div className="text-sm">{userDoc?.data.privateData.email}</div> */}
+            {/* <div className="text-sm">
               {userDoc?.data.mobile.countryCode}{" "}
               {userDoc?.data.mobile.mobileNumber}
             </div>
             <div className="text-sm">
               {userDoc?.data.location.city} , {userDoc?.data.location.country}
-            </div>
+            </div> */}
             <Chip color="success" className="text-sm">
               {userDoc?.data.purpose}
             </Chip>

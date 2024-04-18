@@ -1,5 +1,5 @@
 export const purposes = [
-  { label: "Investment/investor", value: "investment/investor" },
+  { label: "Investment/Investor", value: "investment/investor" },
   { label: "Mentee/mentor", value: "mentee/mentor" },
   { label: "Internship", value: "internship" },
   { label: "Networking", value: "networking" },

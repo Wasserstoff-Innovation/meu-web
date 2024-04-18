@@ -11,6 +11,13 @@ export default defineDevConfig(() => ({
           memory: "heap" as MemoryText,
           mutablePermissions: false,
         },
+        {
+          collection: "connections",
+          read: "managed" as PermissionText,
+          write: "managed" as PermissionText,
+          memory: "heap" as MemoryText,
+          mutablePermissions: false,
+        },
       ],
       storage: [
         {

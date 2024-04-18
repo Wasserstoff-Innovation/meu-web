@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUser } from "../../types/user";
+import { IUserwithPrivateData } from "../../types/user";
 import { EmptyUser } from "../../constants/empty";
 
 // Define a type for the slice state
 interface onBoardingState {
-  userData: IUser;
+  userData: IUserwithPrivateData;
 }
 
 // Define the initial state using that type
@@ -14,10 +14,12 @@ const initialState: onBoardingState = {
 
 export const onBoardingSlice = createSlice({
   name: "onBoarding",
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    updateUserData: (state, action: PayloadAction<Partial<IUser>>) => {
+    updateUserData: (
+      state,
+      action: PayloadAction<Partial<IUserwithPrivateData>>
+    ) => {
       state.userData = { ...state.userData, ...action.payload };
       console.log("state.userData", state.userData);
     },

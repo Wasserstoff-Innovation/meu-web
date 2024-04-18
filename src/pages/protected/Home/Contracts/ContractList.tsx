@@ -1,4 +1,4 @@
-import { contractdata } from "../../../constants/contractdata";
+import { contractdata } from "../../../../constants/contractdata";
 
 const ContractCardList = () => {
   return (

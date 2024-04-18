@@ -6,10 +6,7 @@ import { updateUserData } from "../../../redux/features/onBoardingSlice";
 import { useState } from "react";
 import CustomAvatar from "../../../components/common/CustomAvatar";
 
-interface UserData {
-  bio: string;
-  pronouns: string;
-}
+
 
 interface FormErrors {
   username?: string;
@@ -22,7 +19,7 @@ const Ob2: React.FC = () => {
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
   const [avatar, setAvatar] = useState<string>(userData.avatar);
-  const [data, setData] = useState<UserData>({
+  const [data, setData] = useState({
     bio: userData.bio,
     pronouns: userData.pronouns,
   });
@@ -64,7 +61,7 @@ const Ob2: React.FC = () => {
     }
   };
 
-  const handleChange = (field: keyof UserData, value: string) => {
+  const handleChange = (field: string, value: string) => {
     setData((prevData) => ({
       ...prevData,
       [field]: value,

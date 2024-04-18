@@ -3,26 +3,29 @@ interface ObjectType {
   value: string;
 }
 
-export type IUser = {
+export interface IUser {
   id: string;
   name: string;
-  email: string;
-  mobile: {
-    countryCode:string,
-    mobileNumber:string
-  };
-  location: {
-    city:string,
-    country:string,
-    state:string,
-    latitude:number,
-    longitude:number
-  };
   bio: string;
   avatar: string;
   pronouns: string;
   interests: ObjectType[];
   purpose: string;
+}
+
+export interface PrivateData {
+  email: string;
+  mobile: {
+    countryCode: string;
+    mobileNumber: string;
+  };
+  location: {
+    city: string;
+    country: string;
+    state: string;
+    latitude: number;
+    longitude: number;
+  };
   linkedin: {
     email: string;
     email_verified: boolean;
@@ -35,4 +38,8 @@ export type IUser = {
     name: string;
   };
   telegram: string;
-};
+}
+
+export interface IUserwithPrivateData extends IUser {
+  privateData: PrivateData;
+}

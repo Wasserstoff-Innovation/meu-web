@@ -1,6 +1,6 @@
-import TopBar from "../Connections/TopBar";
+import TopBar from "./Connections/TopBar";
 
-import UserList from "../Connections/UserList";
+import UserList from "./Connections/UserList";
 
 const Connections = () => {
   return (

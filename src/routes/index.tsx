@@ -3,12 +3,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import {
-  BottomNavLayout,
-  DashboardLayout,
-  Layout,
-  ProtectedLayout,
-} from "../layout/Layout";
+import { BottomNavLayout, DashboardLayout, Layout, ProtectedLayout } from "../layout/Layout";
 import ShareProfile from "../pages/protected/ShareProfile";
 import Login from "../pages/public/Login";
 import RootError from "../layout/RootError";
@@ -24,13 +19,13 @@ import Share from "../pages/protected/Setting/Share";
 import About from "../pages/protected/Setting/About";
 import Purpose from "../pages/protected/Setting/Purpose";
 import Recommendation from "../pages/protected/Home/Recommendation";
-import Contracts from "../pages/protected/Contracts/contracts";
+import Contracts from "../pages/protected/Home/Contracts/contracts";
 import TuneRecommendation from "../pages/protected/TuneRecommendation";
 import Connections from "../pages/protected/Home/Connections";
-import Requests from "../pages/protected/Connections/Requests";
+import Requests from "../pages/protected/Home/Connections/Requests";
 import Twitter from "../pages/auth/Twitter";
 import LinkedIn from "../pages/auth/LinkedIn";
-import Sent from "../pages/protected/Connections/Sent";
+import Sent from "../pages/protected/Home/Connections/Sent";
 import QRScanner from "../components/Home/QRScanner";
 import MapView from "../pages/protected/Home/MapView";
 import {

@@ -11,11 +11,7 @@ const Ob4 = () => {
 
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
-
-  // const [groupSelected, setGroupSelected] = useState<string[]>([]);
-
   const handleNext = () => {
-    //TODO: Validate the form
     navigate("/onboard/ob5");
   };
 
@@ -39,7 +35,7 @@ const Ob4 = () => {
           }}
         >
           {purposes.map((purpose) => (
-            <Radio key={purpose.value} value={purpose.value} className="mb-1">
+            <Radio key={purpose.label} value={purpose.label} className="mb-1">
               <p className="text-white">{purpose.label}</p>
             </Radio>
           ))}
