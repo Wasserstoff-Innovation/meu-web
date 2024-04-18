@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-const Footer = () => {
+const BottomNav = () => {
   const Navigate = useNavigate();
   return (
-    <div className="sticky bottom-0  -mx-6   z-10 bg-[#313437] ">
+    <div className="sticky bottom-0 -mx-6  z-10 bg-[#313437] ">
       <div className="flex justify-around items-center p-4">
         <div onClick={() => Navigate("/map-view")}>
           <img
@@ -42,4 +42,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default BottomNav;

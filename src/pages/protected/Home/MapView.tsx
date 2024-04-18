@@ -1,11 +1,5 @@
-import  Layout  from "./Layout"
-
 const MapView = () => {
-  return (
-    <Layout>
-      <div>MapView</div>
-    </Layout>
-  );
-}
+  return <div>MapView</div>;
+};
 
-export default MapView
+export default MapView;

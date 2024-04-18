@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import { SocketProvider } from "../context/Socket";
+import BottomNav from "../components/Home/BottomNav";
 
 const ProtectedLayout = () => {
   return (
@@ -30,4 +31,20 @@ const DashboardLayout = () => {
 const Layout = () => {
   return <Outlet />;
 };
-export { DashboardLayout, ProtectedLayout, OnBoardingLayout, Layout };
+const BottomNavLayout = () => {
+  return (
+    <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col gap-4 overflow-y-auto h-[88vh] mt-3">
+        <Outlet />
+      </div>
+      <BottomNav />
+    </div>
+  );
+};
+export {
+  DashboardLayout,
+  ProtectedLayout,
+  OnBoardingLayout,
+  Layout,
+  BottomNavLayout,
+};
