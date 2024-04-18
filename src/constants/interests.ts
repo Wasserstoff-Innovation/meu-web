@@ -10,3 +10,8 @@ export const interests = [
   { label: "Big Data", value: "big-data" },
   { label: "Cloud Computing", value: "cloud-computing" },
 ];
+
+export interface IInterest {
+  label: string;
+  value: string;
+}
