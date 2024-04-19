@@ -1,4 +1,4 @@
-import { Navbar, NavbarBrand } from "@nextui-org/react";
+import { Avatar, Navbar, NavbarBrand } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 
 export default function App({ avatar }: { avatar?: string }) {
@@ -12,9 +12,10 @@ export default function App({ avatar }: { avatar?: string }) {
             Navigate("/settings");
           }}
         >
-          <div className=" size-10 ">
+          <Avatar src={avatar ? avatar : "./avatar.png"} size="md" />
+          {/* <div className=" size-10 ">
             <img src={avatar ? avatar : "./avatar.png"} alt="avatar" className="rounded-full" />
-          </div>
+          </div> */}
         </NavbarBrand>
         <div className="flex gap-8 ">
           <img

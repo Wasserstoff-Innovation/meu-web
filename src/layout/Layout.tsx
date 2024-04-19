@@ -1,7 +1,12 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { SocketProvider } from "../context/Socket";
+// import { SocketProvider } from "../context/Socket";
 import BottomNav from "../components/Home/BottomNav";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { connect } from "../api/connect/connection";
+import { getPublicData } from "../utils";
+import { updateRecommendedCards } from "../redux/features/mainSlice";
+import { toast } from "react-toastify";
 
 const ProtectedLayout = () => {
   return (
@@ -20,11 +25,27 @@ const OnBoardingLayout = () => {
 };
 
 const DashboardLayout = () => {
+  const { userDoc } = useAppSelector((state) => state.main);
+  const dispatch = useAppDispatch();
+  
+  useEffect(() => {
+    if (userDoc?.data) {
+      connect(getPublicData(userDoc.data))
+        .then((recommendedCards) => {
+          dispatch(updateRecommendedCards(recommendedCards));
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Fragment>
-      <SocketProvider>
-        <Outlet />
-      </SocketProvider>
+      {/* <SocketProvider> */}
+      <Outlet />
+      {/* </SocketProvider> */}
     </Fragment>
   );
 };

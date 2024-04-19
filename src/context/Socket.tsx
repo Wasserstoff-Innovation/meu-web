@@ -50,7 +50,7 @@ const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const { userDoc } = useAppSelector((state) => state.main);
   // Set up the socket connection when the component mounts
   useEffect(() => {
-    if (!userDoc?.data.id) {
+    if (!userDoc?.data.userId) {
       return;
     }
     const socketSetter = async () => {
@@ -62,7 +62,7 @@ const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    if (socket && userDoc?.data.id) {
+    if (socket && userDoc?.data.userId) {
       socket.connect();
       socketEventHandler(socket, getPublicData(userDoc.data), dispatch);
     }

@@ -28,7 +28,7 @@ export const setUserData = async (
       collection: "cards",
       doc: {
         key: id,
-        data: { ...data, id: id },
+        data: { ...data, userId: id },
         updated_at: BigInt(Date.now()),
       },
     });

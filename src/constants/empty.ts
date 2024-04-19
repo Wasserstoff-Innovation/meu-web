@@ -1,7 +1,7 @@
 import { IUserwithPrivateData } from "../types/user";
 
 export const EmptyUser: IUserwithPrivateData = {
-  id: "",
+  userId: "",
   name: "",
   bio: "Hi ,I am on MEU",
   avatar:
