@@ -6,27 +6,39 @@ import { Doc } from "@junobuild/core";
 interface mainState {
   userDoc: Doc<IUserwithPrivateData> | undefined;
   recommendedCards: IUser[];
+  connections: IUserwithPrivateData[];
 }
 
 // Define the initial state using that type
 const initialState: mainState = {
   userDoc: undefined,
   recommendedCards: [],
+  connections: [],
 };
 
 export const mainSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
-    updateUserDoc: (state, action: PayloadAction<Doc<IUserwithPrivateData> | undefined>) => {
+    updateUserDoc: (
+      state,
+      action: PayloadAction<Doc<IUserwithPrivateData> | undefined>
+    ) => {
       state.userDoc = action.payload;
     },
     updateRecommendedCards: (state, action: PayloadAction<IUser[]>) => {
       state.recommendedCards = action.payload;
     },
+    updateConnections: (
+      state,
+      action: PayloadAction<IUserwithPrivateData[]>
+    ) => {
+      state.connections = action.payload;
+    },
   },
 });
 
-export const { updateUserDoc, updateRecommendedCards } = mainSlice.actions;
+export const { updateUserDoc, updateRecommendedCards, updateConnections } =
+  mainSlice.actions;
 
 export default mainSlice.reducer;
