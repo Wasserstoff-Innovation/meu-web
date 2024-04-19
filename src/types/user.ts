@@ -18,9 +18,7 @@ export type IUser = {
     mobileNumber:string
   };
   location: {
-    city:string,
-    country:string,
-    state:string,
+    locationDetails:string,
     latitude:number,
     longitude:number
   };

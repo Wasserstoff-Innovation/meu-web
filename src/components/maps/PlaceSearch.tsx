@@ -1,33 +1,52 @@
-import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
-import { useState } from "react";
-import { findPlaces } from "../../utils/places";
+import React, { useRef, useEffect } from 'react';
 
-const PlaceSearch = () => {
-  const [results, setResults] = useState<any[]>([]);
+interface Address {
+  locationDetails:string;
+  latitude: number;
+  longitude: number;
+}
+
+interface LocationSearchProps {
+  onLocationChange: (location: Address) => void;
+}
+
+const PlaceSearch: React.FC<LocationSearchProps> = ({ onLocationChange }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (window.google && inputRef.current) {
+      const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current);
+
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        console.log(place)
+        if (place.geometry && place.geometry.location && place.formatted_address) {
+          const latitude = place.geometry.location.lat();
+          const longitude = place.geometry.location.lng();
+         
+            const address: Address = {
+              locationDetails:place.formatted_address,
+              latitude,
+              longitude,
+            }
+            console.log('Address:', address);
+            // Call the onLocationChange function with the address object
+            onLocationChange(address);
+         }
+      });
+    }
+  }, [onLocationChange]);
 
   return (
-    <Autocomplete
-      name="location"
-      type="text"
-      placeholder="Gurgugram, Haryana, India"
-      isClearable
-      variant="bordered"
-      onChange={async (e) => {
-        const places = await findPlaces(e.target.value);
-        setResults(places);
-      }}
-      items={results.map((place) => ({ id: place.id, displayName: place.name }))}
-      className="max-w-xs bg-slate-100 text-black"
-      onSelectionChange={(selectedItem) => {
-        if (selectedItem) {
-          console.log(selectedItem); 
-        }
-      }}
-    >
-      {(item) => (
-        <AutocompleteItem key={item.id}>{item.displayName}</AutocompleteItem>
-      )}
-    </Autocomplete>
+    <div className='bg-white text-black rounded-lg'>
+      <input
+        ref={inputRef}
+        type="text"
+        id="pac-input"
+        placeholder="Enter a location"
+        className='p-2 rounded-lg w-full'
+      />
+    </div>
   );
 };
 

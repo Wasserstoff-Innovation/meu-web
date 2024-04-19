@@ -4,7 +4,7 @@ export const findPlaces = async (text: string) => {
   )) as google.maps.PlacesLibrary;
   const request = {
     textQuery: text,
-    fields: ["displayName", "location", "businessStatus"],
+    fields: ["location"],
     language: "en-US",
     maxResultCount: 8,
     region: "us",

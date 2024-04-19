@@ -7,9 +7,7 @@ export const EmptyUser = {
     mobileNumber:""
   },
   location: {
-    city:"",
-    state:"",
-    country:"",
+    locationDetails:"",
     latitude:0,
     longitude:0
   },
