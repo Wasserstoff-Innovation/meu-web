@@ -14,11 +14,11 @@ const Profile = () => {
   const [toggle, setToggle] = useState(false);
   const [loaded, setLoaded] = useState(false);
   return (
-    <div className="flex flex-1 flex-col justify-start mt-4 gap-4">
-      <div className=" w-full flex justify-between gap-4">
+    <div className="flex flex-1 flex-col justify-start mt-4 gap-4" onClick={()=>setToggle(false)}>
+      <div className=" w-full flex justify-between gap-4 relative">
         <div className="flex gap-4" onClick={() => {navigate("/")}} >
           <img
-            src="../arrow_left_alt.svg"
+             src="../arrow_left_alt.svg"
             alt="right arrow"
             className="cursor-pointer"
           />

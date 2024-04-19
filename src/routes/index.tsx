@@ -36,6 +36,7 @@ import {
   protectedLoader,
 } from "./loaders";
 import Profile from "../pages/protected/Profile";
+import HomeLayout from "../pages/protected/Home/Connections/HomeLayout";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,23 +47,29 @@ export const router = createBrowserRouter(
             <Route path="" element={<Recommendation />} />
             <Route path="contracts" element={<Contracts />} />
             <Route path="map-view" element={<MapView />} />
-            <Route path="connections" element={<Connections />} />
-            <Route path="requests" element={<Requests />} />
-            <Route path="sent" element={<Sent />} />
+            {/* connections screen */}
+            <Route path="" element={<HomeLayout/>}>
+              <Route path="connections" element={<Connections />} />
+              <Route path="requests" element={<Requests />} />
+              <Route path="sent" element={<Sent />} />
+            </Route>
           </Route>
           <Route path="tune-recommendation" element={<TuneRecommendation />} />
           <Route path="qr-scanner" element={<QRScanner />} />
           <Route path="share-profile" element={<ShareProfile />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="settings/help" element={<Help />} />
-          <Route path="settings/editProfile" element={<EditProfile />} />
-          <Route path="settings/interests" element={<Interests />} />
-          <Route path="settings/purpose" element={<Purpose />} />
-          <Route path="settings/other" element={<Other />} />
-          <Route path="settings/privacy" element={<Privacy />} />
-          <Route path="settings/rate" element={<RateMeu />} />
-          <Route path="settings/share" element={<Share />} />
-          <Route path="settings/about" element={<About />} />
+
+          <Route path="settings" element={<Layout />} >
+            <Route path="" element={<Settings />} />
+            <Route path="help" element={<Help />} />
+            <Route path="editProfile" element={<EditProfile />} />
+            <Route path="interests" element={<Interests />} />
+            <Route path="purpose" element={<Purpose />} />
+            <Route path="other" element={<Other />} />
+            <Route path="privacy" element={<Privacy />} />
+            <Route path="rate" element={<RateMeu />} />
+            <Route path="share" element={<Share />} />
+            <Route path="about" element={<About />} />
+          </Route>
         </Route>
 
         <Route path="onboard" loader={onBoardingLoader} element={<Layout />}>

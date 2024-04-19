@@ -1,9 +1,8 @@
-import HomeLayout from "./HomeLayout";
 import UserList from "./UserList";
 
 const Requests = () => {
   return (
-    <HomeLayout>
+    <>
       <UserList
         path="requests"
         heading={{
@@ -12,7 +11,7 @@ const Requests = () => {
         }}
         Action="Confirm"
       />
-    </HomeLayout>
+    </>
   );
 }
 

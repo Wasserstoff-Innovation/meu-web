@@ -1,7 +1,4 @@
-interface ObjectType {
-  label: string;
-  value: string;
-}
+
 
 export interface IUser {
   userId: string;
@@ -9,7 +6,7 @@ export interface IUser {
   bio: string;
   avatar: string;
   pronouns: string;
-  interests: ObjectType[];
+  interests: string[];
   purpose: string;
 }
 

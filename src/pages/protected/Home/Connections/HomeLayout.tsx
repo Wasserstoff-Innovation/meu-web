@@ -1,16 +1,13 @@
-import { ReactNode } from "react";
+
 import TopBar from "./TopBar";
+import { Outlet } from "react-router-dom";
 
-interface MyComponentProps {
-  children: ReactNode;
-}
-
-const HomeLayout: React.FC<MyComponentProps> = ({ children }) => {
+const HomeLayout = () => {
   return (
     <>
       <TopBar />
-      <div className="flex flex-col gap-4 overflow-y-auto h-[88vh] mt-3">
-        {children}
+      <div className="flex flex-col gap-4 overflow-y-auto h-[88vh]">
+        <Outlet/>
       </div>
     </>
   );
