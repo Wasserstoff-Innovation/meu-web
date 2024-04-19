@@ -3,8 +3,13 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import { BottomNavLayout, DashboardLayout, Layout, ProtectedLayout } from "../layout/Layout";
-import ShareProfile from "../pages/protected/ShareProfile";
+import {
+  BottomNavLayout,
+  DashboardLayout,
+  Layout,
+  ProtectedLayout,
+} from "../layout/Layout";
+// import ShareProfile from "../pages/protected/ShareProfile";
 import Login from "../pages/public/Login";
 import RootError from "../layout/RootError";
 import { Ob1, Ob2, Ob3, Ob4, Ob5, Ob7 } from "../pages/protected/onboarding";
@@ -48,7 +53,7 @@ export const router = createBrowserRouter(
             <Route path="contracts" element={<Contracts />} />
             <Route path="map-view" element={<MapView />} />
             {/* connections screen */}
-            <Route path="" element={<HomeLayout/>}>
+            <Route path="" element={<HomeLayout />}>
               <Route path="connections" element={<Connections />} />
               <Route path="requests" element={<Requests />} />
               <Route path="sent" element={<Sent />} />
@@ -56,9 +61,13 @@ export const router = createBrowserRouter(
           </Route>
           <Route path="tune-recommendation" element={<TuneRecommendation />} />
           <Route path="qr-scanner" element={<QRScanner />} />
-          <Route path="share-profile" element={<ShareProfile />} />
+          <Route
+            path="share-profile"
+            loader={profileLoader}
+            element={<Profile />}
+          />
 
-          <Route path="settings" element={<Layout />} >
+          <Route path="settings" element={<Layout />}>
             <Route path="" element={<Settings />} />
             <Route path="help" element={<Help />} />
             <Route path="editProfile" element={<EditProfile />} />

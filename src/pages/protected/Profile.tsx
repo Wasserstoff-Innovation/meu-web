@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate,  } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { IUser } from "../../types/user";
 import PopUpOption from "../../components/profile/PopUpOption";
 import { useState } from "react";
@@ -10,15 +10,23 @@ import CustomButton from "../../components/profile/CustomButton";
 
 const Profile = () => {
   const { card } = useLoaderData() as { card: IUser };
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
   const [loaded, setLoaded] = useState(false);
   return (
-    <div className="flex flex-1 flex-col justify-start mt-4 gap-4" onClick={()=>setToggle(false)}>
+    <div
+      className="flex flex-1 flex-col justify-start mt-4 gap-4"
+      onClick={() => setToggle(false)}
+    >
       <div className=" w-full flex justify-between gap-4 relative">
-        <div className="flex gap-4" onClick={() => {navigate("/")}} >
+        <div
+          className="flex gap-4"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <img
-             src="../arrow_left_alt.svg"
+            src="../arrow_left_alt.svg"
             alt="right arrow"
             className="cursor-pointer"
           />
@@ -75,7 +83,7 @@ const Profile = () => {
 
       <SocialMedia />
       <Purpose purpose={card.purpose} />
-      <Interests interests={card.interests.map((int) => int.label)} />
+      <Interests interests={card.interests} />
       <CustomButton title="Share Profile" icon="../share-white.svg" />
     </div>
   );
