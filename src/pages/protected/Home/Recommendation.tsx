@@ -17,10 +17,10 @@ const Recommendation = () => {
         <h1>Recommended Users</h1>
         {recommendedCards.map((user) => (
           <div
-            key={user.id}
+            key={user.userId}
             className="flex items-center justify-between"
             onClick={() => {
-              navigate(`/card/${user.id}`);
+              navigate(`/card/${user.userId}`);
             }}
           >
             <div className="flex items-center gap-4">
@@ -39,7 +39,7 @@ const Recommendation = () => {
               <button
                 color="primary"
                 className="rounded-full  bg-[#1272BA] px-6 p-1 cursor-pointer"
-                onClick={() => sendFriendRequest(user.id)}
+                onClick={() => sendFriendRequest(user.userId)}
               >
                 Add
               </button>

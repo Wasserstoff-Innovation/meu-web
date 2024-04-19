@@ -27,7 +27,7 @@ const OnBoardingLayout = () => {
 const DashboardLayout = () => {
   const { userDoc } = useAppSelector((state) => state.main);
   const dispatch = useAppDispatch();
-  
+
   useEffect(() => {
     if (userDoc?.data) {
       connect(getPublicData(userDoc.data))
@@ -38,7 +38,7 @@ const DashboardLayout = () => {
           toast.error(err.message);
         });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

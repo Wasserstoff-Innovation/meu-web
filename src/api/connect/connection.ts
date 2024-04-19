@@ -2,15 +2,20 @@ import { IUser, IUserwithPrivateData } from "../../types/user";
 import { CONNECT_API_URL } from "./userCard";
 
 export const connect = async (userData: IUser) => {
-  return fetch(`${CONNECT_API_URL}/connect`, {
+  const response = await fetch(`${CONNECT_API_URL}/connect`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ user: userData }),
-  })
-    .then((res) => res.json())
-    .then((data) => data);
+  });
+
+  const data = await response.json();
+  if (response.status === 200) {
+    return data;
+  } else {
+    throw new Error(data.message);
+  }
 };
 
 export const sendRequest = async (
