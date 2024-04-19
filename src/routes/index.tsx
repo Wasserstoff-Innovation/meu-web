@@ -36,6 +36,7 @@ import {
   protectedLoader,
 } from "./loaders";
 import Profile from "../pages/protected/Profile";
+import HomeLayout from "../pages/protected/Home/Connections/HomeLayout";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,9 +47,12 @@ export const router = createBrowserRouter(
             <Route path="" element={<Recommendation />} />
             <Route path="contracts" element={<Contracts />} />
             <Route path="map-view" element={<MapView />} />
-            <Route path="connections" element={<Connections />} />
-            <Route path="requests" element={<Requests />} />
-            <Route path="sent" element={<Sent />} />
+            {/* connections screen */}
+            <Route path="" element={<HomeLayout/>}>
+              <Route path="connections" element={<Connections />} />
+              <Route path="requests" element={<Requests />} />
+              <Route path="sent" element={<Sent />} />
+            </Route>
           </Route>
           <Route path="tune-recommendation" element={<TuneRecommendation />} />
           <Route path="qr-scanner" element={<QRScanner />} />

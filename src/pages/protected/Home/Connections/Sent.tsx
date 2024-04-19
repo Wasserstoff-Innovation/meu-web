@@ -1,9 +1,9 @@
-import HomeLayout from "./HomeLayout";
+
 import UserList from "./UserList";
 
 const Send = () => {
   return (
-    <HomeLayout>
+    <>
       <UserList
         path="send"
         heading={{
@@ -13,7 +13,7 @@ const Send = () => {
         }}
         Action="Delete"
       />
-    </HomeLayout>
+    </>
   );
 };
 

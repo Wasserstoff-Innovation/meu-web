@@ -1,11 +1,8 @@
-import TopBar from "./Connections/TopBar";
-
 import UserList from "./Connections/UserList";
 
 const Connections = () => {
   return (
     <>
-      <TopBar />
       <UserList
         path="connections"
         heading={{
