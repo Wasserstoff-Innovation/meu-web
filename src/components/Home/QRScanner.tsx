@@ -165,8 +165,12 @@ const QRScanner: React.FC = () => {
           </div> */}
 
           <div className="flex items-center justify-center">
-            <div className="border-2 border-[#1272BA] p-4 rounded-md size-[240px] flex items-center justify-center">
+            <div className="border-2 border-[#1272BA] p-4 rounded-md size-[240px] flex items-center justify-center relative">
               <video ref={videoRef} className=""></video>
+              <div className="absolute  w-full h-full p-2">
+                <div className={`h-1 bg-[#45A5ED] shadow-[0_0_6px_1px_rgba(69,165,237,1)] ${qrCodeResult==null && 'animate-[scanning_1s_ease-in-out_infinite_alternate]'}`}> </div>
+                {/* animate-[animationName_easingFunction_durationInSeconds_iterationsCount_delayInSeconds_direction] */}
+              </div>
             </div>
           </div>
           {qrCodeResult && <p>Detected QR code: {qrCodeResult}</p>}
@@ -185,36 +189,37 @@ const QRScanner: React.FC = () => {
             className="flex flex-col items-center justify-center gap-1 cursor-pointer"
             onClick={() => Navigate("/share-profile")}
           >
-            <div className="bg-[#313437] rounded-full p-2">
+            <div className="bg-[#313437] rounded-full p-4">
               <img
                 src="./icons/qr_code.svg"
                 alt="my-qr-code"
                 className="size-4"
               />
             </div>
-            <p className="text-[10px]">My QR</p>
+            <p className="">My QR</p>
           </div>
           <label
             htmlFor="qr"
             className="flex flex-col items-center justify-center gap-1 cursor-pointer"
             onClick={() => handleFromFile()}
           >
-            <div className="p-2 bg-[#313437] rounded-full">
+            <div className="p-4 bg-[#313437] rounded-full">
               <img src="./icons/photo.svg" alt="gallery" className="size-4" />
             </div>
-            <p className="text-[8px]">
+            <p className="">
               Scan from <br />
               Gallery
             </p>
           </label>
-          <div className="cursor-pointer">
-            <div className="p-1 bg-[#313437] rounded-full">
+          <div className="cursor-pointer flex flex-col items-center justify-center gap-1">
+            <div className="p-4 bg-[#313437] rounded-full">
               <img
                 src="./icons/flashlight.svg"
                 alt="flashlight"
                 className="size-5"
               />
             </div>
+            <p>Flash</p>
           </div>
         </div>
       </div>
