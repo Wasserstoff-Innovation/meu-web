@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const QRScanner: React.FC = () => {
   const Navigate = useNavigate();
-  const [result, setResult] = useState("");
+  // const [result, setResult] = useState("");
   const videoRef = useRef<HTMLVideoElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   let stream: MediaStream | null = null;
@@ -39,28 +39,29 @@ const QRScanner: React.FC = () => {
           imageData.height
         );
         if (code) {
-          setResult(code.data);
+          setQrCodeResult(code.data);
           stopCamera();
         }
       }
     }
   };
 
-  console.log("QR Code -> ", result);
 
   const startCamera = async () => {
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: false,
-      });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play();
+    if (!stream) {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: false,
+        });
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          videoRef.current.play();
+        }
+        // console.log(stream);
+      } catch (err) {
+        console.error("Error accessing camera:", err);
       }
-      console.log(stream);
-    } catch (err) {
-      console.error("Error accessing camera:", err);
     }
   };
 
@@ -72,14 +73,16 @@ const QRScanner: React.FC = () => {
       if (videoRef.current) {
         videoRef.current.srcObject = null;
       }
+      stream = null;
     }
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
+    console.log(file);
     if (file) {
       const reader = new FileReader();
-      reader.onload = async () => {
+      reader.onload = () => {
         const imageData = new Image();
         imageData.onload = () => {
           const canvas = document.createElement("canvas");
@@ -101,17 +104,20 @@ const QRScanner: React.FC = () => {
             );
             if (code) {
               setQrCodeResult(code.data);
+              // Assuming `stopCamera` is a function you've defined somewhere to stop the camera
+              stopCamera();
             } else {
               setQrCodeResult("No QR code found in the uploaded image.");
+              console.log("No QR code found in the uploaded image.");
             }
           }
         };
-        reader.readAsDataURL(file);
         imageData.src = reader.result as string;
       };
       reader.readAsDataURL(file);
     }
   };
+  
 
   const handleFromFile = () => {
     fileInputRef.current?.onclick;
@@ -119,15 +125,18 @@ const QRScanner: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(scanQRCode, 1000); // Adjust scan interval as needed
-    return () => clearInterval(interval);
-  }, []);
+    console.log("Component Mount -> ", stream);
+    if (!stream) {
+      startCamera();
+    }
+    console.log("Component Mount -> ", stream);
 
-  // useEffect(() => {
-  //   if (start) {
-  //     startCamera();
-  //   }
-  //   setStart(false)
-  // }, [start]);
+    return () => {
+      stopCamera();
+      console.log("Component UnMount -> ", stream);
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <div className="p-2">
@@ -149,11 +158,11 @@ const QRScanner: React.FC = () => {
       </div>
       <div className="flex flex-col gap-4 items-center justify-center h-[85vh]">
         <div className="flex flex-col gap-4">
-          <div className="flex justify-between items-center">
+          {/* <div className="flex justify-between items-center">
             <button onClick={startCamera}>Start Camera</button>
 
             <button onClick={stopCamera}>Stop Camera</button>
-          </div>
+          </div> */}
 
           <div className="flex items-center justify-center">
             <div className="border-2 border-[#1272BA] p-4 rounded-md size-[240px] flex items-center justify-center">
