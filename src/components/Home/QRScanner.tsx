@@ -41,8 +41,10 @@ const QRScanner: React.FC = () => {
           imageData.height
         );
         if (code) {
-          setQrCodeResult(code.data);
           stopCamera();
+          setQrCodeResult(code.data);
+          setActive(false)
+          // redirect somewhere else after scan the correct qr code
         }
       }
     }
@@ -109,9 +111,10 @@ const QRScanner: React.FC = () => {
             );
             if (code) {
               stopCamera();
-              setQrCodeResult(code.data);
               setActive(false);
-              // Assuming `stopCamera` is a function you've defined somewhere to stop the camera
+              setQrCodeResult(code.data);
+              // Navigate("/")
+              // redirect from somewhere else after correct qr code upload from a file
             } else {
               setActive(true);
               setQrCodeResult("No QR code found in the uploaded image.");
@@ -200,7 +203,10 @@ const QRScanner: React.FC = () => {
         <div className="flex justify-evenly w-full  gap-2 items-start">
           <div
             className="flex flex-col items-center justify-center gap-1 cursor-pointer"
-            onClick={() => Navigate("/share-profile")}
+            onClick={() =>{
+              stopCamera()
+              Navigate('/share-profile')
+            }}
           >
             <div className="bg-[#313437] rounded-full p-4">
               <img
@@ -224,8 +230,8 @@ const QRScanner: React.FC = () => {
               Gallery
             </p>
           </label>
-          <div className="cursor-pointer flex flex-col items-center justify-center gap-1">
-            <div className="p-4 bg-[#313437] rounded-full">
+          <div className="sm:hidden cursor-pointer flex flex-col items-center justify-center gap-1">
+            <div className=" p-4 bg-[#313437] rounded-full">
               <img
                 src="./icons/flashlight.svg"
                 alt="flashlight"
