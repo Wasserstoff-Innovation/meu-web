@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import SliderRange from "../../components/Home/SliderRange";
-import InputSearch from "../../components/Home/FilterPage";
+import SliderRange from "../../../components/Home/SliderRange";
+import InputSearch from "../../../components/Home/FilterPage";
 
 const TuneRecommendation = () => {
   const Navigate = useNavigate();

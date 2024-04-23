@@ -9,7 +9,7 @@ import Interests from "../../components/profile/Interests";
 import CustomButton from "../../components/profile/CustomButton";
 
 const Profile = () => {
-  const { card } = useLoaderData() as { card: IUser };
+  const { profile } = useLoaderData() as { profile: IUser };
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -30,7 +30,7 @@ const Profile = () => {
             alt="right arrow"
             className="cursor-pointer"
           />
-          <p className="cursor-pointer">{card.name}</p>
+          <p className="cursor-pointer">{profile.name}</p>
         </div>
         <img
           src="../option.svg"
@@ -46,7 +46,7 @@ const Profile = () => {
       <div className="min-h-24">
         <Skeleton isLoaded={loaded} className=" bg-transparent ">
           <img
-            src={card.avatar}
+            src={profile.avatar}
             onLoad={() => setLoaded(true)}
             className="rounded-full "
           />
@@ -54,7 +54,7 @@ const Profile = () => {
       </div>
       <div className="flex justify-between w-full px-4 items-center  ">
         <div className=" flex gap-4">
-          <h1 className="text-4xl cursor-pointer">{card.name}</h1>
+          <h1 className="text-4xl cursor-pointer">{profile.name}</h1>
         </div>
         <div className=" rounded-full ">
           <img src="../share.svg" alt="share" className="cursor-pointer" />
@@ -62,14 +62,14 @@ const Profile = () => {
       </div>
       <div className="flex flex-col gap-2">
         <div>
-          {/* <p>{card.pronouns}</p> */}
-          <p>{card.bio}</p>
+          {/* <p>{profile.pronouns}</p> */}
+          <p>{profile.bio}</p>
         </div>
         <div>
-          <p className="text-[#8D8E90]">{card.purpose}</p>
+          <p className="text-[#8D8E90]">{profile.purpose}</p>
           {/* <p className="text-[#8D8E90]">
-            {card.location.city} , {card.location.state} ,{" "}
-            {card.location.country}
+            {profile.location.city} , {profile.location.state} ,{" "}
+            {profile.location.country}
           </p> */}
         </div>
         {/* {isConnection && (
@@ -82,8 +82,8 @@ const Profile = () => {
       </div>
 
       <SocialMedia />
-      <Purpose purpose={card.purpose} />
-      <Interests interests={card.interests} />
+      <Purpose purpose={profile.purpose} />
+      <Interests interests={profile.interests} />
       <CustomButton title="Share Profile" icon="../share-white.svg" />
     </div>
   );

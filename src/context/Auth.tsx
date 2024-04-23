@@ -31,9 +31,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const unsubscribe = authSubscribe((user) => {
       setUser(user);
-      if (user) {
-        sessionStorage.setItem("user", JSON.stringify(user.key));
-      }
     });
 
     return () => unsubscribe();
@@ -43,10 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const updateSavedUserData = async () => {
       if (user) {
         const latestUserData = await getUserDataCards(user);
-        sessionStorage.setItem(
-          "isOnBoarded",
-          Boolean(latestUserData?.data).toString()
-        );
+        sessionStorage.setItem("cardId", latestUserData?.data.userId || "");
         // console.log({ latestUserData });
         dispatch(updateUserDoc(latestUserData));
       }

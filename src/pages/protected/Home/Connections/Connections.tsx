@@ -4,9 +4,9 @@ import RequestCard from "../../../../components/connection/RequestCard";
 import SearchUserLayout from "./SearchUserLayout";
 import { IUser, IUserwithPrivateData } from "../../../../types/user";
 
-const SentRequests = () => {
-  const { sentRequests } = useAppSelector((state) => state.main);
-  const [data, setData] = useState<IUser[]>(sentRequests);
+const Connections = () => {
+  const { connections } = useAppSelector((state) => state.main);
+  const [data, setData] = useState<IUser[]>(connections);
   return (
     <SearchUserLayout data={data} setFilteredData={setData}>
       <div className="flex flex-col gap-4">
@@ -21,4 +21,4 @@ const SentRequests = () => {
   );
 };
 
-export default SentRequests;
+export default Connections;

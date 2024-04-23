@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { signOut } from "@junobuild/core";
-import { useAppSelector } from "../../redux/hooks";
-import { persistor } from "../../redux/store";
+import { useAppSelector } from "../../../redux/hooks";
+import { persistor } from "../../../redux/store";
 import { Avatar } from "@nextui-org/react";
 
 const Settings = () => {
@@ -128,8 +128,7 @@ const Settings = () => {
             onClick={async () => {
               console.log("signing out");
               await signOut();
-              sessionStorage.removeItem("user");
-              sessionStorage.removeItem("isOnBoarded");
+              sessionStorage.removeItem("cardId");
               await persistor.purge();
               navigate("/login");
             }}
