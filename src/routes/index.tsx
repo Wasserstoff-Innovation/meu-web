@@ -3,17 +3,12 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import {
-  BottomNavLayout,
-  DashboardLayout,
-  Layout,
-  ProtectedLayout,
-} from "../layout/Layout";
+import { DashboardLayout, Layout, ProtectedLayout } from "../layout/Layout";
 // import ShareProfile from "../pages/protected/ShareProfile";
 import Login from "../pages/public/Login";
 import RootError from "../layout/RootError";
 import { Ob1, Ob2, Ob3, Ob4, Ob5, Ob7 } from "../pages/protected/onboarding";
-import Settings from "../pages/protected/Setting";
+import Settings from "../pages/protected/Setting/Setting";
 import EditProfile from "../pages/protected/Setting/EditProfile";
 import Interests from "../pages/protected/Setting/Interests";
 import Other from "../pages/protected/Setting/Other";
@@ -23,11 +18,10 @@ import RateMeu from "../pages/protected/Setting/RateMeu";
 import Share from "../pages/protected/Setting/Share";
 import About from "../pages/protected/Setting/About";
 import Purpose from "../pages/protected/Setting/Purpose";
-import Recommendation from "../pages/protected/Home/Recommendation";
+import Home from "../pages/protected/Home/Home";
 import Contracts from "../pages/protected/Home/Contracts/contracts";
-import TuneRecommendation from "../pages/protected/TuneRecommendation";
-import Connections from "../pages/protected/Home/Connections";
-import Requests from "../pages/protected/Home/Connections/Requests";
+import TuneRecommendation from "../pages/protected/Home/TuneRecommendation";
+import Received from "../pages/protected/Home/Connections/Received";
 import Twitter from "../pages/auth/Twitter";
 import LinkedIn from "../pages/auth/LinkedIn";
 import Sent from "../pages/protected/Home/Connections/Sent";
@@ -40,33 +34,34 @@ import {
   profileLoader,
   protectedLoader,
 } from "./loaders";
-import Profile from "../pages/protected/Profile";
-import HomeLayout from "../pages/protected/Home/Connections/HomeLayout";
+import Profile from "../pages/public/Profile";
+import ConnectionLayout from "../pages/protected/Home/Connections/ConnectionLayout";
+import Connections from "../pages/protected/Home/Connections/Connections";
+import connectionLoaders from "../pages/protected/Home/Connections/loaders";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<RootError />}>
       <Route path="" loader={protectedLoader} element={<ProtectedLayout />}>
         <Route path="" loader={homeLoader} element={<DashboardLayout />}>
-          <Route path="" element={<BottomNavLayout />}>
-            <Route path="" element={<Recommendation />} />
-            <Route path="contracts" element={<Contracts />} />
-            <Route path="map-view" element={<MapView />} />
-            {/* connections screen */}
-            <Route path="" element={<HomeLayout />}>
-              <Route path="connections" element={<Connections />} />
-              <Route path="requests" element={<Requests />} />
-              <Route path="sent" element={<Sent />} />
-            </Route>
+          <Route path="" element={<Home />} />
+          <Route path="contracts" element={<Contracts />} />
+          <Route path="map-view" element={<MapView />} />
+          <Route path="" element={<ConnectionLayout />}>
+            <Route path="connections" element={<Connections />} />
+            <Route
+              path="requests"
+              loader={connectionLoaders.received}
+              element={<Received />}
+            />
+            <Route
+              path="sent"
+              loader={connectionLoaders.sent}
+              element={<Sent />}
+            />
           </Route>
           <Route path="tune-recommendation" element={<TuneRecommendation />} />
           <Route path="qr-scanner" element={<QRScanner />} />
-          <Route
-            path="share-profile"
-            loader={profileLoader}
-            element={<Profile />}
-          />
-
           <Route path="settings" element={<Layout />}>
             <Route path="" element={<Settings />} />
             <Route path="help" element={<Help />} />
@@ -91,7 +86,7 @@ export const router = createBrowserRouter(
         </Route>
       </Route>
       <Route path="login" loader={loginLoader} element={<Login />} />
-      <Route path="card/:id" loader={profileLoader} element={<Profile />} />
+      <Route path="profile/:id" loader={profileLoader} element={<Profile />} />
       <Route path="auth/callback/twitter" element={<Twitter />} />
       <Route path="auth/callback/linkedin" element={<LinkedIn />} />
     </Route>

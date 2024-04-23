@@ -3,12 +3,15 @@ import { useAppSelector } from "../../../../redux/hooks";
 import RequestCard from "../../../../components/connection/RequestCard";
 import SearchUserLayout from "./SearchUserLayout";
 import { IUser, IUserwithPrivateData } from "../../../../types/user";
+import { useLoaderData } from "react-router-dom";
 
-const SentRequests = () => {
-  const { sentRequests } = useAppSelector((state) => state.main);
-  const [data, setData] = useState<IUser[]>(sentRequests);
+const Received = () => {
+  const { requests } = useLoaderData() as { requests: IUserwithPrivateData[] };
+  console.log(requests);
+  const { receivedRequests } = useAppSelector((state) => state.main);
+  const [data, setData] = useState<IUser[]>(receivedRequests);
   return (
-    <SearchUserLayout data={data} setFilteredData={setData}>
+    <SearchUserLayout data={receivedRequests} setFilteredData={setData}>
       <div className="flex flex-col gap-4">
         {data.map((userData) => (
           <RequestCard
@@ -21,4 +24,4 @@ const SentRequests = () => {
   );
 };
 
-export default SentRequests;
+export default Received;

@@ -8,9 +8,15 @@ import Lottie from "lottie-react";
 import EarthLottie from "../../../lottie/earth.json";
 import { setUserData } from "../../../api/juno/user";
 import { AuthContext } from "../../../context/Auth";
-import { updateUserDoc } from "../../../redux/features/mainSlice";
+import {
+  updateRecommendedCards,
+  updateUserDoc,
+} from "../../../redux/features/mainSlice";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
 import { EmptyUser } from "../../../constants/empty";
+import { connect } from "../../../api/connect/connection";
+import { getPublicData } from "../../../utils";
+import { toast } from "react-toastify";
 
 const Ob5 = () => {
   const navigate = useNavigate();
@@ -23,11 +29,19 @@ const Ob5 = () => {
     setShowLoader(true);
     const userDoc = await setUserData(user, userData);
     if (userDoc) {
+      //TODO: create a button to connect to meu-Connect
+      connect(getPublicData(userDoc.data))
+        .then((recommendedCards) => {
+          dispatch(updateRecommendedCards(recommendedCards));
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
       console.log("User data set successfully");
       dispatch(updateUserDoc(userDoc));
       dispatch(updateUserData(EmptyUser));
-      sessionStorage.setItem("isOnBoarded", "true");
-      navigate("/share-profile");
+      sessionStorage.setItem("cardId", userDoc.data.userId);
+      navigate(`/profile/${userDoc.data.userId}`);
     } else {
       console.error("Failed to set user data");
       navigate("/onboard/ob1");

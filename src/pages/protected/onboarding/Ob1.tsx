@@ -82,10 +82,12 @@ const Ob1 = () => {
       newErrors.mobile = "Invalid mobile number";
       hasError = true;
     }
-
+    console.log(data.location);
     if (
-      data.location.city.trim() === "" ||
-      data.location.country.trim() === ""
+      // data.location.state.trim() === "" ||
+      data.location.country.trim() === "" ||
+      !data.location.latitude ||
+      !data.location.longitude
     ) {
       newErrors.location = "Location cannot be empty";
       hasError = true;

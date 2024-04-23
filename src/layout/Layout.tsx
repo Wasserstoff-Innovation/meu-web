@@ -42,11 +42,12 @@ const DashboardLayout = () => {
   }, []);
 
   return (
-    <Fragment>
-      {/* <SocketProvider> */}
+    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col gap-4 overflow-y-auto h-[88vh] mt-3">
       <Outlet />
-      {/* </SocketProvider> */}
-    </Fragment>
+    </div>
+    <BottomNav />
+  </div>
   );
 };
 const Layout = () => {

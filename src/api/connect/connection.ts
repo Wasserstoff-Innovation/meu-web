@@ -1,21 +1,10 @@
 import { IUser, IUserwithPrivateData } from "../../types/user";
+import { sendAPIRequest } from "./request";
 import { CONNECT_API_URL } from "./userCard";
 
 export const connect = async (userData: IUser) => {
-  const response = await fetch(`${CONNECT_API_URL}/connect`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ user: userData }),
-  });
-
-  const data = await response.json();
-  if (response.status === 200) {
-    return data;
-  } else {
-    throw new Error(data.message);
-  }
+  const response = await sendAPIRequest("/connect", "POST", { user: userData });
+  return response;
 };
 
 export const sendRequest = async (
@@ -34,17 +23,14 @@ export const sendRequest = async (
     .then((data) => data);
 };
 
-export const getRequests = async (
-  type: "sent" | "received",
-  userId: string
-) => {
-  return fetch(`${CONNECT_API_URL}/requests?type=${type}`, {
-    headers: {
-      userid: userId,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => data);
+export const getReceivedRequests = async (): Promise<
+  IUserwithPrivateData[]
+> => {
+  return await sendAPIRequest(`/requests?type=received`, "GET");
+};
+
+export const getSentRequests = async (): Promise<IUser[]> => {
+  return await sendAPIRequest(`/requests?type=sent`, "GET");
 };
 
 export const acceptRequest = async (
@@ -62,13 +48,6 @@ export const acceptRequest = async (
     .then((data) => data);
 };
 
-export const rejectRequest = async (connectionId: string, userId: string) => {
-  return fetch(`${CONNECT_API_URL}/reject/${connectionId}`, {
-    method: "POST",
-    headers: {
-      userid: userId,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => data);
+export const rejectRequest = async (connectionId: string) => {
+  return await sendAPIRequest(`/reject/${connectionId}`, "POST");
 };

@@ -1,16 +1,17 @@
-
+import InviteCard from "../../../../components/connection/InviteCard";
 import TopBar from "./TopBar";
 import { Outlet } from "react-router-dom";
 
-const HomeLayout = () => {
+const ConnectionLayout = () => {
   return (
     <>
       <TopBar />
       <div className="flex flex-col gap-4 overflow-y-auto h-[88vh]">
-        <Outlet/>
+        <InviteCard />
+        <Outlet />
       </div>
     </>
   );
 };
 
-export default HomeLayout;
+export default ConnectionLayout;
