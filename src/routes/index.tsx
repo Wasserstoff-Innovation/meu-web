@@ -42,6 +42,7 @@ import {
 } from "./loaders";
 import Profile from "../pages/protected/Profile";
 import HomeLayout from "../pages/protected/Home/Connections/HomeLayout";
+import ShareProfile from "../pages/protected/ShareProfile";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -62,10 +63,11 @@ export const router = createBrowserRouter(
           <Route path="tune-recommendation" element={<TuneRecommendation />} />
           <Route path="qr-scanner" element={<QRScanner />} />
           <Route
-            path="share-profile"
+            path="profile"
             loader={profileLoader}
             element={<Profile />}
           />
+          <Route path="share-profile" element={<ShareProfile/>} />
 
           <Route path="settings" element={<Layout />}>
             <Route path="" element={<Settings />} />
