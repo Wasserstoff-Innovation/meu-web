@@ -16,9 +16,7 @@ export const EmptyUser: IUserwithPrivateData = {
       mobileNumber: "",
     },
     location: {
-      city: "",
-      state: "",
-      country: "",
+      address:"",
       latitude: 0,
       longitude: 0,
     },

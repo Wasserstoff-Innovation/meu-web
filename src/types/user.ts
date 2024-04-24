@@ -17,9 +17,7 @@ export interface PrivateData {
     mobileNumber: string;
   };
   location: {
-    city: string;
-    country: string;
-    state: string;
+    address: string;
     latitude: number;
     longitude: number;
   };

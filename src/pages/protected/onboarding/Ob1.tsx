@@ -6,8 +6,9 @@ import React, { useState } from "react";
 import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
 import { countryOptions } from "../../../constants/country";
-import LocationSearch from "../../../components/LocationSearch";
-import { IUserwithPrivateData } from "../../../types/user";
+// import LocationSearch from "../../../components/LocationSearch";
+// import { IUserwithPrivateData } from "../../../types/user";
+import PlaceSearch from "../../../components/PlaceSearch";
 
 // interface UserData {
 //   name: string;
@@ -53,10 +54,20 @@ const Ob1 = () => {
     });
   };
 
+  const addLocation = (address:string,latitude:number,longitude:number)=>{
+    console.log(address,latitude,longitude)
+    setData((prev)=>(
+      {...prev,location:{
+        address:address,
+        latitude:latitude,
+        longitude:longitude
+      }}
+    ))
+  }
+
   const handleNext = () => {
     const newErrors: FormErrors = {};
     let hasError = false;
-
     if (
       data.name.trim().length === 0 ||
       data.name.length < 2 ||
@@ -85,9 +96,9 @@ const Ob1 = () => {
     console.log(data.location);
     if (
       // data.location.state.trim() === "" ||
-      data.location.country.trim() === "" ||
-      !data.location.latitude ||
-      !data.location.longitude
+      data.location.address.trim() === "" ||
+      data.location.latitude === 0 ||
+      data.location.longitude ===0
     ) {
       newErrors.location = "Location cannot be empty";
       hasError = true;
@@ -114,11 +125,11 @@ const Ob1 = () => {
     }
   };
 
-  const handleLocationChange = (
-    address: IUserwithPrivateData["privateData"]["location"]
-  ) => {
-    return setData((prev) => ({ ...prev, location: address }));
-  };
+  // const handleLocationChange = (
+  //   address: IUserwithPrivateData["privateData"]["location"]
+  // ) => {
+  //   return setData((prev) => ({ ...prev, location: address }));
+  // };
 
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
@@ -242,7 +253,8 @@ const Ob1 = () => {
         <p className="text-white text-sm mb-1">Location </p>
 
         <div className="w-full ">
-          <LocationSearch onLocationChange={handleLocationChange} />
+          {/* <LocationSearch onLocationChange={handleLocationChange} /> */}
+          <PlaceSearch addLocation={addLocation} />
         </div>
         {errors.location && (
           <p className="text-red-500 text-xs mt-1">{errors.location}</p>

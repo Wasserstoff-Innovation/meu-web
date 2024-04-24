@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 
 const QRScanner: React.FC = () => {
   const Navigate = useNavigate();
-  const [result, setResult] = useState("");
+  // const [result, setResult] = useState("");
   const videoRef = useRef<HTMLVideoElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   let stream: MediaStream | null = null;
   const [qrCodeResult, setQrCodeResult] = useState<string | null>(null);
   // const [start, setStart] = useState(true);
+  const [error, setError] = useState(false);
+  const [active, setActive] = useState(true);
 
   const scanQRCode = () => {
     if (
@@ -39,28 +41,32 @@ const QRScanner: React.FC = () => {
           imageData.height
         );
         if (code) {
-          setResult(code.data);
           stopCamera();
+          setQrCodeResult(code.data);
+          setActive(false)
+          // redirect somewhere else after scan the correct qr code
         }
       }
     }
   };
 
-  console.log("QR Code -> ", result);
-
   const startCamera = async () => {
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: false,
-      });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play();
+    if (!stream) {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: false,
+        });
+
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          videoRef.current.play();
+        }
+        // console.log(stream);
+      } catch (err) {
+        console.error("Error accessing camera:", err);
+        setError(true);
       }
-      console.log(stream);
-    } catch (err) {
-      console.error("Error accessing camera:", err);
     }
   };
 
@@ -72,14 +78,18 @@ const QRScanner: React.FC = () => {
       if (videoRef.current) {
         videoRef.current.srcObject = null;
       }
+      stream = null;
     }
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files && event.target.files[0];
+    console.log(file);
     if (file) {
       const reader = new FileReader();
-      reader.onload = async () => {
+      reader.onload = () => {
         const imageData = new Image();
         imageData.onload = () => {
           const canvas = document.createElement("canvas");
@@ -100,13 +110,18 @@ const QRScanner: React.FC = () => {
               imageDataFromCanvas.height
             );
             if (code) {
+              stopCamera();
+              setActive(false);
               setQrCodeResult(code.data);
+              // Navigate("/")
+              // redirect from somewhere else after correct qr code upload from a file
             } else {
+              setActive(true);
               setQrCodeResult("No QR code found in the uploaded image.");
+              console.log("No QR code found in the uploaded image.");
             }
           }
         };
-        reader.readAsDataURL(file);
         imageData.src = reader.result as string;
       };
       reader.readAsDataURL(file);
@@ -119,15 +134,15 @@ const QRScanner: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(scanQRCode, 1000); // Adjust scan interval as needed
-    return () => clearInterval(interval);
-  }, []);
+    if (!stream) {
+      startCamera();
+    }
 
-  // useEffect(() => {
-  //   if (start) {
-  //     startCamera();
-  //   }
-  //   setStart(false)
-  // }, [start]);
+    return () => {
+      stopCamera();
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <div className="p-2">
@@ -149,17 +164,31 @@ const QRScanner: React.FC = () => {
       </div>
       <div className="flex flex-col gap-4 items-center justify-center h-[85vh]">
         <div className="flex flex-col gap-4">
-          <div className="flex justify-between items-center">
-            <button onClick={startCamera}>Start Camera</button>
-
-            <button onClick={stopCamera}>Stop Camera</button>
-          </div>
-
           <div className="flex items-center justify-center">
-            <div className="border-2 border-[#1272BA] p-4 rounded-md size-[240px] flex items-center justify-center">
-              <video ref={videoRef} className=""></video>
+            <div className="border-2 border-[#1272BA] p-4 rounded-md size-[240px] flex items-center justify-center relative">
+              {error ? (
+                <div className="text-[red]">
+                  You haven't permission to access the camera. <br /> <br />
+                  You can Upload QR Code from Gallery.
+                </div>
+              ) : (
+                <>
+                  <video ref={videoRef} className=""></video>
+                  <div className="absolute bg-transparent  w-full h-full p-2">
+                    {/* animate-[animationName_easingFunction_durationInSeconds_iterationsCount_delayInSeconds_direction] */}
+                    {active && (
+                      <div
+                        className="h-1 bg-[#45A5ED]  shadow-[0_0_6px_1px_rgba(69,165,237,1)]
+                      animate-[scanning_1s_ease-in-out_infinite_alternate]
+                    "
+                      ></div>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           </div>
+
           {qrCodeResult && <p>Detected QR code: {qrCodeResult}</p>}
         </div>
         <input
@@ -174,38 +203,42 @@ const QRScanner: React.FC = () => {
         <div className="flex justify-evenly w-full  gap-2 items-start">
           <div
             className="flex flex-col items-center justify-center gap-1 cursor-pointer"
-            onClick={() => Navigate("/share-profile")}
+            onClick={() =>{
+              stopCamera()
+              Navigate('/share-profile')
+            }}
           >
-            <div className="bg-[#313437] rounded-full p-2">
+            <div className="bg-[#313437] rounded-full p-4">
               <img
                 src="./icons/qr_code.svg"
                 alt="my-qr-code"
                 className="size-4"
               />
             </div>
-            <p className="text-[10px]">My QR</p>
+            <p className="">My QR</p>
           </div>
           <label
             htmlFor="qr"
             className="flex flex-col items-center justify-center gap-1 cursor-pointer"
             onClick={() => handleFromFile()}
           >
-            <div className="p-2 bg-[#313437] rounded-full">
+            <div className="p-4 bg-[#313437] rounded-full">
               <img src="./icons/photo.svg" alt="gallery" className="size-4" />
             </div>
-            <p className="text-[8px]">
+            <p className="">
               Scan from <br />
               Gallery
             </p>
           </label>
-          <div className="cursor-pointer">
-            <div className="p-1 bg-[#313437] rounded-full">
+          <div className="sm:hidden cursor-pointer flex flex-col items-center justify-center gap-1">
+            <div className=" p-4 bg-[#313437] rounded-full">
               <img
                 src="./icons/flashlight.svg"
                 alt="flashlight"
                 className="size-5"
               />
             </div>
+            <p>Flash</p>
           </div>
         </div>
       </div>
