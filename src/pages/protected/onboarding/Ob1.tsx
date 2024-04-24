@@ -6,7 +6,7 @@ import { updateUserData } from "../../../redux/features/onBoardingSlice";
 import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
 import { countryOptions } from "../../../constants/country";
-import LocationSearch from "../../../components/LocationSearch";
+import CountryCode from "../../../components/CountryCode";
 import PlaceSearch from "../../../components/maps/PlaceSearch";
 
 interface typeLocation  {
@@ -37,8 +37,6 @@ const Ob1 = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [toggle, setToggle] = useState(false)
-  const [searchCountry, setSearchCountry] = useState("")
-  const [countryList, setCountryList] = useState(countryOptions)
   const { userData } = useAppSelector((state) => state.onBoarding);
   const [data, setData] = useState<UserData>({
     name: "",
@@ -107,21 +105,7 @@ const Ob1 = () => {
 const handleChangeMobile = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, mobile: { ...data.mobile, mobileNumber: e.target.value } });
   };
-
-  const filteredCoutry = (value:string)=>{
-    const tempList = countryOptions.filter((country)=>
-      country.label.toLowerCase().includes(value.toLowerCase())
-    )
-    setCountryList(tempList)
-  }
-
-  const handleSearch = (value:string)=>{
-    setSearchCountry(value)
-    const val = value.toLowerCase()
-    filteredCoutry(val)
-  }
-
-  return (
+ return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 " onClick={()=>setToggle(false)}>
       <h1 className="self-stretch text-2xl text-primary-300 font-bold">
         Tell us about yourself
@@ -149,40 +133,10 @@ const handleChangeMobile = (e: React.ChangeEvent<HTMLInputElement>) => {
       <div className="w-full">
         <p className="text-white text-sm mb-1">Mobile</p>
         <div className="flex justify-center items-center text-black relative">
-          {/* <select className="w-1/4 rounded-md p-2 bg-slate-50 hover:bg-[#e5e7eb]" name="countryCode" id="" onChange={(e) => { setData({ ...data, mobile: { countryCode: e.target.value, mobileNumber: data.mobile.mobileNumber } }); }}>
-            {countryOptions.map((country, index) => (
-              <option key={index} value={country.value} selected={country.value === data.mobile.countryCode}>
-                {country.value === data.mobile.countryCode ? data.mobile.countryCode : country.label}
-              </option>
-      
-            ))}
-          </select> */}
-          <div className="w-1/4 rounded-md p-2 bg-slate-50 hover:bg-[#e5e7eb]" onClick={(e)=>{
-            setToggle(true)
-            e.stopPropagation()
-          }}>
-            <div>{data.mobile.countryCode}</div>
-          {toggle && <div className="bg-white absolute rounded-sm mt-3 p-1 left-0 max-h-[35vh] z-10 overflow-y-auto">
-          <input type="text" className="w-full outline-none m-1 max-w-[90%]" value={searchCountry} onChange={(e)=>handleSearch(e.target.value)} placeholder="search country code"/>
-
-              {countryList.map((country,index)=>(
-                <option key={index} value={country.value} selected={country.value === data.mobile.countryCode} onClick={(e)=>{
-                  setData({...data,mobile:{
-                    mobileNumber:data.mobile.mobileNumber,
-                    countryCode:country.value
-                  }})
-                  e.stopPropagation()
-                  setToggle(false)
-                  setSearchCountry("")
-                  setCountryList(countryOptions)
-                  
-                }}>
-                {country.value === data.mobile.countryCode ? data.mobile.countryCode : country.label}
-              </option>
-              ))}
-            </div>}
-
-          </div>
+          <CountryCode
+            countryCode={data.mobile.countryCode}
+            onChange={(code) => setData({ ...data, mobile: { ...data.mobile, countryCode: code } })}
+          />
           <Input name="mobile" isClearable type="tel" placeholder="99999 99999 99999" className="ml-2 hover:bg-[#e5e7eb] rounded-md" onChange={handleChangeMobile} value={data.mobile.mobileNumber} />
         </div>
         {errors.mobile && <p className="text-red-500 text-xs mt-1">{errors.mobile}</p>}

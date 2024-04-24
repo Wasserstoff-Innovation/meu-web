@@ -28,6 +28,7 @@ import LinkedIn from "../pages/auth/LinkedIn";
 import Sent from "../pages/protected/Connections/Sent";
 import QRScanner from "../components/Home/QRScanner";
 import MapView from "../pages/protected/Home/MapView";
+import Map from '../pages/protected/Map'
 import {
   homeLoader,
   loginLoader,
