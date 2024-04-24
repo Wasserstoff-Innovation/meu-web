@@ -38,6 +38,7 @@ import Profile from "../pages/public/Profile";
 import ConnectionLayout from "../pages/protected/Home/Connections/ConnectionLayout";
 import Connections from "../pages/protected/Home/Connections/Connections";
 import connectionLoaders from "../pages/protected/Home/Connections/loaders";
+import ShareProfile from "../pages/protected/ShareProfile";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -87,6 +88,7 @@ export const router = createBrowserRouter(
       </Route>
       <Route path="login" loader={loginLoader} element={<Login />} />
       <Route path="profile/:id" loader={profileLoader} element={<Profile />} />
+      <Route path="share-profile" element={<ShareProfile />} />
       <Route path="auth/callback/twitter" element={<Twitter />} />
       <Route path="auth/callback/linkedin" element={<LinkedIn />} />
     </Route>
