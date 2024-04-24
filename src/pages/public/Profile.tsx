@@ -22,7 +22,7 @@ const Profile = () => {
         <div
           className="flex gap-4"
           onClick={() => {
-            navigate("/");
+            navigate(-1);
           }}
         >
           <img
@@ -43,7 +43,7 @@ const Profile = () => {
         />
         {toggle && <PopUpOption />}
       </div>
-      <div className="min-h-24">
+      <div className="h-[400]">
         <Skeleton isLoaded={loaded} className=" bg-transparent ">
           <img
             src={profile.avatar}

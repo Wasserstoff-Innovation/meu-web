@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { IUser } from "../../../../types/user";
+import { IConnection } from "../../../../types/connection";
 
 type SearchUserLayoutProps = {
-  data: IUser[];
-  setFilteredData: React.Dispatch<React.SetStateAction<IUser[]>>;
+  data: IConnection[];
+  setFilteredData: React.Dispatch<React.SetStateAction<IConnection[]>>;
   children?: React.ReactNode;
 };
 export default function SearchUserLayout({
@@ -15,8 +15,8 @@ export default function SearchUserLayout({
   const FilterData = (val: string) => {
     const filterData = data.filter(
       (item) =>
-        item.name.toLowerCase().includes(val) ||
-        item.userId.toLowerCase().includes(val)
+        item.user.name.toLowerCase().includes(val) ||
+        item.user.userId.toLowerCase().includes(val)
     );
     setFilteredData(filterData);
   };

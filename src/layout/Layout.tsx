@@ -7,10 +7,12 @@ import { connect } from "../api/connect/connection";
 import { getPublicData } from "../utils";
 import { updateRecommendedCards } from "../redux/features/mainSlice";
 import { toast } from "react-toastify";
+import RootPopup from "../components/common/RootPopup";
 
 const ProtectedLayout = () => {
   return (
     <Fragment>
+      <RootPopup />
       <Outlet />
     </Fragment>
   );
@@ -43,11 +45,11 @@ const DashboardLayout = () => {
 
   return (
     <div className="flex flex-1 flex-col">
-    <div className="flex flex-1 flex-col gap-4 overflow-y-auto h-[88vh] mt-3">
-      <Outlet />
+      <div className="flex flex-1 flex-col gap-4 overflow-y-auto h-[88vh] mt-3">
+        <Outlet />
+      </div>
+      <BottomNav />
     </div>
-    <BottomNav />
-  </div>
   );
 };
 const Layout = () => {

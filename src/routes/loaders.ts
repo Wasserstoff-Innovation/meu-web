@@ -1,4 +1,4 @@
-import { Params, json, redirect } from "react-router-dom";
+import { Params, redirect } from "react-router-dom";
 import { getUserCard } from "../api/connect/userCard";
 import { getIsAuthenticated } from "../utils";
 
@@ -20,16 +20,14 @@ export const loginLoader = async () => {
 
 export const onBoardingLoader = () => {
   const isOnBoarded = sessionStorage.getItem("cardId");
-  console.log({ isOnBoarded });
   if (isOnBoarded) {
     return redirect("/");
   }
   return null;
 };
 
-export const homeLoader = () => {
+export const dashboardLoader = () => {
   const isOnBoarded = sessionStorage.getItem("cardId");
-  console.log(!isOnBoarded);
   if (!isOnBoarded) {
     return redirect("/onboard/ob1");
   }
@@ -38,13 +36,5 @@ export const homeLoader = () => {
 
 export const profileLoader = async ({ params }: { params: Params }) => {
   const userCard = await getUserCard(params.id);
-  if (!userCard) {
-    throw json(
-      {
-        message: "Profile Not found / User not discoverable",
-      },
-      { status: 401 }
-    );
-  }
   return { profile: userCard };
 };

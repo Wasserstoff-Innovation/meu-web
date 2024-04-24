@@ -1,22 +1,33 @@
 import { useState } from "react";
-import { useAppSelector } from "../../../../redux/hooks";
-import RequestCard from "../../../../components/connection/RequestCard";
+import RequestCard from "../../../../components/connection/ReceivedRequestCard";
 import SearchUserLayout from "./SearchUserLayout";
-import { IUser, IUserwithPrivateData } from "../../../../types/user";
+import { IUserwithPrivateData } from "../../../../types/user";
 import { useLoaderData } from "react-router-dom";
-
+import {
+  IConnection,
+  IConnectionwithPrivateData,
+} from "../../../../types/connection";
+type IReceivedRequest = {
+  sender: IUserwithPrivateData;
+  _id: string;
+};
 const Received = () => {
-  const { requests } = useLoaderData() as { requests: IUserwithPrivateData[] };
+  const { requests } = useLoaderData() as { requests: IReceivedRequest[] };
   console.log(requests);
-  const { receivedRequests } = useAppSelector((state) => state.main);
-  const [data, setData] = useState<IUser[]>(receivedRequests);
+  // const { receivedRequests } = useAppSelector((state) => state.main);
+  const [data, setData] = useState<IConnection[]>(
+    requests.map((request) => ({
+      connectionId: request._id,
+      user: request.sender,
+    }))
+  );
   return (
-    <SearchUserLayout data={receivedRequests} setFilteredData={setData}>
+    <SearchUserLayout data={data} setFilteredData={setData}>
       <div className="flex flex-col gap-4">
-        {data.map((userData) => (
+        {data.map((connect) => (
           <RequestCard
-            key={userData.userId}
-            user={userData as unknown as IUserwithPrivateData}
+            key={connect.connectionId}
+            connection={connect as IConnectionwithPrivateData}
           />
         ))}
       </div>

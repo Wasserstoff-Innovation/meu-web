@@ -18,7 +18,7 @@ import RateMeu from "../pages/protected/Setting/RateMeu";
 import Share from "../pages/protected/Setting/Share";
 import About from "../pages/protected/Setting/About";
 import Purpose from "../pages/protected/Setting/Purpose";
-import Home from "../pages/protected/Home/Home";
+import Home, { homeLoader } from "../pages/protected/Home/Home";
 import Contracts from "../pages/protected/Home/Contracts/contracts";
 import TuneRecommendation from "../pages/protected/Home/TuneRecommendation";
 import Received from "../pages/protected/Home/Connections/Received";
@@ -28,7 +28,7 @@ import Sent from "../pages/protected/Home/Connections/Sent";
 import QRScanner from "../components/Home/QRScanner";
 import MapView from "../pages/protected/Home/MapView";
 import {
-  homeLoader,
+  dashboardLoader,
   loginLoader,
   onBoardingLoader,
   profileLoader,
@@ -43,8 +43,8 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<RootError />}>
       <Route path="" loader={protectedLoader} element={<ProtectedLayout />}>
-        <Route path="" loader={homeLoader} element={<DashboardLayout />}>
-          <Route path="" element={<Home />} />
+        <Route path="" loader={dashboardLoader} element={<DashboardLayout />}>
+          <Route path="" loader={homeLoader} element={<Home />} />
           <Route path="contracts" element={<Contracts />} />
           <Route path="map-view" element={<MapView />} />
           <Route path="" element={<ConnectionLayout />}>

@@ -17,7 +17,7 @@ function App() {
             <AuthProvider>
               <ToastContainer
                 position="top-center"
-                autoClose={4000}
+                autoClose={50}
                 hideProgressBar={true}
                 newestOnTop={false}
                 closeOnClick
@@ -25,6 +25,7 @@ function App() {
                 rtl={false}
                 theme="dark"
               />
+             
               <RouterProvider router={router} />
             </AuthProvider>
           </PersistGate>

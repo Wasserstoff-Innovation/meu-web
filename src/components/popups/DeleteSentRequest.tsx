@@ -1,27 +1,30 @@
 import { useState } from "react";
-import { useAppDispatch } from "../../redux/hooks";
 import { Button, ModalBody, ModalFooter } from "@nextui-org/react";
-import { togglePopup } from "../../redux/features/popupSlice";
-import { rejectRequest } from "../../api/connect/connection";
+import { cancelRequest } from "../../api/connect/connection";
+import { IConnection } from "../../types/connection";
+import { toast } from "react-toastify";
+import { useRevalidator } from "react-router-dom";
 
-type DeleteRequestProps = {
-  id: string;
-  userCardId: string | undefined;
+type DeleteSentRequestProps = {
+  connection: IConnection;
   onClose: () => void;
 };
 
-const DeleteRequest = ({ id, userCardId, onClose }: DeleteRequestProps) => {
-  const dispatch = useAppDispatch();
+const DeleteSentRequest = ({ connection, onClose }: DeleteSentRequestProps) => {
+  const revalidator = useRevalidator();
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async (id: string) => {
     setLoading(true);
     try {
-      if (!userCardId) return;
-      await rejectRequest(id);
-      dispatch(togglePopup());
+      if (!id) return;
+      const response = await cancelRequest(id);
+      console.log(response);
+      revalidator.revalidate();
+      onClose();
     } catch (error) {
       console.error(error);
+      toast.error("Failed to delete request");
     } finally {
       setLoading(false);
     }
@@ -30,8 +33,14 @@ const DeleteRequest = ({ id, userCardId, onClose }: DeleteRequestProps) => {
   return (
     <>
       <ModalBody className="text-[14px] flex flex-col justify-center items-center flex-wrap">
-        <p className="font-medium">Are you sure?</p>
-        <p className="font-normal">You want to delete this card?</p>
+        <p className="font-medium">
+          Are you sure you want to delete the request sent to{" "}
+          {connection.user.name}?
+        </p>
+        <p className="font-normal">
+          {connection.user.name} will not see your connection request anymore
+          and will not be notified.
+        </p>
       </ModalBody>
       <ModalFooter className="grid grid-cols-2 gap-4 text-white">
         <Button
@@ -45,8 +54,7 @@ const DeleteRequest = ({ id, userCardId, onClose }: DeleteRequestProps) => {
         </Button>
         <Button
           onClick={() => {
-            onClose();
-            handleDelete(id);
+            handleDelete(connection.connectionId);
           }}
           isDisabled={loading}
           className="bg-[#DB4437] rounded-sm text-white font-medium"
@@ -58,4 +66,4 @@ const DeleteRequest = ({ id, userCardId, onClose }: DeleteRequestProps) => {
   );
 };
 
-export default DeleteRequest;
+export default DeleteSentRequest;

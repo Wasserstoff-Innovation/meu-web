@@ -2,6 +2,8 @@ import { Modal, ModalContent } from "@nextui-org/react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { togglePopup } from "../../redux/features/popupSlice";
 import DeleteRequest from "../popups/DeleteRequest";
+import DeleteSentRequest from "../popups/DeleteSentRequest";
+import { IConnection } from "../../types/connection";
 
 const RootPopup = () => {
   const { showPopup, popupType, popupData } = useAppSelector(
@@ -27,12 +29,20 @@ const RootPopup = () => {
           }
         ) => {
           switch (popupType) {
-            case "deleteRequest":
+            case "REJECT_REQUEST":
               return (
                 <DeleteRequest
                   onClose={onClose}
                   id={popupData as string}
                   userCardId={userDoc?.data.userId}
+                />
+              );
+
+            case "DELETE_SENT_REQUEST":
+              return (
+                <DeleteSentRequest
+                  onClose={onClose}
+                  connection={popupData as IConnection}
                 />
               );
             default:

@@ -1,35 +1,39 @@
 import { IUser, IUserwithPrivateData } from "../../types/user";
 import { sendAPIRequest } from "./request";
-import { CONNECT_API_URL } from "./userCard";
 
 export const connect = async (userData: IUser) => {
-  const response = await sendAPIRequest("/connect", "POST", { user: userData });
-  return response;
+  return await sendAPIRequest("/connect", "POST", { user: userData });
+};
+
+export const getRecommended = async (): Promise<IUser[]> => {
+  return await sendAPIRequest("/recommended", "GET");
 };
 
 export const sendRequest = async (
   sender: IUserwithPrivateData,
   receiver: IUser
-) => {
-  return fetch(`${CONNECT_API_URL}/add`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      userid: sender.userId,
-    },
-    body: JSON.stringify({ sender, receiver }),
-  })
-    .then((res) => res.json())
-    .then((data) => data);
+): Promise<{
+  message: string;
+  recommendedCards: IUser[];
+}> => {
+  return await sendAPIRequest("/add", "POST", { sender, receiver });
 };
 
 export const getReceivedRequests = async (): Promise<
-  IUserwithPrivateData[]
+  {
+    sender: IUserwithPrivateData;
+    _id: string;
+  }[]
 > => {
   return await sendAPIRequest(`/requests?type=received`, "GET");
 };
 
-export const getSentRequests = async (): Promise<IUser[]> => {
+export const getSentRequests = async (): Promise<
+  {
+    receiver: IUser;
+    _id: string;
+  }[]
+> => {
   return await sendAPIRequest(`/requests?type=sent`, "GET");
 };
 
@@ -37,17 +41,13 @@ export const acceptRequest = async (
   connectionId: string,
   receiver: IUserwithPrivateData
 ) => {
-  return fetch(`${CONNECT_API_URL}/accept/${connectionId}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ receiver }),
-  })
-    .then((res) => res.json())
-    .then((data) => data);
+  return await sendAPIRequest(`/accept/${connectionId}`, "POST", { receiver });
 };
 
 export const rejectRequest = async (connectionId: string) => {
   return await sendAPIRequest(`/reject/${connectionId}`, "POST");
+};
+
+export const cancelRequest = async (connectionId: string) => {
+  return await sendAPIRequest(`/cancel/${connectionId}`, "POST");
 };

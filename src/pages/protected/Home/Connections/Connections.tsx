@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppSelector } from "../../../../redux/hooks";
-import RequestCard from "../../../../components/connection/RequestCard";
+import RequestCard from "../../../../components/connection/ReceivedRequestCard";
 import SearchUserLayout from "./SearchUserLayout";
 import { IUser, IUserwithPrivateData } from "../../../../types/user";
 
