@@ -6,9 +6,7 @@ import { Doc } from "@junobuild/core";
 interface mainState {
   userDoc: Doc<IUserwithPrivateData> | undefined;
   recommendedCards: IUser[];
-  connections: IUserwithPrivateData[];
-  sentRequests: IUser[];
-  receivedRequests: IUserwithPrivateData[];
+  connections: Doc<IUserwithPrivateData>[];
 }
 
 // Define the initial state using that type
@@ -16,8 +14,6 @@ const initialState: mainState = {
   userDoc: undefined,
   recommendedCards: [],
   connections: [],
-  sentRequests: [],
-  receivedRequests: [],
 };
 
 export const mainSlice = createSlice({
@@ -35,28 +31,14 @@ export const mainSlice = createSlice({
     },
     updateConnections: (
       state,
-      action: PayloadAction<IUserwithPrivateData[]>
+      action: PayloadAction<Doc<IUserwithPrivateData>[]>
     ) => {
       state.connections = action.payload;
-    },
-    updateSentRequests: (state, action: PayloadAction<IUser[]>) => {
-      state.sentRequests = action.payload;
-    },
-    updateReceivedRequests: (
-      state,
-      action: PayloadAction<IUserwithPrivateData[]>
-    ) => {
-      state.receivedRequests = action.payload;
     },
   },
 });
 
-export const {
-  updateUserDoc,
-  updateRecommendedCards,
-  updateConnections,
-  updateSentRequests,
-  updateReceivedRequests,
-} = mainSlice.actions;
+export const { updateUserDoc, updateRecommendedCards, updateConnections } =
+  mainSlice.actions;
 
 export default mainSlice.reducer;

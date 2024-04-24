@@ -25,7 +25,6 @@ function App() {
                 rtl={false}
                 theme="dark"
               />
-             
               <RouterProvider router={router} />
             </AuthProvider>
           </PersistGate>

@@ -4,12 +4,14 @@ import { togglePopup } from "../../redux/features/popupSlice";
 import DeleteRequest from "../popups/DeleteRequest";
 import DeleteSentRequest from "../popups/DeleteSentRequest";
 import { IConnection } from "../../types/connection";
+import DeleteConnection from "../popups/DeleteConnection";
+import { Doc } from "@junobuild/core";
+import { IUserwithPrivateData } from "../../types/user";
 
 const RootPopup = () => {
   const { showPopup, popupType, popupData } = useAppSelector(
     (state) => state.popup
   );
-  const { userDoc } = useAppSelector((state) => state.main);
   const dispatch = useAppDispatch();
 
   return (
@@ -33,8 +35,7 @@ const RootPopup = () => {
               return (
                 <DeleteRequest
                   onClose={onClose}
-                  id={popupData as string}
-                  userCardId={userDoc?.data.userId}
+                  connection={popupData as IConnection}
                 />
               );
 
@@ -43,6 +44,14 @@ const RootPopup = () => {
                 <DeleteSentRequest
                   onClose={onClose}
                   connection={popupData as IConnection}
+                />
+              );
+
+            case "DELETE_CONNECTION":
+              return (
+                <DeleteConnection
+                  onClose={onClose}
+                  connectionDoc={popupData as Doc<IUserwithPrivateData>}
                 />
               );
             default:

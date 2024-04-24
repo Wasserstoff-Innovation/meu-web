@@ -43,12 +43,12 @@ const Profile = () => {
         />
         {toggle && <PopUpOption />}
       </div>
-      <div className="h-[400]">
-        <Skeleton isLoaded={loaded} className=" bg-transparent ">
+      <div className="h-80 w-full ">
+        <Skeleton isLoaded={loaded} className="h-80 w-full  bg-transparent ">
           <img
             src={profile.avatar}
             onLoad={() => setLoaded(true)}
-            className="rounded-full "
+            className=" h-80 w-full object-cover "
           />
         </Skeleton>
       </div>

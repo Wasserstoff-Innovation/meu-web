@@ -1,22 +1,51 @@
-import { Avatar } from "@nextui-org/react";
-import { useAppDispatch } from "../../redux/hooks";
+import { Avatar, Spinner } from "@nextui-org/react";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   setPopupData,
   setPopupType,
   togglePopup,
 } from "../../redux/features/popupSlice";
 import { IConnectionwithPrivateData } from "../../types/connection";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRevalidator } from "react-router-dom";
+import { useContext, useState } from "react";
+import { acceptRequest } from "../../api/connect/connection";
+import { toast } from "react-toastify";
+import { getConnections, saveConnection } from "../../api/juno/connection";
+import { AuthContext } from "../../context/Auth";
+import { updateConnections } from "../../redux/features/mainSlice";
 
 const ReceivedRequestCard = ({
   connection,
 }: {
   connection: IConnectionwithPrivateData;
 }) => {
+  const [loading, setLoading] = useState(false);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const revalidator = useRevalidator();
   const dispatch = useAppDispatch();
-  const handleAccept = (id: string) => {
-    console.log(id);
+  const { userDoc } = useAppSelector((state) => state.main);
+  const handleAccept = async () => {
+    setLoading(true);
+    try {
+      if (!userDoc?.data) return;
+      const response = await acceptRequest(
+        connection.connectionId,
+        userDoc.data
+      );
+      await saveConnection(user, connection.user);
+      const latestConnections = await getConnections(user);
+      if (latestConnections !== undefined) {
+        dispatch(updateConnections(latestConnections));
+      }
+      console.log(response);
+      revalidator.revalidate();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to Accept request");
+    } finally {
+      setLoading(false);
+    }
   };
   console.log(connection);
   return (
@@ -36,9 +65,9 @@ const ReceivedRequestCard = ({
       <div className="flex gap-4 items-center">
         <div
           className="bg-[#1272BA] p-1 text-[10px] px-4   rounded-full cursor-pointer shadow-sm"
-          onClick={() => handleAccept(connection.user.userId)}
+          onClick={handleAccept}
         >
-          Accept
+          {loading ? <Spinner size="sm" /> : "Accept"}
         </div>
 
         <div

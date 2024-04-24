@@ -1,31 +1,26 @@
-import { useState } from "react";
-import RequestCard from "../../../../components/connection/ReceivedRequestCard";
+import { useEffect, useState } from "react";
+import ReceivedRequestCard from "../../../../components/connection/ReceivedRequestCard";
 import SearchUserLayout from "./SearchUserLayout";
-import { IUserwithPrivateData } from "../../../../types/user";
 import { useLoaderData } from "react-router-dom";
 import {
   IConnection,
   IConnectionwithPrivateData,
 } from "../../../../types/connection";
-type IReceivedRequest = {
-  sender: IUserwithPrivateData;
-  _id: string;
-};
+
 const Received = () => {
-  const { requests } = useLoaderData() as { requests: IReceivedRequest[] };
+  const { requests } = useLoaderData() as { requests: IConnection[] };
   console.log(requests);
+
+  useEffect(() => {
+    setData(requests);
+  }, [requests]);
   // const { receivedRequests } = useAppSelector((state) => state.main);
-  const [data, setData] = useState<IConnection[]>(
-    requests.map((request) => ({
-      connectionId: request._id,
-      user: request.sender,
-    }))
-  );
+  const [data, setData] = useState<IConnection[]>(requests);
   return (
     <SearchUserLayout data={data} setFilteredData={setData}>
       <div className="flex flex-col gap-4">
         {data.map((connect) => (
-          <RequestCard
+          <ReceivedRequestCard
             key={connect.connectionId}
             connection={connect as IConnectionwithPrivateData}
           />

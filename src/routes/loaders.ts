@@ -1,4 +1,4 @@
-import { Params, redirect } from "react-router-dom";
+import { Params, json, redirect } from "react-router-dom";
 import { getUserCard } from "../api/connect/userCard";
 import { getIsAuthenticated } from "../utils";
 
@@ -36,5 +36,13 @@ export const dashboardLoader = () => {
 
 export const profileLoader = async ({ params }: { params: Params }) => {
   const userCard = await getUserCard(params.id);
+  if (!userCard) {
+    throw json(
+      {
+        message: "Profile Not found / User not discoverable",
+      },
+      { status: 401 }
+    );
+  }
   return { profile: userCard };
 };

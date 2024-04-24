@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const updateSavedUserData = async () => {
       if (user) {
         const latestUserData = await getUserDataCards(user);
-        sessionStorage.setItem("cardId", latestUserData?.data.userId || "");
+        sessionStorage.setItem("cardId", latestUserData?.data?.userId || "");
         // console.log({ latestUserData });
         dispatch(updateUserDoc(latestUserData));
       }

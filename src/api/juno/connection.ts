@@ -1,19 +1,25 @@
-import { User, listDocs, setDoc } from "@junobuild/core";
-import { IUser } from "../../types/user";
+import {
+  Doc,
+  User,
+  deleteDoc,
+  getDoc,
+  listDocs,
+  setDoc,
+} from "@junobuild/core";
+import { IUserwithPrivateData } from "../../types/user";
 import { correctTimeStamps } from "../../utils";
-import { nanoid } from "nanoid";
 
 export const saveConnection = async (
   user: User | null | undefined,
-  data: IUser
+  data: IUserwithPrivateData
 ) => {
   try {
     if (!user || user === null) return undefined;
-    const createdDoc = await setDoc<IUser>({
+    const createdDoc = await setDoc<IUserwithPrivateData>({
       collection: "connections",
       doc: {
-        key: nanoid(),
-        data: { ...data },
+        key: data.userId,
+        data: data,
         updated_at: BigInt(Date.now()),
       },
     });
@@ -27,7 +33,7 @@ export const saveConnection = async (
 export const getConnections = async (user: User | null | undefined) => {
   try {
     if (!user || user === null) return undefined;
-    const docs = await listDocs<IUser>({
+    const docs = await listDocs<IUserwithPrivateData>({
       collection: "connections",
       filter: {
         order: {
@@ -40,5 +46,32 @@ export const getConnections = async (user: User | null | undefined) => {
   } catch (e) {
     console.error(e);
     return undefined;
+  }
+};
+
+export const deleteConnection = async (
+  user: User | null | undefined,
+  connectionDoc: Doc<IUserwithPrivateData>
+) => {
+  try {
+    if (!user || user === null)
+      return {
+        message: "Failed to delete connection",
+      };
+    const latestDoc = await getDoc<IUserwithPrivateData>({
+      collection: "connections",
+      key: connectionDoc.key,
+    });
+    if (!latestDoc) {
+      return { message: "Connection not found" };
+    }
+    await deleteDoc<IUserwithPrivateData>({
+      collection: "connections",
+      doc: latestDoc,
+    });
+    return { message: "Connection deleted successfully" };
+  } catch (e) {
+    console.error(e);
+    return { message: "Failed to delete connection" };
   }
 };
