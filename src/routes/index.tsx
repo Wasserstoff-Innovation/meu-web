@@ -45,6 +45,20 @@ export const router = createBrowserRouter(
     <Route path="/" element={<Layout />} errorElement={<RootError />}>
       <Route path="" loader={protectedLoader} element={<ProtectedLayout />}>
         <Route path="share-profile" element={<ShareProfile />} />
+        <Route path="settings" element={<Layout />}>
+          <Route path="" element={<Settings />} />
+          <Route path="help" element={<Help />} />
+          <Route path="editProfile" element={<EditProfile />} />
+          <Route path="interests" element={<Interests />} />
+          <Route path="purpose" element={<Purpose />} />
+          <Route path="other" element={<Other />} />
+          <Route path="privacy" element={<Privacy />} />
+          <Route path="rate" element={<RateMeu />} />
+          <Route path="share" element={<Share />} />
+          <Route path="about" element={<About />} />
+        </Route>
+        <Route path="tune-recommendation" element={<TuneRecommendation />} />
+        <Route path="qr-scanner" element={<QRScanner />} />
         <Route path="" loader={dashboardLoader} element={<DashboardLayout />}>
           <Route path="" loader={homeLoader} element={<Home />} />
           <Route path="contracts" element={<Contracts />} />
@@ -61,20 +75,6 @@ export const router = createBrowserRouter(
               loader={connectionLoaders.sent}
               element={<Sent />}
             />
-          </Route>
-          <Route path="tune-recommendation" element={<TuneRecommendation />} />
-          <Route path="qr-scanner" element={<QRScanner />} />
-          <Route path="settings" element={<Layout />}>
-            <Route path="" element={<Settings />} />
-            <Route path="help" element={<Help />} />
-            <Route path="editProfile" element={<EditProfile />} />
-            <Route path="interests" element={<Interests />} />
-            <Route path="purpose" element={<Purpose />} />
-            <Route path="other" element={<Other />} />
-            <Route path="privacy" element={<Privacy />} />
-            <Route path="rate" element={<RateMeu />} />
-            <Route path="share" element={<Share />} />
-            <Route path="about" element={<About />} />
           </Route>
         </Route>
 
