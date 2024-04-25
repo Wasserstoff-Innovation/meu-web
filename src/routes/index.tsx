@@ -87,7 +87,7 @@ export const router = createBrowserRouter(
           <Route path="ob7" element={<Ob7 />} />
         </Route>
       </Route>
-      <Route path="login" loader={loginLoader} element={<Login />} />
+      <Route path="ob1" loader={loginLoader} element={<Ob1 />} />
       <Route path="profile/:id" loader={profileLoader} element={<Profile />} />
 
       <Route path="auth/callback/twitter" element={<Twitter />} />

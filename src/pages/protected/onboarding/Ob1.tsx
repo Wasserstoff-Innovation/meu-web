@@ -5,8 +5,8 @@ import { updateUserData } from "../../../redux/features/onBoardingSlice";
 import React, { useState } from "react";
 import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
-import { countryOptions } from "../../../constants/country";
 import PlaceSearch from "../../../components/PlaceSearch";
+import CountryCode from "../../../components/CountryCode";
 
 interface FormErrors {
   name?: string;
@@ -182,34 +182,16 @@ const Ob1 = () => {
       </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Mobile</p>
-        <div className="flex justify-center items-center text-black ">
-          <select
-            className="w-1/4 rounded-md p-2 hover:bg-[#e5e7eb]"
-            name="countryCode"
-            id=""
-            value={data.mobile.countryCode}
-            onChange={(e) => {
-              setData((prev) => ({
-                ...prev,
-                mobile: {
-                  countryCode: e.target.value,
-                  mobileNumber: data.mobile.mobileNumber,
-                },
-              }));
-            }}
-          >
-            {countryOptions.map((country, index) => (
-              <option
-                key={index}
-                value={country.value}
-                // selected={country.value === data.countryCode}
-              >
-                {country.value === data.mobile.countryCode
-                  ? data.mobile.countryCode
-                  : country.label}
-              </option>
-            ))}
-          </select>
+        <div className="flex justify-center items-center text-black relative ">
+          <CountryCode
+            countryCode={data.mobile.countryCode}
+            onChange={(code) =>
+              setData({
+                ...data,
+                mobile: { ...data.mobile, countryCode: code },
+              })
+            }
+          />
           <Input
             name="mobile"
             isClearable
@@ -239,7 +221,6 @@ const Ob1 = () => {
         <p className="text-white text-sm mb-1">Location </p>
 
         <div className="w-full ">
-          {/* <LocationSearch onLocationChange={handleLocationChange} /> */}
           <PlaceSearch addLocation={addLocation} />
         </div>
         {errors.location && (
