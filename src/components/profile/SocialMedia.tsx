@@ -1,8 +1,8 @@
-import { IUser } from "../../types/user";
+import { IUserwithPrivateData } from "../../types/user";
 
 type SocialMediaProps = {
-  linkedIn?: IUser["linkedin"];
-  twitter?: IUser["twitter"];
+  linkedIn?: IUserwithPrivateData["privateData"]["linkedin"];
+  twitter?: IUserwithPrivateData["privateData"]["twitter"];
 };
 
 const SocialMedia = ({ linkedIn, twitter }: SocialMediaProps) => {

@@ -1,8 +1,6 @@
-import React from "react";
 import DraggableSlider from "../../../components/DraggableSlider";
 
- const Ob8 = () => {
-  const [value, setValue] = React.useState<number>(25);
+const Ob8 = () => {
   return (
     <div className="">
       <div className="h-[85vh] flex flex-col justify-center gap-4 items-center">
@@ -11,11 +9,11 @@ import DraggableSlider from "../../../components/DraggableSlider";
           <p>Ready to slide into future of</p> <p>networking?</p>{" "}
         </div>
       </div>
-      
+
       <DraggableSlider />
       {/* <Drag /> */}
     </div>
   );
-}
+};
 
-export default Ob8
+export default Ob8;
