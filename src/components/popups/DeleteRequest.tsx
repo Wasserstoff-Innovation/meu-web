@@ -3,6 +3,7 @@ import { Button, ModalBody, ModalFooter } from "@nextui-org/react";
 import { rejectRequest } from "../../api/connect/connection";
 import { IConnection } from "../../types/connection";
 import { toast } from "react-toastify";
+import { useRevalidator } from "react-router-dom";
 
 type DeleteRequestProps = {
   connection: IConnection;
@@ -11,12 +12,14 @@ type DeleteRequestProps = {
 
 const DeleteRequest = ({ connection, onClose }: DeleteRequestProps) => {
   const [loading, setLoading] = useState(false);
+  const revalidator = useRevalidator();
 
   const handleDelete = async () => {
     setLoading(true);
     try {
       const response = await rejectRequest(connection.connectionId);
       toast.success(response.message);
+      revalidator.revalidate();
       onClose();
     } catch (error) {
       console.error(error);
@@ -33,7 +36,9 @@ const DeleteRequest = ({ connection, onClose }: DeleteRequestProps) => {
           Are you sure you want to delete the request from{" "}
           {connection.user.name}?
         </p>
-        <p className="font-normal">{connection.user.name} will not be notified.</p>
+        <p className="font-normal">
+          {connection.user.name} will not be notified.
+        </p>
       </ModalBody>
       <ModalFooter className="grid grid-cols-2 gap-4 text-white">
         <Button

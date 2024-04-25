@@ -18,7 +18,7 @@ export const loginLoader = async () => {
   return null;
 };
 
-export const onBoardingLoader = () => {
+export const onBoardingLoader = async () => {
   const isOnBoarded = sessionStorage.getItem("cardId");
   if (isOnBoarded) {
     return redirect("/");

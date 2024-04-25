@@ -9,6 +9,10 @@ export const getRecommended = async (): Promise<IUser[]> => {
   return await sendAPIRequest("/recommended", "GET");
 };
 
+export const ignoreRecommendation = async (userId: string): Promise<IUser> => {
+  return await sendAPIRequest(`/ignore/${userId}`, "POST");
+};
+
 export const sendRequest = async (
   sender: IUserwithPrivateData,
   receiver: IUser

@@ -3,7 +3,10 @@ import { useAppSelector } from "../../redux/hooks";
 import { useState } from "react";
 import { IUser } from "../../types/user";
 import { toast } from "react-toastify";
-import { sendRequest } from "../../api/connect/connection";
+import {
+  ignoreRecommendation,
+  sendRequest,
+} from "../../api/connect/connection";
 import { Button, Spinner } from "@nextui-org/react";
 
 const RecommendedUserCard = ({ user }: { user: IUser }) => {
@@ -22,6 +25,17 @@ const RecommendedUserCard = ({ user }: { user: IUser }) => {
       toast.error("Error sending request");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const ignoreUser = async (id: string) => {
+    try {
+      if (!id) return;
+      const response = await ignoreRecommendation(id);
+      console.log(response);
+      revalidator.revalidate();
+    } catch (error) {
+      console.error(error);
     }
   };
   return (
@@ -48,12 +62,18 @@ const RecommendedUserCard = ({ user }: { user: IUser }) => {
         >
           {loading ? <Spinner /> : "Add"}
         </Button>
-        <img
-          // onClick={() => handleClick(user.id)}
-          src="./close.svg"
-          alt="close"
-          className="size-3 cursor-pointer"
-        />
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            ignoreUser(user.userId);
+          }}
+        >
+          <img
+            src="./close.svg"
+            alt="close"
+            className="size-3 cursor-pointer"
+          />
+        </div>
       </div>
     </div>
   );
