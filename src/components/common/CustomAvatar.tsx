@@ -19,7 +19,7 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
     console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
     const options = {
       maxSizeMB: 1 / 3,
-      maxWidthOrHeight: 300,
+      maxWidthOrHeight: 500,
       useWebWorker: true,
     };
     try {

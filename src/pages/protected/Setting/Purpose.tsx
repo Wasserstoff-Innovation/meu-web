@@ -1,8 +1,16 @@
 import { useNavigate  } from "react-router-dom";
-import { Radio, RadioGroup } from "@nextui-org/react";
-import { purposes } from "../../../constants/purpose";
+import PurposeCustom from "../../../components/onboarding/PurposeCustom";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { updateUserData } from "../../../redux/features/onBoardingSlice";
 
 const Purpose = () => {
+  
+  const dispatch = useAppDispatch();
+  const { userDoc } = useAppSelector((state) => state.main);
+
+  const handleChange = (value:string)=>{
+      dispatch(updateUserData({ purpose: value }));
+  }
 
   const Navigate =useNavigate();
   const backNavigate = () =>{
@@ -17,24 +25,7 @@ const Purpose = () => {
         />
         <div>Purpose</div>
       </div>
-      <div className="w-full">
-        <p className="text-white text-sm mt-1 ">
-          What are you looking for on MEU?
-        </p>
-      </div>
-      <div className="w-full">
-        <RadioGroup
-          // label="Select your favorite city"
-          color="secondary"
-          defaultValue="networking"
-        >
-          {purposes.map((purpose) => (
-            <Radio key={purpose.value} value={purpose.value} className="mb-1">
-              <p className="text-white">{purpose.label}</p>
-            </Radio>
-          ))}
-        </RadioGroup>
-      </div>
+      <PurposeCustom purpose={userDoc?.data.purpose || ""} handleChange={handleChange}/>
     </div>
   );
 };

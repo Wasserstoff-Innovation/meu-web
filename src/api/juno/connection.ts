@@ -1,0 +1,77 @@
+import {
+  Doc,
+  User,
+  deleteDoc,
+  getDoc,
+  listDocs,
+  setDoc,
+} from "@junobuild/core";
+import { IUserwithPrivateData } from "../../types/user";
+import { correctTimeStamps } from "../../utils";
+
+export const saveConnection = async (
+  user: User | null | undefined,
+  data: IUserwithPrivateData
+) => {
+  try {
+    if (!user || user === null) return undefined;
+    const createdDoc = await setDoc<IUserwithPrivateData>({
+      collection: "connections",
+      doc: {
+        key: data.userId,
+        data: data,
+        updated_at: BigInt(Date.now()),
+      },
+    });
+    return correctTimeStamps(createdDoc);
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
+};
+
+export const getConnections = async (user: User | null | undefined) => {
+  try {
+    if (!user || user === null) return undefined;
+    const docs = await listDocs<IUserwithPrivateData>({
+      collection: "connections",
+      filter: {
+        order: {
+          desc: true,
+          field: "updated_at",
+        },
+      },
+    });
+    return docs.items.map((item) => correctTimeStamps(item));
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
+};
+
+export const deleteConnection = async (
+  user: User | null | undefined,
+  connectionDoc: Doc<IUserwithPrivateData>
+) => {
+  try {
+    if (!user || user === null)
+      return {
+        message: "Failed to delete connection",
+      };
+    const latestDoc = await getDoc<IUserwithPrivateData>({
+      collection: "connections",
+      key: connectionDoc.key,
+    });
+    if (!latestDoc) {
+      return { message: "Connection not found" };
+    }
+    await deleteDoc<IUserwithPrivateData>({
+      collection: "connections",
+      doc: latestDoc,
+    });
+    return { message: "Connection deleted successfully" };
+  } catch (e) {
+    console.error(e);
+    return { message: "Failed to delete connection" };
+  }
+};

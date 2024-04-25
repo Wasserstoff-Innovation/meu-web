@@ -1,25 +1,18 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { Doc, User, authSubscribe, initJuno } from "@junobuild/core";
-import { IUser } from "../types/user";
+import { User, authSubscribe, initJuno } from "@junobuild/core";
 import { getUserDataCards } from "../api/juno/user";
+import { useAppDispatch } from "../redux/hooks";
+import { updateUserDoc } from "../redux/features/mainSlice";
 
 export interface IAuthContext {
   user: User | null | undefined;
-  savedUserData: Doc<IUser> | undefined;
-  setSavedUserData: React.Dispatch<
-    React.SetStateAction<Doc<IUser> | undefined>
-  >;
 }
 export const AuthContext = createContext<IAuthContext>({
   user: undefined,
-  savedUserData: undefined,
-  setSavedUserData: () => {},
 });
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null | undefined>(undefined);
-  const [savedUserData, setSavedUserData] = useState<Doc<IUser> | undefined>(
-    undefined
-  );
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     (async () => {
@@ -38,9 +31,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const unsubscribe = authSubscribe((user) => {
       setUser(user);
-      if (user) {
-        sessionStorage.setItem("user", JSON.stringify(user.key));
-      }
     });
 
     return () => unsubscribe();
@@ -50,19 +40,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const updateSavedUserData = async () => {
       if (user) {
         const latestUserData = await getUserDataCards(user);
-        sessionStorage.setItem(
-          "isOnBoarded",
-          Boolean(latestUserData?.data).toString()
-        );
-        setSavedUserData(latestUserData);
+        sessionStorage.setItem("cardId", latestUserData?.data?.userId || "");
+        // console.log({ latestUserData });
+        dispatch(updateUserDoc(latestUserData));
       }
     };
     updateSavedUserData();
-  }, [user]);
+  }, [dispatch, user]);
 
   return (
-    <AuthContext.Provider value={{ user, savedUserData, setSavedUserData }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
   );
 };

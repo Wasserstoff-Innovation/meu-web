@@ -1,6 +1,6 @@
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
 import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 import { useContext, useState } from "react";
@@ -8,22 +8,40 @@ import Lottie from "lottie-react";
 import EarthLottie from "../../../lottie/earth.json";
 import { setUserData } from "../../../api/juno/user";
 import { AuthContext } from "../../../context/Auth";
+import {
+  updateRecommendedCards,
+  updateUserDoc,
+} from "../../../redux/features/mainSlice";
+import { updateUserData } from "../../../redux/features/onBoardingSlice";
+import { EmptyUser } from "../../../constants/empty";
+import { connect } from "../../../api/connect/connection";
+import { getPublicData } from "../../../utils";
+import { toast } from "react-toastify";
 
 const Ob5 = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
-  const { user, setSavedUserData } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [showLoader, setShowLoader] = useState(false);
-
 
   const handleNext = async () => {
     setShowLoader(true);
     const userDoc = await setUserData(user, userData);
     if (userDoc) {
+      //TODO: create a button to connect to meu-Connect
+      connect(getPublicData(userDoc.data))
+        .then((recommendedCards) => {
+          dispatch(updateRecommendedCards(recommendedCards));
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
       console.log("User data set successfully");
-      setSavedUserData(userDoc);
-      sessionStorage.setItem("isOnBoarded", "true")
-      navigate("/share-profile");
+      dispatch(updateUserDoc(userDoc));
+      dispatch(updateUserData(EmptyUser));
+      sessionStorage.setItem("cardId", userDoc.data.userId);
+      navigate(`/share-profile`);
     } else {
       console.error("Failed to set user data");
       navigate("/onboard/ob1");
@@ -53,7 +71,7 @@ const Ob5 = () => {
         <Button
           className=" text-sm center"
           color="default"
-          isDisabled={Boolean(userData.linkedin.email)}
+          isDisabled={Boolean(userData.privateData.linkedin.email)}
           onClick={() => {
             window.location.href = getLinkedinOAuthUrl();
           }}
@@ -64,7 +82,7 @@ const Ob5 = () => {
         <Button
           className=" text-sm center"
           color="default"
-          isDisabled={Boolean(userData.twitter.id)}
+          isDisabled={Boolean(userData.privateData.twitter.id)}
           onClick={() => {
             window.location.href = getTwitterOAuthUrl();
           }}

@@ -1,9 +1,39 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-// import { AuthContext } from "../context/Auth";
-// import { Spinner } from "@nextui-org/react";
+// import { SocketProvider } from "../context/Socket";
+import BottomNav from "../components/Home/BottomNav";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { connect } from "../api/connect/connection";
+import { getPublicData } from "../utils";
+import { updateRecommendedCards } from "../redux/features/mainSlice";
+import { toast } from "react-toastify";
+import RootPopup from "../components/common/RootPopup";
 
 const ProtectedLayout = () => {
+  const { userDoc } = useAppSelector((state) => state.main);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (userDoc?.data) {
+      connect(getPublicData(userDoc.data))
+        .then((recommendedCards) => {
+          dispatch(updateRecommendedCards(recommendedCards));
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return (
+    <Fragment>
+      <RootPopup />
+      <Outlet />
+    </Fragment>
+  );
+};
+
+const OnBoardingLayout = () => {
   return (
     <Fragment>
       <Outlet />
@@ -11,56 +41,33 @@ const ProtectedLayout = () => {
   );
 };
 
-const OnBoardingLayout = () => {
-  // const { savedUserData } = useContext(AuthContext);
-  // const [showLoader, setShowLoader] = useState(true);
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (savedUserData) {
-  //     navigate("/", { replace: true });
-  //   }
-  //   setShowLoader(false);
-  // }, [navigate, savedUserData]);
-
-  return (
-    <Fragment>
-      {/* {showLoader ? (
-        <div className="flex-1 justify-center content-center">
-          <Spinner color="primary" size="lg" />
-        </div>
-      ) : ( */}
-        <Outlet />
-      {/* )} */}
-    </Fragment>
-  );
-};
-
 const DashboardLayout = () => {
-  // const { savedUserData } = useContext(AuthContext);
-  // const [showLoader, setShowLoader] = useState(true);
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (!savedUserData) {
-  //     navigate("/onboard/ob1", { replace: true });
-  //   }
-  //   setShowLoader(false);
-  // }, [navigate, savedUserData]);
-
   return (
-    <Fragment>
-      {/* {showLoader ? (
-        <div className="flex-1 justify-center content-center">
-          <Spinner color="primary" size="lg" />
-        </div>
-      ) : ( */}
+    <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col gap-4 overflow-y-auto h-[88vh] mt-3">
         <Outlet />
-      {/* )} */}
-    </Fragment>
+      </div>
+      <BottomNav />
+    </div>
   );
 };
 const Layout = () => {
   return <Outlet />;
 };
-export { DashboardLayout, ProtectedLayout, OnBoardingLayout, Layout };
+const BottomNavLayout = () => {
+  return (
+    <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col gap-4 overflow-y-auto h-[88vh] mt-3">
+        <Outlet />
+      </div>
+      <BottomNav />
+    </div>
+  );
+};
+export {
+  DashboardLayout,
+  ProtectedLayout,
+  OnBoardingLayout,
+  Layout,
+  BottomNavLayout,
+};

@@ -1,19 +1,36 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import onBoardingReducer from "./features/onBoardingSlice";
 import mainReducer from "./features/mainSlice";
+import popupReducer from "./features/popupSlice";
+import { persistStore, persistReducer } from "redux-persist";
+// import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import createIdbStorage from "@piotr-cz/redux-persist-idb-storage";
+
+const persistConfig = {
+  key: "root",
+  storage: createIdbStorage({ name: "meu", storeName: "db" }),
+  whitelist: ["onBoarding", "main"],
+  serialize: false,
+  deserialize: false,
+};
 
 const rootReducer = combineReducers({
   onBoarding: onBoardingReducer,
   main: mainReducer,
+  popup: popupReducer,
 });
 
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 export const store = configureStore({
-  reducer: rootReducer,
-  // middleware: getDefaultMiddleware =>
-  //   getDefaultMiddleware({
-  //     immutableCheck: false,
-  //   }),
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
+
+export const persistor = persistStore(store);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

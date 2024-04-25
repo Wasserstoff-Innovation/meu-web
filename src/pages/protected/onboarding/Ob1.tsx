@@ -2,19 +2,11 @@ import { Button, Input } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
-import { useState } from "react";
+import React, { useState } from "react";
 import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
-
-interface UserData {
-  name: string;
-  email: string;
-  countryCode: string;
-  mobile: string;
-  location: string;
-}
+import PlaceSearch from "../../../components/PlaceSearch";
+import CountryCode from "../../../components/CountryCode";
 
 interface FormErrors {
   name?: string;
@@ -27,13 +19,12 @@ const Ob1 = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
-  console.log("userData", userData);
-  const [data, setData] = useState<UserData>({
+  //console.log("userData", userData);
+  const [data, setData] = useState({
     name: userData.name,
-    email: userData.email,
-    countryCode: "+91",
-    mobile: userData.mobile,
-    location: userData.location,
+    email: userData.privateData.email,
+    mobile: userData.privateData.mobile,
+    location: userData.privateData.location,
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -44,11 +35,30 @@ const Ob1 = () => {
     });
   };
 
+  const addLocation = (
+    address: string,
+    latitude: number,
+    longitude: number
+  ) => {
+    console.log(address, latitude, longitude);
+    setData((prev) => ({
+      ...prev,
+      location: {
+        address: address,
+        latitude: latitude,
+        longitude: longitude,
+      },
+    }));
+  };
+
   const handleNext = () => {
     const newErrors: FormErrors = {};
     let hasError = false;
-
-    if (data.name.length < 2 || data.name.length > 50) {
+    if (
+      data.name.trim().length === 0 ||
+      data.name.length < 2 ||
+      data.name.length > 50
+    ) {
       newErrors.name = "Name must be between 2 and 50 characters";
       hasError = true;
     }
@@ -62,14 +72,20 @@ const Ob1 = () => {
     const mobilePattern = /^\+[1-9]\d{1,3}[ -]?\d{6,14}$/;
 
     if (
-      (data.countryCode + data.mobile).trim() !== "" &&
-      !mobilePattern.test(data.countryCode + data.mobile)
+      (data.mobile.countryCode.trim() !== "" ||
+        data.mobile.mobileNumber.trim() !== "") &&
+      !mobilePattern.test(data.mobile.countryCode + data.mobile.mobileNumber)
     ) {
       newErrors.mobile = "Invalid mobile number";
       hasError = true;
     }
-
-    if (data.location.trim() === "") {
+    console.log(data.location);
+    if (
+      // data.location.state.trim() === "" ||
+      data.location.address.trim() === "" ||
+      data.location.latitude === 0 ||
+      data.location.longitude === 0
+    ) {
       newErrors.location = "Location cannot be empty";
       hasError = true;
     }
@@ -77,18 +93,29 @@ const Ob1 = () => {
     if (hasError) {
       setErrors(newErrors);
     } else {
-      const updatedUserData = {
-        ...userData,
-        name: data.name,
-        email: data.email,
-        countryCode: data.countryCode,
-        mobile: data.mobile,
-        location: data.location,
-      };
-      dispatch(updateUserData(updatedUserData));
-      navigate("/onboard/ob2"); // Ensure "/ob2" is the correct path for navigation
+      dispatch(
+        updateUserData({
+          name: data.name,
+          privateData: {
+            ...userData.privateData,
+            email: data.email,
+            mobile: {
+              countryCode: data.mobile.countryCode,
+              mobileNumber: data.mobile.mobileNumber,
+            },
+            location: data.location,
+          },
+        })
+      );
+      navigate("/onboard/ob2");
     }
   };
+
+  // const handleLocationChange = (
+  //   address: IUserwithPrivateData["privateData"]["location"]
+  // ) => {
+  //   return setData((prev) => ({ ...prev, location: address }));
+  // };
 
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
@@ -99,7 +126,7 @@ const Ob1 = () => {
         <Button
           className=" text-sm center"
           color="default"
-          isDisabled={Boolean(userData.linkedin.email)}
+          isDisabled={Boolean(userData.privateData.linkedin.email)}
           onClick={() => {
             window.location.href = getLinkedinOAuthUrl();
           }}
@@ -107,18 +134,17 @@ const Ob1 = () => {
           <img src="/linkedin.svg" alt="Linkedin" className="h-6 w-6" />
           LinkedIn
         </Button>
-        {/* <a> */}
+
         <Button
           className=" text-sm center"
           color="default"
-          isDisabled={Boolean(userData.twitter.id)}
+          isDisabled={Boolean(userData.privateData.twitter.id)}
           onClick={() => {
             window.location.href = getTwitterOAuthUrl();
           }}
         >
           <img src="/x.svg" alt="X" className="h-6 w-6" />X (Twitter)
         </Button>
-        {/* </a> */}
       </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Full Name </p>
@@ -156,11 +182,32 @@ const Ob1 = () => {
       </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Mobile</p>
-        <div className="w-full flex justify-center items-center text-black ">
-          <PhoneInput
-            country={data.countryCode}
-            value={data.mobile}
-            onChange={(mobile) => setData({ ...data, mobile })}
+        <div className="flex justify-center items-center text-black relative ">
+          <CountryCode
+            countryCode={data.mobile.countryCode}
+            onChange={(code) =>
+              setData({
+                ...data,
+                mobile: { ...data.mobile, countryCode: code },
+              })
+            }
+          />
+          <Input
+            name="mobile"
+            isClearable
+            type="tel"
+            placeholder="99999 99999 99999"
+            className="ml-2 hover:bg-[#e5e7eb] rounded-md"
+            onChange={(e) => {
+              setData((prev) => ({
+                ...prev,
+                mobile: {
+                  countryCode: data.mobile.countryCode,
+                  mobileNumber: e.target.value,
+                },
+              }));
+            }}
+            value={data.mobile.mobileNumber}
           />
         </div>
         {errors.mobile && (
@@ -172,14 +219,10 @@ const Ob1 = () => {
       </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Location </p>
-        <Input
-          name="location"
-          type="text"
-          placeholder="Gurgugram, Haryana, India"
-          isClearable
-          onChange={handleChange}
-          value={data.location}
-        />
+
+        <div className="w-full ">
+          <PlaceSearch addLocation={addLocation} />
+        </div>
         {errors.location && (
           <p className="text-red-500 text-xs mt-1">{errors.location}</p>
         )}

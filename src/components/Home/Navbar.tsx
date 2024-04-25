@@ -1,8 +1,10 @@
-import { Navbar, NavbarBrand } from "@nextui-org/react";
+import { Avatar, Navbar, NavbarBrand } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../redux/hooks";
 
 export default function App() {
   const Navigate = useNavigate();
+  const { userDoc } = useAppSelector((state) => state.main);
 
   return (
     <>
@@ -12,9 +14,10 @@ export default function App() {
             Navigate("/settings");
           }}
         >
-          <div className=" size-10 ">
-            <img src="./avatar.png" alt="avatar" className="rounded-full" />
-          </div>
+          <Avatar
+            src={userDoc?.data.avatar ? userDoc?.data.avatar : "./avatar.png"}
+            size="md"
+          />
         </NavbarBrand>
         <div className="flex gap-8 ">
           <img

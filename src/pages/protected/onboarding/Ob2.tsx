@@ -6,15 +6,12 @@ import { updateUserData } from "../../../redux/features/onBoardingSlice";
 import { useState } from "react";
 import CustomAvatar from "../../../components/common/CustomAvatar";
 
-interface UserData {
-  bio: string;
-  pronounns: string;
-}
+
 
 interface FormErrors {
   username?: string;
   bio?: string;
-  pronounns?: string;
+  pronouns?: string;
 }
 
 const Ob2: React.FC = () => {
@@ -22,9 +19,9 @@ const Ob2: React.FC = () => {
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.onBoarding);
   const [avatar, setAvatar] = useState<string>(userData.avatar);
-  const [data, setData] = useState<UserData>({
+  const [data, setData] = useState({
     bio: userData.bio,
-    pronounns: userData.pronounns,
+    pronouns: userData.pronouns,
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -40,8 +37,8 @@ const Ob2: React.FC = () => {
     }
 
     switch (true) {
-      case data.pronounns.length < 2 || data.pronounns.length > 100:
-        newErrors.pronounns = "Pronouns must be between 2 and 100 characters";
+      case data.pronouns.length < 2 || data.pronouns.length > 100:
+        newErrors.pronouns = "Pronouns must be between 2 and 100 characters";
         break;
       default:
         break;
@@ -57,14 +54,14 @@ const Ob2: React.FC = () => {
       const updatedUserData = {
         avatar: avatar,
         bio: data.bio,
-        pronounns: data.pronounns,
+        pronouns: data.pronouns,
       };
       dispatch(updateUserData(updatedUserData));
       navigate("/onboard/ob3");
     }
   };
 
-  const handleChange = (field: keyof UserData, value: string) => {
+  const handleChange = (field: string, value: string) => {
     setData((prevData) => ({
       ...prevData,
       [field]: value,
@@ -98,10 +95,10 @@ const Ob2: React.FC = () => {
           type="text"
           placeholder="he/him"
           isClearable
-          value={data.pronounns}
-          onChange={(e) => handleChange("pronounns", e.target.value)}
+          value={data.pronouns}
+          onChange={(e) => handleChange("pronouns", e.target.value)}
         />
-        <p className="text-red-500 text-xs mt-1">{errors.pronounns}</p>
+        <p className="text-red-500 text-xs mt-1">{errors.pronouns}</p>
         <p className="text-white text-xs mt-1">
           Your pronouns can have 2-100 characters.
         </p>

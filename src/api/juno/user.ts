@@ -1,14 +1,15 @@
-import { User, listDocs, setDoc } from "@junobuild/core";
-import { IUser } from "../../types/user";
+import { User, getDoc, listDocs, setDoc } from "@junobuild/core";
+import { IUserwithPrivateData } from "../../types/user";
+import { correctTimeStamps } from "../../utils";
+import { nanoid } from "nanoid";
 
 export const getUserDataCards = async (user: User | null | undefined) => {
   try {
     if (!user || user === null) return undefined;
-    const docs = await listDocs<IUser>({
+    const docs = await listDocs<IUserwithPrivateData>({
       collection: "cards",
     });
-    console.log(docs);
-    return docs.items[0];
+    return correctTimeStamps(docs.items[0]);
   } catch (e) {
     console.error(e);
     return undefined;
@@ -17,20 +18,21 @@ export const getUserDataCards = async (user: User | null | undefined) => {
 
 export const setUserData = async (
   user: User | null | undefined,
-  data: IUser
+  data: IUserwithPrivateData
 ) => {
   try {
     if (!user || user === null) return undefined;
     console.log(data);
-    const createdDoc = await setDoc<IUser>({
+    const id = nanoid();
+    const createdDoc = await setDoc<IUserwithPrivateData>({
       collection: "cards",
       doc: {
-        key: crypto.randomUUID(),
-        data,
+        key: id,
+        data: { ...data, userId: id },
         updated_at: BigInt(Date.now()),
       },
     });
-    return createdDoc;
+    return correctTimeStamps(createdDoc);
   } catch (e) {
     console.error(e);
     return undefined;
@@ -40,19 +42,23 @@ export const setUserData = async (
 export const updateUserData = async (
   user: User | null | undefined,
   key: string,
-  data: IUser
+  data: IUserwithPrivateData
 ) => {
   try {
     if (!user || user === null) return undefined;
-    const updatedDoc = await setDoc<IUser>({
+    const latestDoc = await getDoc<IUserwithPrivateData>({
+      collection: "cards",
+      key,
+    });
+    const updatedDoc = await setDoc<IUserwithPrivateData>({
       collection: "cards",
       doc: {
         key,
         data,
-        updated_at: BigInt(Date.now()),
+        updated_at: latestDoc?.updated_at,
       },
     });
-    return updatedDoc;
+    return correctTimeStamps(updatedDoc);
   } catch (e) {
     console.error(e);
     return undefined;
