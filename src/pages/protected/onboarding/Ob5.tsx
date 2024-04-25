@@ -41,7 +41,7 @@ const Ob5 = () => {
       dispatch(updateUserDoc(userDoc));
       dispatch(updateUserData(EmptyUser));
       sessionStorage.setItem("cardId", userDoc.data.userId);
-      navigate(`/profile/${userDoc.data.userId}`);
+      navigate(`/share-profile`);
     } else {
       console.error("Failed to set user data");
       navigate("/onboard/ob1");

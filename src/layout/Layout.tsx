@@ -10,6 +10,21 @@ import { toast } from "react-toastify";
 import RootPopup from "../components/common/RootPopup";
 
 const ProtectedLayout = () => {
+  const { userDoc } = useAppSelector((state) => state.main);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (userDoc?.data) {
+      connect(getPublicData(userDoc.data))
+        .then((recommendedCards) => {
+          dispatch(updateRecommendedCards(recommendedCards));
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Fragment>
       <RootPopup />
@@ -27,22 +42,6 @@ const OnBoardingLayout = () => {
 };
 
 const DashboardLayout = () => {
-  const { userDoc } = useAppSelector((state) => state.main);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (userDoc?.data) {
-      connect(getPublicData(userDoc.data))
-        .then((recommendedCards) => {
-          dispatch(updateRecommendedCards(recommendedCards));
-        })
-        .catch((err) => {
-          toast.error(err.message);
-        });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <div className="flex flex-1 flex-col">
       <div className="flex flex-1 flex-col gap-4 overflow-y-auto h-[88vh] mt-3">

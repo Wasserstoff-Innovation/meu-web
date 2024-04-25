@@ -44,6 +44,7 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<RootError />}>
       <Route path="" loader={protectedLoader} element={<ProtectedLayout />}>
+        <Route path="share-profile" element={<ShareProfile />} />
         <Route path="" loader={dashboardLoader} element={<DashboardLayout />}>
           <Route path="" loader={homeLoader} element={<Home />} />
           <Route path="contracts" element={<Contracts />} />
@@ -88,7 +89,7 @@ export const router = createBrowserRouter(
       </Route>
       <Route path="login" loader={loginLoader} element={<Login />} />
       <Route path="profile/:id" loader={profileLoader} element={<Profile />} />
-      <Route path="share-profile" element={<ShareProfile />} />
+
       <Route path="auth/callback/twitter" element={<Twitter />} />
       <Route path="auth/callback/linkedin" element={<LinkedIn />} />
     </Route>

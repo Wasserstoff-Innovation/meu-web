@@ -6,27 +6,28 @@ import { useAppSelector } from "../../redux/hooks";
 const ShareProfile = () => {
   const { userDoc } = useAppSelector((state) => state.main);
   const navigate = useNavigate();
-
+  const baseUrl = window.location.origin;
+  const profileUrl = `${baseUrl}/profile/${userDoc?.data.userId}`;
   const socialIcons = [
     {
-    name: "Whatapp",
+      name: "Whatapp",
       icon: "/whatsapp.svg",
-      url: `https://api.whatsapp.com/send?text=http://localhost:5173/${userDoc?.data.name}`,
+      url: `https://api.whatsapp.com/send?text=${profileUrl}`,
     },
     {
-    name: "Facebook",
+      name: "Facebook",
       icon: "/facebook.svg",
-      url: `https://www.facebook.com/sharer/sharer.php?u=http://localhost:5173/${userDoc?.data.name}`,
+      url: `https://www.facebook.com/sharer/sharer.php?u=${profileUrl}`,
     },
     {
-    name: "Instagram",
+      name: "Instagram",
       icon: "/insta.svg",
-      url: `https://www.instagram.com/?url=http://localhost:5173/${userDoc?.data.name}`,
+      url: `https://www.instagram.com/?url=${profileUrl}`,
     },
     {
-    name: "Telegram",
+      name: "Telegram",
       icon: "/telegram.svg",
-      url: `https://t.me/share/url?url=http://localhost:5173/${userDoc?.data.name}`,
+      url: `https://t.me/share/url?url=${profileUrl}`,
     },
   ];
 
@@ -46,7 +47,7 @@ const ShareProfile = () => {
         <div className="flex justify-center items-center ">
           <div className="bg-[#09395D] rounded-lg p-4">
             <QRCode
-              value={`http://localhost:5173/${userDoc?.data.name}`}
+              value={`${baseUrl}/profile/${userDoc?.data.userId}`}
               size={300}
               className="rounded-lg"
             />
@@ -56,17 +57,11 @@ const ShareProfile = () => {
           <div className="flex flex-col gap-2 h-full">
             <div className="self-stretch text-3xl font-bold ">
               {userDoc?.data.name}
-
             </div>
-            <p>@johndoe
-              {/* {userDoc?.data.username} */}
-            </p>
-            <div className="text-sm">
-              {userDoc?.data.bio || "I’m on MEU, where are you?" }
-            </div>
+            <div className="text-sm">{userDoc?.data.bio}</div>
           </div>
           <Avatar
-            src="avatar.png"
+            src={userDoc?.data.avatar || "/avatar.png"}
             className="min-w-32 h-32 rounded-md border-2 border-black"
           />
         </div>

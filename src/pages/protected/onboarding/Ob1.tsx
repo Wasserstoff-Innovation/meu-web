@@ -6,26 +6,7 @@ import React, { useState } from "react";
 import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
 import { countryOptions } from "../../../constants/country";
-// import LocationSearch from "../../../components/LocationSearch";
-// import { IUserwithPrivateData } from "../../../types/user";
 import PlaceSearch from "../../../components/PlaceSearch";
-
-// interface UserData {
-//   name: string;
-//   email: string;
-//   // countryCode: string;
-//   mobile: {
-//     countryCode: string;
-//     mobileNumber: string;
-//   };
-//   location: {
-//     city: string;
-//     country: string;
-//     state: string;
-//     latitude: number;
-//     longitude: number;
-//   };
-// }
 
 interface FormErrors {
   name?: string;
@@ -54,16 +35,21 @@ const Ob1 = () => {
     });
   };
 
-  const addLocation = (address:string,latitude:number,longitude:number)=>{
-    console.log(address,latitude,longitude)
-    setData((prev)=>(
-      {...prev,location:{
-        address:address,
-        latitude:latitude,
-        longitude:longitude
-      }}
-    ))
-  }
+  const addLocation = (
+    address: string,
+    latitude: number,
+    longitude: number
+  ) => {
+    console.log(address, latitude, longitude);
+    setData((prev) => ({
+      ...prev,
+      location: {
+        address: address,
+        latitude: latitude,
+        longitude: longitude,
+      },
+    }));
+  };
 
   const handleNext = () => {
     const newErrors: FormErrors = {};
@@ -98,7 +84,7 @@ const Ob1 = () => {
       // data.location.state.trim() === "" ||
       data.location.address.trim() === "" ||
       data.location.latitude === 0 ||
-      data.location.longitude ===0
+      data.location.longitude === 0
     ) {
       newErrors.location = "Location cannot be empty";
       hasError = true;
