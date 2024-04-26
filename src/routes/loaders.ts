@@ -29,7 +29,10 @@ export const onBoardingLoader = async () => {
 export const dashboardLoader = async () => {
   const isOnBoarded = sessionStorage.getItem("cardId");
   const isAuthenticated = await getIsAuthenticated();
-  if (!isOnBoarded || !isAuthenticated) {
+  if (!isAuthenticated) {
+    return redirect("/login");
+  }
+  if (!isOnBoarded) {
     return redirect("/onboard/ob1");
   }
   return null;

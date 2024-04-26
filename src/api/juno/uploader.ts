@@ -1,4 +1,5 @@
 import { User, uploadFile } from "@junobuild/core";
+import { nanoid } from "nanoid";
 
 export const uploadAvatar = async (
   file: File,
@@ -9,10 +10,10 @@ export const uploadAvatar = async (
     let filename = "";
     switch (file.type) {
       case "image/png":
-        filename = user?.key + ".png";
+        filename = nanoid() + ".png";
         break;
       case "image/jpeg":
-        filename = user?.key + ".jpeg";
+        filename = nanoid() + ".jpeg";
         break;
 
       default:
