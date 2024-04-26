@@ -13,7 +13,6 @@ const App: React.FC = () => {
   return (
     <div className=" -mx-4 px-4 pt-1 flex flex-col ">
       <div className="bg-[#313437] rounded-full px-2 p-1 flex justify-between items-center">
-        
         {topBarData.map((top, index) => (
           <div
             key={index}
@@ -22,7 +21,7 @@ const App: React.FC = () => {
             }`}
             onClick={() => Navigate(`${top.path}`)}
           >
-            <p className="p-1">{top.heading}</p>
+            <div className="p-1"> {top.heading}</div>
           </div>
         ))}
       </div>
