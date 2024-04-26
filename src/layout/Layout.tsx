@@ -8,6 +8,7 @@ import { getPublicData } from "../utils";
 import { updateRecommendedCards } from "../redux/features/mainSlice";
 import { toast } from "react-toastify";
 import RootPopup from "../components/common/RootPopup";
+import { dashboardLoader } from "../routes/loaders";
 
 const ProtectedLayout = () => {
   const { userDoc } = useAppSelector((state) => state.main);
@@ -42,6 +43,9 @@ const OnBoardingLayout = () => {
 };
 
 const DashboardLayout = () => {
+  useEffect(() => {
+    dashboardLoader();
+  });
   return (
     <div className="flex flex-1 flex-col">
       <div className="flex flex-1 flex-col gap-4 overflow-y-auto h-[88vh] mt-3">
