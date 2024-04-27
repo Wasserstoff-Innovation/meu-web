@@ -19,7 +19,7 @@ const Home = () => {
 
   const [data, setData] = useState<IUser[]>(recommendedCards);
   return (
-    <div className="">
+    <div className="p-6">
       <Navbar />
       <div className="flex flex-col gap-4 overflow-y-auto h-[83vh]">
         <h1>Recommended Users</h1>

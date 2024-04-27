@@ -5,7 +5,7 @@ import InputSearch from "../../../components/Home/FilterPage";
 const TuneRecommendation = () => {
   const Navigate = useNavigate();
   return (
-    <div className="py-4 flex flex-col gap-4">
+    <div className="p-6 flex flex-col gap-4">
       <div className="flex justify-between items-center">
         <div>
           <img

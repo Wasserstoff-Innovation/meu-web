@@ -22,7 +22,7 @@ function Contracts() {
   // );
 
   return (
-    <div className="">
+    <div className="p-6">
       <div className="sticky top-0 -mx-6 bg-[#11181C]">
         <div className="flex flex-col gap-2 rounded-full">
           <div className="flex p-2 px-6">

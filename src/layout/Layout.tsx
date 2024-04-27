@@ -9,6 +9,8 @@ import { updateRecommendedCards } from "../redux/features/mainSlice";
 import { toast } from "react-toastify";
 import RootPopup from "../components/common/RootPopup";
 import { dashboardLoader } from "../routes/loaders";
+import { APIProvider } from "@vis.gl/react-google-maps";
+import { GOOGLE_MAPS_API } from "../config";
 
 const ProtectedLayout = () => {
   const { userDoc } = useAppSelector((state) => state.main);
@@ -27,10 +29,12 @@ const ProtectedLayout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Fragment>
-      <RootPopup />
-      <Outlet />
-    </Fragment>
+    <APIProvider apiKey={GOOGLE_MAPS_API}>
+      <Fragment>
+        <RootPopup />
+        <Outlet />
+      </Fragment>
+    </APIProvider>
   );
 };
 
@@ -48,7 +52,7 @@ const DashboardLayout = () => {
   });
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex flex-1 flex-col gap-4 overflow-y-auto h-[88vh] mt-3">
+      <div className="flex flex-1 flex-col gap-4 overflow-y-auto h-[88vh]">
         <Outlet />
       </div>
       <BottomNav />
