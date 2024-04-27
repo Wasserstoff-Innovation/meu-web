@@ -1,6 +1,6 @@
+import { CONNECT_API_URL } from "../../config";
 import { IUser } from "../../types/user";
 
-export const CONNECT_API_URL = import.meta.env.VITE_SOCKET_URL as string;
 
 export const getUserCard = async (id?: string): Promise<IUser> => {
   try {

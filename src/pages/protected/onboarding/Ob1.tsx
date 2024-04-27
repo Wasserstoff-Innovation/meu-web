@@ -5,8 +5,8 @@ import { updateUserData } from "../../../redux/features/onBoardingSlice";
 import React, { useState } from "react";
 import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
-import PlaceSearch from "../../../components/PlaceSearch";
 import CountryCode from "../../../components/CountryCode";
+import GooglePlaceSearch from "./GooglePlaceSearch";
 
 interface FormErrors {
   name?: string;
@@ -221,7 +221,7 @@ const Ob1 = () => {
         <p className="text-white text-sm mb-1">Location </p>
 
         <div className="w-full ">
-          <PlaceSearch addLocation={addLocation} />
+          <GooglePlaceSearch addLocation={addLocation} />
         </div>
         {errors.location && (
           <p className="text-red-500 text-xs mt-1">{errors.location}</p>
