@@ -1,29 +1,17 @@
-import { useState } from "react";
-import SearchBox from "../../../../components/SearchBox";
-import ContractCardList from "./ContractList";
-import SignOrRemindContract from "./SignOrRemindContract";
-//import { contracts } from '../../../constants/contractdata';
-// import Footer from '../../../components/Footer';
+// import { useState } from "react";
+// import SearchBox from "../../../../components/SearchBox";
+// import ContractCardList from "./ContractList";
+// import SignOrRemindContract from "./SignOrRemindContract";
 
 function Contracts() {
-  const [activeLink, setActiveLink] = useState("link1");
-  // const [searchQuery, setSearchQuery] = useState('');
-
-  const handleLinkClick = (link: string) => {
-    setActiveLink(link);
-  };
-
-  // const handleSearch = (query) => {
-  //   setSearchQuery(query);
+  // const [activeLink, setActiveLink] = useState("link1");
+  // const handleLinkClick = (link: string) => {
+  //   setActiveLink(link);
   // };
-
-  // const filteredContracts = contracts.filter((contract) =>
-  //   contract.user.toLowerCase().includes(searchQuery.toLowerCase())
-  // );
-
   return (
-    <div className="p-6">
-      <div className="sticky top-0 -mx-6 bg-[#11181C]">
+    <div className="p-6 text-center flex-1 flex  justify-center items-center">
+      Coming soon
+      {/* <div className="sticky top-0 -mx-6 bg-[#11181C]">
         <div className="flex flex-col gap-2 rounded-full">
           <div className="flex p-2 px-6">
             <button
@@ -63,10 +51,7 @@ function Contracts() {
             <SignOrRemindContract />
           </div>
         )}
-      </div>
-      {/* <div className='-m-4'>
-      <Footer/>
-      </div>  */}
+      </div> */}
     </div>
   );
 }

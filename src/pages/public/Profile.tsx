@@ -15,7 +15,7 @@ const Profile = () => {
   const [loaded, setLoaded] = useState(false);
   return (
     <div
-      className="flex flex-1 flex-col justify-start mt-4 gap-4"
+      className="flex flex-1 flex-col justify-start px-6 mt-4 gap-4"
       onClick={() => setToggle(false)}
     >
       <div className=" w-full flex justify-between gap-4 relative">

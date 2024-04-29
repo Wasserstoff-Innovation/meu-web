@@ -32,7 +32,7 @@ const ShareProfile = () => {
   ];
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col px-6">
       <div className="py-4">
         <img
           src="/left-arrow.svg"

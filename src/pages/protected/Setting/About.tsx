@@ -9,7 +9,7 @@ const About = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between gap-6">
+    <div className="flex flex-col gap-6">
       <div className="flex gap-2 text-2xl z-10 relative top-4 left-0 items-center">
         <img
           src="/left-arrow.svg"

@@ -9,7 +9,7 @@ import { AuthContext } from "../../context/Auth";
 import Header from "../../layout/Header";
 import { getUserDataCards } from "../../api/juno/user";
 import { toast } from "react-toastify";
-import { sleep } from "../../utils";
+import { clearStorage, sleep } from "../../utils";
 
 const Login = (): ReactNode => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Login = (): ReactNode => {
   return (
     <>
       <Header />
-      <div className="flex flex-1 flex-col justify-between ">
+      <div className="flex flex-1 px-6 flex-col justify-between ">
         <h1 className="text-center text-2xl text-primary-300 font-bold">
           Find your next
           <TypewriterComponent
@@ -58,7 +58,7 @@ const Login = (): ReactNode => {
               } catch (e) {
                 console.error("Caught error", e);
                 toast.error("Error signing in with Internet Identity");
-                //TODO: Show error Toast here
+                clearStorage();
               } finally {
                 setLoading(false);
               }
