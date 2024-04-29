@@ -18,6 +18,10 @@ export const getIsAuthenticated = async () => {
   return delegation !== null;
 };
 
+export const clearStorage = async () => {
+  await idbStorage.remove(KEY_STORAGE_DELEGATION);
+};
+
 export const correctTimeStamps = <T>(doc: Doc<T>) => {
   return Object.assign({}, doc, {
     updated_at: new Date(Number(doc?.updated_at) / 1000000).valueOf(),

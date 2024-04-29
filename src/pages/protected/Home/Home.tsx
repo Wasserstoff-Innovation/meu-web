@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 // eslint-disable-next-line react-refresh/only-export-components
 export const homeLoader = async () => {
   const recommendedCards = await getRecommended();
+  console.log(recommendedCards);
   return { recommendedCards };
 };
 
@@ -19,7 +20,7 @@ const Home = () => {
 
   const [data, setData] = useState<IUser[]>(recommendedCards);
   return (
-    <div className="">
+    <div className="p-6">
       <Navbar />
       <div className="flex flex-col gap-4 overflow-y-auto h-[83vh]">
         <h1>Recommended Users</h1>

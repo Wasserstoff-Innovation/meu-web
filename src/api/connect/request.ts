@@ -1,4 +1,4 @@
-import { CONNECT_API_URL } from "./userCard";
+import { CONNECT_API_URL } from "../../config";
 
 export const sendAPIRequest = async (
   url: string,

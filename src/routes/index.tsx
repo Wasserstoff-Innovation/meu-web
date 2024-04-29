@@ -3,7 +3,13 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import { DashboardLayout, Layout, ProtectedLayout } from "../layout/Layout";
+import {
+  DashboardLayout,
+  Layout,
+  MainLayout,
+  OnBoardingLayout,
+  ProtectedLayout,
+} from "../layout/Layout";
 // import ShareProfile from "../pages/protected/ShareProfile";
 import Login from "../pages/public/Login";
 import RootError from "../layout/RootError";
@@ -42,7 +48,7 @@ import ShareProfile from "../pages/protected/ShareProfile";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />} errorElement={<RootError />}>
+    <Route path="/" element={<MainLayout />} errorElement={<RootError />}>
       <Route path="" loader={protectedLoader} element={<ProtectedLayout />}>
         <Route path="share-profile" element={<ShareProfile />} />
         <Route path="settings" element={<Layout />}>
@@ -59,7 +65,12 @@ export const router = createBrowserRouter(
         </Route>
         <Route path="tune-recommendation" element={<TuneRecommendation />} />
         <Route path="qr-scanner" element={<QRScanner />} />
-        <Route path="" loader={dashboardLoader} element={<DashboardLayout />}>
+        <Route
+          path=""
+          loader={dashboardLoader}
+          element={<DashboardLayout />}
+          errorElement={<RootError />}
+        >
           <Route path="" loader={homeLoader} element={<Home />} />
           <Route path="contracts" element={<Contracts />} />
           <Route path="map-view" element={<MapView />} />
@@ -78,7 +89,11 @@ export const router = createBrowserRouter(
           </Route>
         </Route>
 
-        <Route path="onboard" loader={onBoardingLoader} element={<Layout />}>
+        <Route
+          path="onboard"
+          loader={onBoardingLoader}
+          element={<OnBoardingLayout />}
+        >
           <Route path="ob1" element={<Ob1 />} />
           <Route path="ob2" element={<Ob2 />} />
           <Route path="ob3" element={<Ob3 />} />
