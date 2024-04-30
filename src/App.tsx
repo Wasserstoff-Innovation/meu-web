@@ -9,8 +9,8 @@ import { Spinner } from "@nextui-org/react";
 
 function App() {
   return (
-    <div className="max-h-screen w-screen bg-foreground-400 font-mono text-white">
-      <div className="flex-1 flex flex-col justify-start h-screen overflow-auto no-scrollbar max-w-md   bg-foreground mx-auto  ">
+    <div className="max-h-dvh w-screen bg-foreground-400 font-mono text-white">
+      <div className="flex-1 flex flex-col justify-start h-dvh overflow-auto no-scrollbar max-w-md   bg-foreground mx-auto  ">
         <Provider store={store}>
           <PersistGate loading={<Spinner />} persistor={persistor}>
             <ToastContainer

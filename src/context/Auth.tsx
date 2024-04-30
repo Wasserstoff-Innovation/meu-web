@@ -42,6 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const unsubscribe = authSubscribe((user) => {
       setUser(user);
+      localStorage.setItem("auth", "true");
     });
 
     return () => unsubscribe();

@@ -2,12 +2,12 @@ import QRCode from "qrcode.react";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "@nextui-org/react";
 import { useAppSelector } from "../../redux/hooks";
+import { getProfileUrl } from "../../utils";
 
 const ShareProfile = () => {
   const { userDoc } = useAppSelector((state) => state.main);
   const navigate = useNavigate();
-  const baseUrl = window.location.origin;
-  const profileUrl = `${baseUrl}/profile/${userDoc?.data.userId}`;
+  const profileUrl = getProfileUrl(userDoc?.data.userId) 
   const socialIcons = [
     {
       name: "Whatapp",
@@ -47,7 +47,7 @@ const ShareProfile = () => {
         <div className="flex justify-center items-center ">
           <div className="bg-[#09395D] rounded-lg p-4">
             <QRCode
-              value={`${baseUrl}/profile/${userDoc?.data.userId}`}
+              value={profileUrl}
               size={300}
               className="rounded-lg"
             />

@@ -30,6 +30,34 @@ export const saveConnection = async (
   }
 };
 
+export const addIfNewConnection = async (
+  user: User | null | undefined,
+  data: IUserwithPrivateData
+) => {
+  try {
+    if (!user || user === null) return undefined;
+    const existingDoc = await getDoc<IUserwithPrivateData>({
+      collection: "connections",
+      key: data.userId,
+    });
+    if (existingDoc) {
+      return;
+    }
+    const createdDoc = await setDoc<IUserwithPrivateData>({
+      collection: "connections",
+      doc: {
+        key: data.userId,
+        data: data,
+        updated_at: BigInt(Date.now()),
+      },
+    });
+    return correctTimeStamps(createdDoc);
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
+};
+
 export const getConnections = async (user: User | null | undefined) => {
   try {
     if (!user || user === null) return undefined;

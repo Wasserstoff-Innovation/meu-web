@@ -3,15 +3,15 @@ import onBoardingReducer from "./features/onBoardingSlice";
 import mainReducer from "./features/mainSlice";
 import popupReducer from "./features/popupSlice";
 import { persistStore, persistReducer } from "redux-persist";
-// import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import createIdbStorage from "@piotr-cz/redux-persist-idb-storage";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+// import createIdbStorage from "@piotr-cz/redux-persist-idb-storage";
 
 const persistConfig = {
   key: "root",
-  storage: createIdbStorage({ name: "meu", storeName: "db" }),
+  storage,
   whitelist: ["onBoarding", "main"],
-  serialize: false,
-  deserialize: false,
+  // serialize: false,
+  // deserialize: false,
 };
 
 const rootReducer = combineReducers({

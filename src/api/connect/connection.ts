@@ -55,3 +55,12 @@ export const rejectRequest = async (connectionId: string) => {
 export const cancelRequest = async (connectionId: string) => {
   return await sendAPIRequest(`/cancel/${connectionId}`, "POST");
 };
+
+export const getAcceptedRequests = async (): Promise<
+  {
+    receiver: IUserwithPrivateData;
+    _id: string;
+  }[]
+> => {
+  return await sendAPIRequest("/accepted-requests", "GET");
+};

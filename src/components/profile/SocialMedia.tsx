@@ -26,14 +26,21 @@ const SocialMedia = ({ linkedIn, twitter }: SocialMediaProps) => {
   ];
   return (
     <div className="flex gap-4 justify-start">
-      {data.map((social, index) => (
-        <div
-          className="bg-white p-1 sm:p-2 sm:px-4 cursor-pointer rounded-full"
-          key={index}
-        >
-          <img src={social.icon} alt={social.name} className="size-[16px] " />
-        </div>
-      ))}
+      {data.map((social, index) => {
+        if (social.verified)
+          return (
+            <div
+              className="bg-white p-1 sm:p-2 sm:px-4 cursor-pointer rounded-full"
+              key={index}
+            >
+              <img
+                src={social.icon}
+                alt={social.name}
+                className="size-[16px] "
+              />
+            </div>
+          );
+      })}
     </div>
   );
 };

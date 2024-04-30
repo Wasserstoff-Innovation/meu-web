@@ -7,18 +7,28 @@ import { IdbStorage, KEY_STORAGE_DELEGATION } from "@dfinity/auth-client";
 //   Ed25519KeyIdentity,
 // } from "@dfinity/identity";
 import { IUserwithPrivateData } from "../types/user";
-const idbStorage: IdbStorage = new IdbStorage();
 
+export const getProfileUrl = (userId?: string) => {
+  if (!userId) return "";
+  const baseUrl = window.location.origin;
+  const profileUrl = `${baseUrl}/profile/${userId}`;
+  return profileUrl;
+};
 export const sleep = async (secs: number) => {
   await new Promise((r) => setTimeout(r, secs * 1000));
 };
 
 export const getIsAuthenticated = async () => {
+  const idbStorage: IdbStorage = new IdbStorage();
+  if (!idbStorage) return false;
   const delegation = await idbStorage.get(KEY_STORAGE_DELEGATION);
-  return delegation !== null;
+  console.log("delegation", delegation);
+  if (!delegation) return false;
+  return true;
 };
 
 export const clearStorage = async () => {
+  const idbStorage: IdbStorage = new IdbStorage();
   await idbStorage.remove(KEY_STORAGE_DELEGATION);
 };
 
