@@ -8,6 +8,12 @@ import { IdbStorage, KEY_STORAGE_DELEGATION } from "@dfinity/auth-client";
 // } from "@dfinity/identity";
 import { IUserwithPrivateData } from "../types/user";
 
+export const getProfileUrl = (userId?: string) => {
+  if (!userId) return "";
+  const baseUrl = window.location.origin;
+  const profileUrl = `${baseUrl}/profile/${userId}`;
+  return profileUrl;
+};
 export const sleep = async (secs: number) => {
   await new Promise((r) => setTimeout(r, secs * 1000));
 };

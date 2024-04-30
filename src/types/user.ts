@@ -8,6 +8,7 @@ export interface IUser {
   pronouns: string;
   interests: string[];
   purpose: string;
+  privateData?: PrivateData;
 }
 
 export interface PrivateData {
