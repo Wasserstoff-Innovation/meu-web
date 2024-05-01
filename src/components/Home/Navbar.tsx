@@ -21,13 +21,13 @@ export default function App() {
         </NavbarBrand>
         <div className="flex gap-8 ">
           <img
-            src="./qr_code_scanner.svg"
+            src="/icons/qr_code_scanner.svg"
             alt="qr-code"
             className="size-6 cursor-pointer"
             onClick={() => Navigate("/qr-scanner")}
           />
           <img
-            src="./tune.svg"
+            src="/icons/tune.svg"
             alt="filter"
             className="cursor-pointer size-6"
             onClick={() => Navigate("/tune-recommendation")}

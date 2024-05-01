@@ -71,7 +71,7 @@ const Connections = () => {
       <div className="flex flex-col sticky top-0 gap-4 bg-[#1A1D21] ">
         <div className="flex gap-2 items-center p-2 border-1 bg-[#313437] border-[#A3A5A6] rounded-md">
           <div>
-            <img src="./search.svg" alt="" />
+            <img src="/icons/search.svg" alt="" />
           </div>
           <div>
             <input

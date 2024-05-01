@@ -43,7 +43,7 @@ const Purpose = () => {
     <div className="flex flex-1 flex-col justify-start gap-6">
       <div className="flex gap-2 text-2xl z-10 relative top-4 left-0 items-center ">
         <img
-          src="/left-arrow.svg"
+          src="/icons/left-arrow.svg"
           alt="back-navigation"
           className="w-4 h-4 cursor-pointer"
           onClick={backNavigate}

@@ -48,7 +48,7 @@ const Interest = () => {
       <div>
         <div className="flex gap-2 text-2xl items-center p-2 mt-4 ">
           <img
-            src="/left-arrow.svg"
+            src="/icons/left-arrow.svg"
             alt="back-navigation"
             className="size-4 cursor-pointer"
             onClick={() => {

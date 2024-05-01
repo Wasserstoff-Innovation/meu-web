@@ -131,7 +131,7 @@ const Ob1 = () => {
             window.location.href = getLinkedinOAuthUrl();
           }}
         >
-          <img src="/linkedin.svg" alt="Linkedin" className="h-6 w-6" />
+          <img src="/icons/linkedin.svg" alt="Linkedin" className="h-6 w-6" />
           LinkedIn
         </Button>
 
@@ -143,7 +143,7 @@ const Ob1 = () => {
             window.location.href = getTwitterOAuthUrl();
           }}
         >
-          <img src="/x.svg" alt="X" className="h-6 w-6" />X (Twitter)
+          <img src="/icons/x.svg" alt="X" className="h-6 w-6" />X (Twitter)
         </Button>
       </div>
       <div className="w-full">

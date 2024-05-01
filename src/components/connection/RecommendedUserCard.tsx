@@ -69,7 +69,7 @@ const RecommendedUserCard = ({ user }: { user: IUser }) => {
           }}
         >
           <img
-            src="./close.svg"
+            src="/icons/close.svg"
             alt="close"
             className="size-3 cursor-pointer"
           />

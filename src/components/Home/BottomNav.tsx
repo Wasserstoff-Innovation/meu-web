@@ -7,7 +7,7 @@ const BottomNav = () => {
       <div className="flex justify-around items-center p-4">
         <div onClick={() => Navigate("/map-view")}>
           <img
-            src="./map.svg"
+            src="/icons/map.svg"
             alt="map"
             className="size-6 cursor-pointer"
             title="Map View"
@@ -15,7 +15,7 @@ const BottomNav = () => {
         </div>
         <div onClick={() => Navigate("/")}>
           <img
-            src="./select_window_2.svg"
+            src="/icons/select_window_2.svg"
             alt="select window"
             className="size-6 cursor-pointer"
             title="Recommendation"
@@ -23,7 +23,7 @@ const BottomNav = () => {
         </div>
         <div onClick={() => Navigate("/connections")}>
           <img
-            src="./groups.svg"
+            src="/icons/groups.svg"
             alt="groups"
             className="size-8 cursor-pointer"
             title="Connections"
@@ -31,7 +31,7 @@ const BottomNav = () => {
         </div>
         <div onClick={() => Navigate("/contracts")}>
           <img
-            src="./contract.svg"
+            src="/icons/contract.svg"
             alt="map"
             className="size-6 cursor-pointer"
             title="Contrasts"
