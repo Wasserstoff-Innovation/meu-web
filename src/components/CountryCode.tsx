@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { countryOptions } from "../constants/country";
 
 interface Props {
@@ -24,17 +24,28 @@ const CountryCode: React.FC<Props> = ({ countryCode, onChange }) => {
     filteredCountries(val);
   };
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as HTMLElement;
+      if (!target.closest(".country-code-container")) {
+        setToggle(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="w-1/4 rounded-md p-2 bg-slate-50 hover:bg-[#e5e7eb]" onClick={(e) => {
-      setToggle(true);
-      e.stopPropagation();
-    }}>
+    <div className="w-1/4 rounded-md p-2 bg-slate-50 hover:bg-[#e5e7eb] country-code-container" onClick={() => setToggle(!toggle)}>
       <div>{countryCode}</div>
       {toggle && (
-        <div className="bg-white absolute rounded-sm mt-3 p-1 left-0 max-h-[35vh] z-10 overflow-y-auto">
+        <div className="bg-white absolute rounded left-0 max-h-[35vh] z-10 overflow-y-auto">
           <input
             type="text"
-            className="w-full outline-none m-1 max-w-[90%]"
+            className="w-full outline-none max-w-[90%] p-2 sticky top-0"
             value={searchCountry}
             onChange={(e) => handleSearch(e.target.value)}
             placeholder="Search country code"
@@ -42,16 +53,15 @@ const CountryCode: React.FC<Props> = ({ countryCode, onChange }) => {
           {countryList.map((country, index) => (
             <div
               key={index}
-              className="cursor-pointer"
-              onClick={(e) => {
+              className="cursor-pointer ml-2"
+              onClick={() => {
                 onChange(country.value);
                 setToggle(false);
                 setSearchCountry("");
                 setCountryList(countryOptions);
-                e.stopPropagation();
               }}
             >
-              {country.value === countryCode ? countryCode : country.label}
+              {country.label}
             </div>
           ))}
         </div>
@@ -60,4 +70,4 @@ const CountryCode: React.FC<Props> = ({ countryCode, onChange }) => {
   );
 };
 
-export default CountryCode
+export default CountryCode;
