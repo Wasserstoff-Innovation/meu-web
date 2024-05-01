@@ -8,6 +8,30 @@ const MapView = () => {
   const { loading, error, data } = useGeolocation();
   const apiIsLoaded = useApiIsLoaded();
   if (loading || !apiIsLoaded) return <TopBarProgress />;
+  if (error)
+    return (
+      <div className="flex-1 flex flex-col justify-center items-center">
+        {error.message}
+        <p className="text-sm text-gray-500">
+          Please allow location access to view the map.
+        </p>
+        {/* <Button
+          className="mt-4"
+          onClick={() => {
+            navigator.geolocation.getCurrentPosition(
+              () => {
+                console.log("Location requested again.");
+              },
+              (e) => {
+                console.log("Location requested again.", e);
+              }
+            );
+          }}
+        >
+          Request Location Again
+        </Button> */}
+      </div>
+    );
   if (data.latitude && data.longitude) {
     const position = { lat: data.latitude, lng: data.longitude };
     return (
@@ -39,7 +63,6 @@ const MapView = () => {
       </div>
     );
   }
-  return error && <p>Error : {`${error}`}</p>;
 };
 
 export default MapView;
