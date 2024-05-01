@@ -46,7 +46,7 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
             {loading ? (
               <Spinner />
             ) : (
-              <img src="/camara.svg" alt="camera" className="h-9 w-8" />
+              <img src="/icons/camara.svg" alt="camera" className="h-9 w-8" />
             )}
           </label>
           <input

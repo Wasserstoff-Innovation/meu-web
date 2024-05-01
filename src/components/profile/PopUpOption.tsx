@@ -1,10 +1,10 @@
 const options = [
-  { title: "Share Profile", icon: "../share-white.svg", isRed: false },
-  { title: "Get Directions", icon: "../explore.svg", isRed: false },
-  { title: "Add Note", icon: "../edit.svg", isRed: false },
-  { title: "Block", icon: "../block.svg", isRed: true },
-  { title: "Remove Connection", icon: "../person_remove.svg", isRed: true },
-  { title: "Report", icon: "../warning.svg", isRed: true },
+  { title: "Share Profile", icon: "/icons/share-white.svg", isRed: false },
+  { title: "Get Directions", icon: "/icons/explore.svg", isRed: false },
+  { title: "Add Note", icon: "/icons/edit.svg", isRed: false },
+  { title: "Block", icon: "/icons/block.svg", isRed: true },
+  { title: "Remove Connection", icon: "/icons/person_remove.svg", isRed: true },
+  { title: "Report", icon: "/icons/warning.svg", isRed: true },
 ];
 
 const PopUpOption = () => {

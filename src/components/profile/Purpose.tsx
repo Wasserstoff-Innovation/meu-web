@@ -4,7 +4,7 @@ const Purpose = ({ purpose }: { purpose: string }) => {
       <h1>Purpose</h1>
       <div className="flex text-black ">
         <img
-          src="../search-black.svg"
+          src="/icons/search-black.svg"
           alt="search"
           className="bg-white p-2 rounded-l-full"
         />

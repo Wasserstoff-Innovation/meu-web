@@ -58,7 +58,7 @@ export default function FilterPage() {
       >
         <div className="flex items-center gap-2">
           <div className="">
-            <img src="./search.svg" alt="" className="cursor-pointer" />
+            <img src="/icons/search.svg" alt="" className="cursor-pointer" />
           </div>
           <div>Add this filter</div>
         </div>
@@ -72,7 +72,7 @@ export default function FilterPage() {
               <div>{select.label}</div>
               <div className="">
                 <img
-                  src="./close.svg"
+                  src="/icons/close.svg"
                   alt="close"
                   className="size-2 cursor-pointer"
                   onClick={() => handleRemove(select.id)}
@@ -97,7 +97,7 @@ export default function FilterPage() {
                 <div className="flex  w-full items-center gap-4">
                   {/* <div onClick={onClose}>
                       <img
-                        src="./arrow_left_alt.svg"
+                        src="/icons/arrow_left_alt.svg"
                         alt="back"
                         className="cursor-pointer"
                       />

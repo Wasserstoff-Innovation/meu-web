@@ -11,22 +11,22 @@ const ShareProfile = () => {
   const socialIcons = [
     {
       name: "Whatapp",
-      icon: "/whatsapp.svg",
+      icon: "/icons/whatsapp.svg",
       url: `https://api.whatsapp.com/send?text=${profileUrl}`,
     },
     {
       name: "Facebook",
-      icon: "/facebook.svg",
+      icon: "/icons/facebook.svg",
       url: `https://www.facebook.com/sharer/sharer.php?u=${profileUrl}`,
     },
     {
       name: "Instagram",
-      icon: "/insta.svg",
+      icon: "/icons/insta.svg",
       url: `https://www.instagram.com/?url=${profileUrl}`,
     },
     {
       name: "Telegram",
-      icon: "/telegram.svg",
+      icon: "/icons/telegram.svg",
       url: `https://t.me/share/url?url=${profileUrl}`,
     },
   ];
@@ -35,7 +35,7 @@ const ShareProfile = () => {
     <div className="flex flex-1 flex-col px-6">
       <div className="py-4">
         <img
-          src="/left-arrow.svg"
+          src="/icons/left-arrow.svg"
           alt="navigation-back"
           className="size-5 cursor-pointer"
           onClick={() => {

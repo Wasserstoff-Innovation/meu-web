@@ -5,7 +5,7 @@ const DraggableSwipeButton: React.FC = () => {
   const [startX, setStartX] = useState<number>(-300);
   const [offsetX, setOffsetX] = useState<number>(-300);
   const [bgColor, setBgColor] = useState<boolean>(false);
-  const [icon, setIcon] = useState<string>("/arrow_right.svg");
+  const [icon, setIcon] = useState<string>("/icons/arrow_right.svg");
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +47,7 @@ const DraggableSwipeButton: React.FC = () => {
         setIcon("/icons/Asset.svg");
       } else {
         setOffsetX(-300);
-        setIcon("/arrow_right.svg");
+        setIcon("/icons/arrow_right.svg");
       }
     }
   };
