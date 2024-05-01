@@ -1,11 +1,11 @@
 import { Doc } from "@junobuild/core";
 import { IdbStorage, KEY_STORAGE_DELEGATION } from "@dfinity/auth-client";
-// import {
-//   DelegationChain,
-//   isDelegationValid,
-//   DelegationIdentity,
-//   Ed25519KeyIdentity,
-// } from "@dfinity/identity";
+import {
+  DelegationChain,
+  isDelegationValid,
+  // DelegationIdentity,
+  // Ed25519KeyIdentity,
+} from "@dfinity/identity";
 import { IUserwithPrivateData } from "../types/user";
 
 export const getProfileUrl = (userId?: string) => {
@@ -21,10 +21,11 @@ export const sleep = async (secs: number) => {
 export const getIsAuthenticated = async () => {
   const idbStorage: IdbStorage = new IdbStorage();
   if (!idbStorage) return false;
-  const delegation = await idbStorage.get(KEY_STORAGE_DELEGATION);
-  console.log("delegation", delegation);
-  if (!delegation) return false;
-  return true;
+  const delegationChain = await idbStorage.get(KEY_STORAGE_DELEGATION);
+  const delegation =
+    delegationChain !== null ? DelegationChain.fromJSON(delegationChain) : null;
+  const isAuthenticated = delegation !== null && isDelegationValid(delegation);
+  return isAuthenticated;
 };
 
 export const clearStorage = async () => {
