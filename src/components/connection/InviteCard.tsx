@@ -18,7 +18,7 @@ export default function InviteCard() {
       </div>
       <div className="px-2">
         <img
-          src="./share.svg"
+          src="/icons/share.svg"
           alt="share"
           className="w-[18px] h-[20px] cursor-pointer"
           onClick={() => {

@@ -35,7 +35,7 @@ const SentRequestCard = ({ connection }: { connection: IConnection }) => {
           }}
         >
           <div className="">
-            <img src="./close.svg" alt="close" className="size-3" />
+            <img src="/icons/close.svg" alt="close" className="size-3" />
           </div>
         </div>
       </div>

@@ -69,7 +69,7 @@ const Interests:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSe
               setActive(true);
             }}
           >
-            <div><img src="/search.svg" alt="search" /></div>
+            <div><img src="/icons/search.svg" alt="search" /></div>
             <div>
               <input
                 type="text"

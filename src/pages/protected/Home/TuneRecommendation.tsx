@@ -9,7 +9,7 @@ const TuneRecommendation = () => {
       <div className="flex justify-between items-center">
         <div>
           <img
-            src="./close.svg"
+            src="/icons/close.svg"
             alt="close"
             onClick={() => Navigate("/")}
             className="cursor-pointer"

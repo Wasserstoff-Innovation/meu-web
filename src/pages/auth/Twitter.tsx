@@ -2,7 +2,7 @@ import { Spinner } from "@nextui-org/react";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { AuthUrl } from "../../api/verification/twitter";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { updateUserData } from "../../redux/features/onBoardingSlice";
 
 const Twitter = () => {
@@ -11,6 +11,7 @@ const Twitter = () => {
   const code = searchParams.get("code");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { userData } = useAppSelector((state) => state.onBoarding);
 
   useEffect(() => {
     fetch(`${AuthUrl}/twitter/callback?state=${state}&code=${code}`)
@@ -21,8 +22,15 @@ const Twitter = () => {
           name,
           username,
         }: { id: string; name: string; username: string } = data.data;
-        const updateObject = { name: name, twitter: { id, name, username } };
-        dispatch(updateUserData(updateObject));
+        dispatch(
+          updateUserData({
+            name: name,
+            privateData: {
+              ...userData.privateData,
+              twitter: { id, name, username },
+            },
+          })
+        );
       })
       .catch((error) => {
         console.error(error);
@@ -30,7 +38,7 @@ const Twitter = () => {
       .finally(() => {
         navigate("/onboard/ob1");
       });
-  }, [state, code, dispatch, navigate]);
+  }, [state, code, dispatch, navigate, userData]);
 
   return (
     <div className="flex-1 flex flex-col justify-center items-center">

@@ -67,7 +67,7 @@ const Login = (): ReactNode => {
             {loading ? (
               <Spinner />
             ) : (
-              <img src="/II.svg" alt="Internet Identity" className="h-6 w-6" />
+              <img src="/icons/II.svg" alt="Internet Identity" className="h-6 w-6" />
             )}
             Continue with Internet Identity
           </Button>

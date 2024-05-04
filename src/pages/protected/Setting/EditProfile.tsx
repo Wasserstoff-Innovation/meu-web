@@ -48,7 +48,7 @@ const EditProfile = () => {
           onClick={backNavigate}
         >
           <img
-            src="/left-arrow.svg"
+            src="/icons/left-arrow.svg"
             alt="back-navigation"
             className="w-4 h-4"
           />

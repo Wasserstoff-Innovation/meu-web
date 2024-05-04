@@ -71,14 +71,14 @@ const Profile = () => {
           }}
         >
           <img
-            src="../arrow_left_alt.svg"
+            src="/icons/arrow_left_alt.svg"
             alt="right arrow"
             className="cursor-pointer"
           />
           <p className="cursor-pointer">{userProfile.name}</p>
         </div>
         <img
-          src="../option.svg"
+          src="/icons/option.svg"
           alt="option"
           className="cursor-pointer"
           onClick={(e) => {
@@ -102,7 +102,7 @@ const Profile = () => {
           <h1 className="text-4xl cursor-pointer">{userProfile.name}</h1>
         </div>
         <div className=" rounded-full " onClick={() => onShare(profileUrl)}>
-          <img src="../share.svg" alt="share" className="cursor-pointer" />
+          <img src="/icons/share.svg" alt="share" className="cursor-pointer" />
         </div>
       </div>
       <div className="flex flex-col gap-2">
@@ -141,7 +141,7 @@ const Profile = () => {
             color="primary"
             title="Share Profile"
             className="w-full"
-            // icon="../share-white.svg"
+            // icon="/icons/share-white.svg"
             onClick={() => {
               onShare(profileUrl);
             }}

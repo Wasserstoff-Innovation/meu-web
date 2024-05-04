@@ -9,22 +9,22 @@ const Settings = () => {
   const { userDoc } = useAppSelector((state) => state.main);
   const Data = [
     {
-      icon: "/interests.svg",
+      icon: "/icons/interests.svg",
       name: "Interests",
       path: "/settings/interests",
     },
     {
-      icon: "/search.svg",
+      icon: "/icons/search.svg",
       name: "Purpose",
       path: "/settings/purpose",
     },
     {
-      icon: "/privacy.svg",
+      icon: "/icons/privacy.svg",
       name: "Privacy",
       path: "/settings/privacy",
     },
     {
-      icon: "/other.svg",
+      icon: "/icons/other.svg",
       name: "Other",
       path: "/settings/other",
     },
@@ -32,22 +32,22 @@ const Settings = () => {
 
   const About = [
     {
-      icon: "/share.svg",
+      icon: "/icons/share.svg",
       name: "Share MEU",
       path: "/settings/share",
     },
     {
-      icon: "/grade.svg",
+      icon: "/icons/grade.svg",
       name: "Rate MEU",
       path: "/settings/rate",
     },
     {
-      icon: "/help.svg",
+      icon: "/icons/help.svg",
       name: "Help",
       path: "/settings/help",
     },
     {
-      icon: "/about.svg",
+      icon: "/icons/about.svg",
       name: "About",
       path: "/settings/about",
     },
@@ -64,7 +64,7 @@ const Settings = () => {
       <div className="flex gap-2 mt-4  text-2xl cursor-pointer">
         <div className="flex gap-2 items-center p-2 ">
           <img
-            src="/left-arrow.svg"
+            src="/icons/left-arrow.svg"
             alt="back-navigation w-4 h-4"
             onClick={() => {
               navigate("/");

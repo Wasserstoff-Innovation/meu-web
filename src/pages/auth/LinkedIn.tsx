@@ -2,7 +2,7 @@ import { Spinner } from "@nextui-org/react";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { AuthUrl } from "../../api/verification/twitter";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { updateUserData } from "../../redux/features/onBoardingSlice";
 
 const LinkedIn = () => {
@@ -11,6 +11,7 @@ const LinkedIn = () => {
   const code = searchParams.get("code");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { userData } = useAppSelector((state) => state.onBoarding);
 
   useEffect(() => {
     // if (!state || !code) return navigate("/onboard/ob1");
@@ -29,18 +30,23 @@ const LinkedIn = () => {
           email: string;
           email_verified: string;
         } = data.data;
-        const updateObject = {
-          name,
-          email,
-          avatar: picture,
-          linkedin: {
-            email,
-            email_verified: Boolean(email_verified),
+        // const updateObject = {;
+        dispatch(
+          updateUserData({
             name,
-            picture,
-          },
-        };
-        dispatch(updateUserData(updateObject));
+            avatar: picture,
+            privateData: {
+              ...userData.privateData,
+              email,
+              linkedin: {
+                email,
+                email_verified: Boolean(email_verified),
+                name,
+                picture,
+              },
+            },
+          })
+        );
       })
       .catch((error) => {
         console.error(error);
@@ -48,7 +54,7 @@ const LinkedIn = () => {
       .finally(() => {
         navigate("/onboard/ob1");
       });
-  }, [state, code, dispatch, navigate]);
+  }, [state, code, dispatch, navigate, userData]);
 
   return (
     <div className="flex-1 flex flex-col justify-center items-center">

@@ -27,32 +27,32 @@ const PopUpOption = () => {
         className="flex gap-4 p-2 cursor-pointer"
         onClick={() => Navigate("/share-profile")}
       >
-        <img src="../share-white.svg" alt="share-profile" />
+        <img src="/icons/share-white.svg" alt="share-profile" />
         <p>Share Profile</p>
       </div>
 
       <div className="flex gap-4 p-2 cursor-pointer">
-        <img src="../explore.svg" alt="direction" />
+        <img src="/icons/explore.svg" alt="direction" />
         <p>Get Directions</p>
       </div>
 
       <div className="flex gap-4 p-2 cursor-pointer">
-        <img src="../edit.svg" alt="add note" />
+        <img src="/icons/edit.svg" alt="add note" />
         <p>Add Note</p>
       </div>
 
       <div className="flex gap-4 p-2 cursor-pointer text-[#DB4437]">
-        <img src="../icons/block.svg" alt="block user" />
+        <img src="/icons/block.svg" alt="block user" />
            <p>Block {username}</p>
       </div>
 
       <div className="flex gap-4 p-2 cursor-pointer text-[#DB4437]">
-        <img src="../person_remove.svg" alt="remove connection" />
+        <img src="/icons/person_remove.svg" alt="remove connection" />
         <p>Remove connection</p>
       </div>
 
       <div className="flex gap-4 p-2 cursor-pointer text-[#DB4437]">
-        <img src="../warning.svg" alt="remove connection" />
+        <img src="/icons/warning.svg" alt="remove connection" />
         <p>Report {username}</p>
       </div>
     </div>

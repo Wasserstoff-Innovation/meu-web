@@ -149,7 +149,7 @@ const QRScanner: React.FC = () => {
       <div className="flex items-center justify-between py-4 ">
         <div>
           <img
-            src="./arrow_left_alt.svg"
+            src="/icons/arrow_left_alt.svg"
             alt="right arrow"
             className="cursor-pointer"
             onClick={() => {
