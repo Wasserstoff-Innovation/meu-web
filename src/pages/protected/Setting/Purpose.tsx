@@ -25,14 +25,15 @@ const Purpose = () => {
   const handleSave = async () => {
     if (purpose !== userDoc?.data.purpose) {
       try {
-        if (!userDoc?.key) return;
-        const savedDoc = await updateUserDataDB(user, userDoc.key, {
-          ...userDoc.data,
-          purpose: purpose,
-        });
-        console.log(savedDoc);
-        if (!savedDoc) return;
-        dispatch(updateUserData({ purpose: purpose }));
+        if (userDoc?.key && purpose) {
+          const savedDoc = await updateUserDataDB(user, userDoc.key, {
+            ...userDoc.data,
+            purpose: purpose,
+          });
+          console.log(savedDoc);
+          if (!savedDoc) return;
+          dispatch(updateUserData({ purpose: purpose }));
+        }
       } catch (e) {
         console.error(e);
       }
@@ -50,7 +51,9 @@ const Purpose = () => {
         />
         <div>Purpose</div>
       </div>
-      <PurposeCustom purpose={purpose} handleChange={handleChange} />
+      {purpose && (
+        <PurposeCustom purpose={purpose} handleChange={handleChange} />
+      )}
       {purpose !== userDoc?.data.purpose && (
         <div className="flex justify-center">
           <button
