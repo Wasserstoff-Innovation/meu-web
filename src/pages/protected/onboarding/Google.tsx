@@ -24,15 +24,7 @@ const Google = ({ addLocation }: MyProps) => {
 
     return (
         <APIProvider apiKey={GOOGLE_MAPS_API}>
-
-            <Map
-                defaultZoom={3}
-                defaultCenter={{ lat: 22.54992, lng: 0 }}
-                gestureHandling={'greedy'}
-                disableDefaultUI={true}
-            />
             <CustomMapControl
-                controlPosition={ControlPosition.TOP}
                 selectedAutocompleteMode={selectedAutocompleteMode}
                 onPlaceSelect={setSelectedPlace}
                 addLocation={addLocation}

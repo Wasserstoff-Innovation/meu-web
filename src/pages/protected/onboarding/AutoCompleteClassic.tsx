@@ -1,16 +1,13 @@
-import React, {useRef, useEffect, useState} from 'react';
-import {useMapsLibrary} from '@vis.gl/react-google-maps';
+import React, { useRef, useEffect, useState } from 'react';
+import { useMapsLibrary } from '@vis.gl/react-google-maps';
 
 interface Props {
   onPlaceSelect: (place: google.maps.places.PlaceResult | null) => void;
   addLocation: (address: string, latitude: number, longitude: number) => void;
 }
 
-// This is an example of the classic "Place Autocomplete" widget.
-// https://developers.google.com/maps/documentation/javascript/place-autocomplete
-export const PlaceAutocompleteClassic = ({onPlaceSelect, addLocation}: Props) => {
-  const [placeAutocomplete, setPlaceAutocomplete] =
-    useState<google.maps.places.Autocomplete | null>(null);
+export const PlaceAutocompleteClassic: React.FC<Props> = ({ onPlaceSelect, addLocation }) => {
+  const [placeAutocomplete, setPlaceAutocomplete] = useState<google.maps.places.Autocomplete | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const places = useMapsLibrary('places');
 
@@ -28,22 +25,19 @@ export const PlaceAutocompleteClassic = ({onPlaceSelect, addLocation}: Props) =>
     if (!placeAutocomplete) return;
 
     placeAutocomplete.addListener('place_changed', () => {
-    const place = placeAutocomplete.getPlace();
-    debugger
+      const place = placeAutocomplete.getPlace();
       onPlaceSelect(placeAutocomplete.getPlace());
-      console.log(place)
-    //   const latitude = place.geometry?.location.lat() ?? 0;
-    //   const longitude = place.geometry?.location.lng() ?? 0;
-    });
-  }, [onPlaceSelect, placeAutocomplete]);
 
-  const handleChange = () => {
-   
-  }
+      const lat = place.geometry?.location?.lat();
+      const lan = place.geometry?.location?.lng();
+
+      addLocation(place.name ?? '', lat ?? 0, lan ?? 0);
+    });
+  }, [onPlaceSelect, placeAutocomplete, addLocation]);
 
   return (
     <div className="autocomplete-container">
-      <input onChange={handleChange} ref={inputRef} placeholder='Enter a Location...' className='txt-black w-full h-10 px-3 rounded-lg'/>
+      <input ref={inputRef} placeholder='Enter a Location...' className='txt-black w-full h-10 px-3 rounded-lg'/>
     </div>
   );
 };
