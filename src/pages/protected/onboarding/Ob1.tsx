@@ -164,7 +164,7 @@ const Ob1 = () => {
         </p>
       </div>
       <div className="w-full">
-        <p className="text-white text-sm mb-1">Emaild </p>
+        <p className="text-white text-sm mb-1">Email </p>
         <Input
           name="email"
           type="email"
