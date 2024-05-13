@@ -61,6 +61,13 @@ const Ob2: React.FC = () => {
     }
   };
 
+  const handleClear = (fieldName: string) => {
+      setData({
+        ...data,
+        [fieldName]: "", // Clear the field
+      });
+  };
+
   const handleChange = (field: string, value: string) => {
     setData((prevData) => ({
       ...prevData,
@@ -82,6 +89,7 @@ const Ob2: React.FC = () => {
           type="text"
           isClearable
           value={data.bio}
+          onClear={() => handleClear("bio")} // Clear the 'name' field
           onChange={(e) => handleChange("bio", e.target.value)}
         />
         <p className="text-red-500 text-xs mt-1">{errors.bio}</p>
@@ -96,6 +104,7 @@ const Ob2: React.FC = () => {
           placeholder="he/him"
           isClearable
           value={data.pronouns}
+          onClear={() => handleClear("pronouns")} // Clear the 'name' field
           onChange={(e) => handleChange("pronouns", e.target.value)}
         />
         <p className="text-red-500 text-xs mt-1">{errors.pronouns}</p>

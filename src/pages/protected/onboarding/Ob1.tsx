@@ -35,6 +35,24 @@ const Ob1 = () => {
     });
   };
 
+  const handleClear = (fieldName: string) => {
+    if (fieldName === "mobile") {
+      // Clear only the mobile number field
+      setData({
+        ...data,
+        mobile: {
+          ...data.mobile,
+          mobileNumber: "",
+        },
+      });
+    } else {
+      setData({
+        ...data,
+        [fieldName]: "", // Clear the field
+      });
+    }
+  };
+
   const addLocation = (
     address: string,
     latitude: number,
@@ -153,6 +171,7 @@ const Ob1 = () => {
           type="text"
           placeholder="John Doe"
           isClearable
+          onClear={() => handleClear("name")} // Clear the 'name' field
           onChange={handleChange}
           value={data.name}
         />
@@ -169,6 +188,7 @@ const Ob1 = () => {
           name="email"
           type="email"
           placeholder="johndoe@domain.com"
+          onClear={() => handleClear("email")} // Clear the 'name' field
           isClearable
           onChange={handleChange}
           value={data.email}
@@ -198,6 +218,7 @@ const Ob1 = () => {
             type="tel"
             placeholder="99999 99999 99999"
             className="ml-2 hover:bg-[#e5e7eb] rounded-md"
+            onClear={() => handleClear("mobile")}
             onChange={(e) => {
               setData((prev) => ({
                 ...prev,
