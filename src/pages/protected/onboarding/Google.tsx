@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { APIProvider, ControlPosition, Map } from '@vis.gl/react-google-maps';
+import { useState } from 'react';
+import { APIProvider} from '@vis.gl/react-google-maps';
 import { CustomMapControl } from './CustomMapControl';
 import { GOOGLE_MAPS_API } from "../../../config";
 
@@ -28,6 +28,8 @@ const Google = ({ addLocation }: MyProps) => {
                 selectedAutocompleteMode={selectedAutocompleteMode}
                 onPlaceSelect={setSelectedPlace}
                 addLocation={addLocation}
+                setSelectedAutocompleteMode = {setSelectedAutocompleteMode}
+                selectedPlace = {selectedPlace}
             />
         </APIProvider>
     );
