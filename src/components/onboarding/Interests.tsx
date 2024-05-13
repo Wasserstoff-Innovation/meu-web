@@ -5,14 +5,13 @@ interface MyProps {
   active:boolean,
   setActive:(props : boolean) => void,
   groupSelected:string [],
-  setGroupSelected: (props:string [])=>void,
+  setGroupSelected: (props:string [])=>void;
 }
 
 const Interests:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSelected} ) => {
   
   const [searchInput, setSearchInput] = useState("");
   const [userInterest, setUserInterest] = useState(interests);
-  
   // const [active, setActive] = useState(false);
   // const [groupSelected, setGroupSelected] = useState<typeof interests>([]);
 
