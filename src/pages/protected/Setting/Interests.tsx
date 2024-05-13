@@ -65,9 +65,10 @@ const Interest = () => {
             setActive={setActive}
             groupSelected={groupSelected}
             setGroupSelected={setGroupSelected}
-            setMinThreeInterests = {setMinThreeInterests}
-            minThreeIntesrt = {minThreeIntesrt}
           />
+          {
+            !minThreeIntesrt && <p className="text-red-600">Selected Interestes must be minimum 3</p>
+          }
           {/* {userData?.interests.length && (
           <Interests
             interests={userData?.interests.map(
