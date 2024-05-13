@@ -40,28 +40,6 @@ const Interest = () => {
     }
     console.log(userDoc);
   };
-  
-
-  // const handleSave = async () => {
-  //   if (groupSelected.length < 3) {
-  //     console.log("Selected Interest must be greater than 2.");
-  //     return;
-  //   }
-  //   try {
-  //     if (!userDoc?.key) return;
-  //     const savedDoc = await updateUserData(user, userDoc.key, {
-  //       ...userDoc.data,
-  //       ...groupSelected,
-  //     });
-  //     console.log(savedDoc);
-  //     if (!savedDoc) return;
-  //     dispatch(updateUserDoc(savedDoc));
-  //     Navigate("/settings");
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  //   console.log(userDoc);
-  // };
 
   return (
     <div
