@@ -17,9 +17,11 @@ const Interest = () => {
   const [groupSelected, setGroupSelected] = useState(
     userDoc?.data.interests || []
   );
+  const [minThreeIntesrt, setMinThreeInterests] = useState(true)
   const handleSave = async () => {
     if (groupSelected.length < 3) {
       console.log("Selected Interest must be greater than 2.");
+      setMinThreeInterests(false)
       return;
     }
     try {
@@ -32,6 +34,7 @@ const Interest = () => {
       if (!savedDoc) return;
       dispatch(updateUserDoc(savedDoc));
       Navigate("/settings");
+      setMinThreeInterests(true)
     } catch (e) {
       console.error(e);
     }
@@ -85,6 +88,8 @@ const Interest = () => {
             setActive={setActive}
             groupSelected={groupSelected}
             setGroupSelected={setGroupSelected}
+            setMinThreeInterests = {setMinThreeInterests}
+            minThreeIntesrt = {minThreeIntesrt}
           />
           {/* {userData?.interests.length && (
           <Interests

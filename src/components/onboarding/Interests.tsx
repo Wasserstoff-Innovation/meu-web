@@ -5,13 +5,16 @@ interface MyProps {
   active:boolean,
   setActive:(props : boolean) => void,
   groupSelected:string [],
-  setGroupSelected: (props:string [])=>void;
+  setGroupSelected: (props:string [])=>void,
+  setMinThreeInterests:(props : boolean) => void,
+  minThreeIntesrt:boolean
 }
 
-const Interests:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSelected} ) => {
+const Interests:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSelected, setMinThreeInterests, minThreeIntesrt} ) => {
   
   const [searchInput, setSearchInput] = useState("");
   const [userInterest, setUserInterest] = useState(interests);
+  
   // const [active, setActive] = useState(false);
   // const [groupSelected, setGroupSelected] = useState<typeof interests>([]);
 
@@ -87,6 +90,9 @@ const Interests:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSe
             </div>
           </div>
           {/* select tab */}
+          {
+            !minThreeIntesrt && <p className="text-red-600">Selected Interestes must be minimum 3</p>
+          }
           <div
             className={`${
               active &&
