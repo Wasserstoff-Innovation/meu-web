@@ -25,6 +25,7 @@ export const mainSlice = createSlice({
       action: PayloadAction<Doc<IUserwithPrivateData> | undefined>
     ) => {
       state.userDoc = action.payload;
+      debugger
     },
     updateRecommendedCards: (state, action: PayloadAction<IUser[]>) => {
       state.recommendedCards = action.payload;

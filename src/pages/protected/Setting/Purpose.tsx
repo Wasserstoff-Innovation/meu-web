@@ -33,6 +33,10 @@ const Purpose = () => {
           console.log(savedDoc);
           if (!savedDoc) return;
           dispatch(updateUserData({ purpose: purpose }));
+          Navigate("/settings"); // Navigate to settings after saving
+          
+          // Inside your component or wherever you want to trigger the refresh
+          window.location.reload();
         }
       } catch (e) {
         console.error(e);
