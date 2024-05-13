@@ -55,7 +55,6 @@ const Interest = () => {
   //     });
   //     console.log(savedDoc);
   //     if (!savedDoc) return;
-  //     debugger
   //     dispatch(updateUserDoc(savedDoc));
   //     Navigate("/settings");
   //   } catch (e) {
