@@ -60,10 +60,10 @@ const Profile = () => {
 
   return (
     <div
-      className="flex flex-1 flex-col justify-start px-6 mt-4 gap-4"
+      className="flex flex-1 flex-col justify-start px-6 mt-4 gap-4 relative"
       onClick={() => setToggle(false)}
     >
-      <div className=" w-full flex justify-between gap-4 relative">
+      <div className=" w-full flex justify-between gap-4 ">
         <div
           className="flex gap-4"
           onClick={() => {
@@ -86,9 +86,11 @@ const Profile = () => {
             e.stopPropagation();
           }}
         />
-        {toggle && <PopUpOption />}
       </div>
-      <div className="h-80 w-full ">
+      <div className="z-10">
+      {toggle && <PopUpOption />}
+      </div>
+      <div className="h-80 w-full z-1">
         <Skeleton isLoaded={loaded} className="h-80 w-full  bg-transparent ">
           <img
             src={userProfile.avatar}
