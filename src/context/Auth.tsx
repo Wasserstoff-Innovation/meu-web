@@ -19,6 +19,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const handleBeforeUnload = () => {
+      // Clear authentication state when tab is closed
+      localStorage.removeItem("auth");
+      clearStorage();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
     (async () => {
       const satelliteId = import.meta.env.VITE_SATELLITE_ID as string;
       const container = import.meta.env.VITE_CONTAINER_MODE === "true";
@@ -53,7 +67,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (user) {
         const latestUserData = await getUserDataCards(user);
         sessionStorage.setItem("cardId", latestUserData?.data?.userId || "");
-        // console.log({ latestUserData });
         dispatch(updateUserDoc(latestUserData));
       }
     };
