@@ -11,7 +11,7 @@ const PopUpOption = () => {
   const username = " johndoe";
   return (
     <div
-      className="absolute right-5 top-8 bg-[#1A1D21] p-4 rounded-lg"
+      className="absolute right-5 top-8 bg-[#1A1D21] p-4 rounded-lg mx-4"
       onClick={(e) => e.stopPropagation()}
     >
       {options.map((option, index) => (

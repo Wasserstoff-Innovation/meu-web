@@ -188,8 +188,9 @@ const QRScanner: React.FC = () => {
               )}
             </div>
           </div>
-
-          {qrCodeResult && <p>Detected QR code: {qrCodeResult}</p>}
+        </div>
+        <div className="w-full">
+        {qrCodeResult && <p className="text-wrap break-all">Detected QR code: {qrCodeResult}</p>}
         </div>
         <input
           type="file"
