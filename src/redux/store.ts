@@ -1,5 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import onBoardingReducer from "./features/onBoardingSlice";
+import friendRequestReducer from "./features/friendRequestSlice";
+import gotFriendRequestReducer  from "./features/gotFriendRequestsSlice";
 import mainReducer from "./features/mainSlice";
 import popupReducer from "./features/popupSlice";
 import { persistStore, persistReducer } from "redux-persist";
@@ -9,7 +11,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["onBoarding", "main"],
+  whitelist: ["onBoarding", "main","friendRequest, gotFriendRequest"],
   // serialize: false,
   // deserialize: false,
 };
@@ -18,6 +20,8 @@ const rootReducer = combineReducers({
   onBoarding: onBoardingReducer,
   main: mainReducer,
   popup: popupReducer,
+  friendRequest:friendRequestReducer,
+  gotFriendRequest:gotFriendRequestReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

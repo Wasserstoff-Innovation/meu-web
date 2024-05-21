@@ -6,13 +6,15 @@ import {
   IConnection,
   IConnectionwithPrivateData,
 } from "../../../../types/connection";
-
+import {gotFriendRequest} from "../../../../redux/features/gotFriendRequestsSlice";
+import {useAppDispatch } from "../../../../redux/hooks";
 const Received = () => {
   const { requests } = useLoaderData() as { requests: IConnection[] };
   console.log(requests);
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
     setData(requests);
+    dispatch(gotFriendRequest(requests));
   }, [requests]);
   // const { receivedRequests } = useAppSelector((state) => state.main);
   const [data, setData] = useState<IConnection[]>(requests);

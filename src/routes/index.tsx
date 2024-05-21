@@ -40,7 +40,7 @@ import {
   profileLoader,
   protectedLoader,
 } from "./loaders";
-import Profile from "../pages/public/Profile";
+import Profile from "../pages/protected/Profile";
 import ConnectionLayout from "../pages/protected/Home/Connections/ConnectionLayout";
 import Connections from "../pages/protected/Home/Connections/Connections";
 import connectionLoaders from "../pages/protected/Home/Connections/loaders";
@@ -101,9 +101,9 @@ export const router = createBrowserRouter(
           <Route path="ob5" element={<Ob5 />} />
           <Route path="ob7" element={<Ob7 />} />
         </Route>
+        <Route path="profile/:id" loader={profileLoader} element={<Profile />} />
       </Route>
       <Route path="login" loader={loginLoader} element={<Login />} />
-      <Route path="profile/:id" loader={profileLoader} element={<Profile />} />
 
       <Route path="auth/callback/twitter" element={<Twitter />} />
       <Route path="auth/callback/linkedin" element={<LinkedIn />} />

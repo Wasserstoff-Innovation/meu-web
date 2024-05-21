@@ -2,6 +2,12 @@ import { useNavigate } from "react-router-dom";
 
 const BottomNav = () => {
   const Navigate = useNavigate();
+  const navigateHome = () => {
+    Navigate("/")
+    // Clearing a particular variable data from local storage
+    localStorage.removeItem("requestStates");
+    localStorage.removeItem("gotRequestStates");
+  }
   return (
     <div className="sticky bottom-0 -mx-6  z-10 bg-[#313437] ">
       <div className="flex justify-around items-center p-4">
@@ -13,7 +19,7 @@ const BottomNav = () => {
             title="Map View"
           />
         </div>
-        <div onClick={() => Navigate("/")}>
+        <div onClick={navigateHome}>
           <img
             src="/icons/select_window_2.svg"
             alt="select window"
