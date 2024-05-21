@@ -111,7 +111,7 @@ const Interests:React.FC<MyProps> = ( {active,setActive,groupSelected,setGroupSe
 
           {/* render the selected groups */}
           {groupSelected.length > 0 && (
-            <div className="flex  py-4 flex-wrap p-2 gap-2 border-[2px] border-[#4E5052] my-4 rounded-md">
+            <div className="flex  py-4 flex-wrap p-2 gap-2 border-[2px] border-[#4E5052] my-4 rounded-md  bg-[#313437]">
               {groupSelected.map((select, index) => (
                 <div
                   key={index}
