@@ -6,7 +6,8 @@ import React, { useState } from "react";
 import { getTwitterOAuthUrl } from "../../../api/verification/twitter";
 import { getLinkedinOAuthUrl } from "../../../api/verification/linkedin";
 import CountryCode from "../../../components/CountryCode";
-import GooglePlaceSearch from "./GooglePlaceSearch";
+//import GooglePlaceSearch from "./GooglePlaceSearch";
+import Google from "./Google";
 
 interface FormErrors {
   name?: string;
@@ -242,7 +243,8 @@ const Ob1 = () => {
         <p className="text-white text-sm mb-1">Location </p>
 
         <div className="w-full ">
-          <GooglePlaceSearch addLocation={addLocation} />
+          <Google addLocation={addLocation} />
+          {/* <GooglePlaceSearch addLocation={addLocation} /> */}
         </div>
         {errors.location && (
           <p className="text-red-500 text-xs mt-1">{errors.location}</p>
