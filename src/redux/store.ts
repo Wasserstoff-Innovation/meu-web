@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import onBoardingReducer from "./features/onBoardingSlice";
-import friendRequestReducer from "./features/friendRequestSlice";
-import gotFriendRequestReducer  from "./features/gotFriendRequestsSlice";
+import friendRequestReducer from "./features/mainSlice";
+import gotFriendRequestReducer  from "./features/mainSlice";
 import mainReducer from "./features/mainSlice";
 import popupReducer from "./features/popupSlice";
 import { persistStore, persistReducer } from "redux-persist";

@@ -6,7 +6,7 @@ import {
   IConnection,
   IConnectionwithPrivateData,
 } from "../../../../types/connection";
-import {gotFriendRequest} from "../../../../redux/features/gotFriendRequestsSlice";
+import {gotFriendRequest} from "../../../../redux/features/mainSlice";
 import {useAppDispatch } from "../../../../redux/hooks";
 const Received = () => {
   const { requests } = useLoaderData() as { requests: IConnection[] };

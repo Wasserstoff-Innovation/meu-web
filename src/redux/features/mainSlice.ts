@@ -7,6 +7,9 @@ interface mainState {
   userDoc: Doc<IUserwithPrivateData> | undefined;
   recommendedCards: IUser[];
   connections: Doc<IUserwithPrivateData>[];
+  friendRequests:[];
+  gotFriendRequests:[];
+  
 }
 
 // Define the initial state using that type
@@ -14,6 +17,8 @@ const initialState: mainState = {
   userDoc: undefined,
   recommendedCards: [],
   connections: [],
+  friendRequests:[],
+  gotFriendRequests:[]
 };
 
 export const mainSlice = createSlice({
@@ -35,10 +40,16 @@ export const mainSlice = createSlice({
     ) => {
       state.connections = action.payload;
     },
+    friendRequest: (state, action) => {
+      state.friendRequests = action.payload;
+    },
+    gotFriendRequest: (state, action) => {
+      state.gotFriendRequests = action.payload;
+    },
   },
 });
 
-export const { updateUserDoc, updateRecommendedCards, updateConnections } =
+export const { updateUserDoc, updateRecommendedCards, updateConnections, friendRequest, gotFriendRequest } =
   mainSlice.actions;
 
 export default mainSlice.reducer;
