@@ -38,29 +38,30 @@ export const PlaceAutocompleteClassic: React.FC<Props> = ({ onPlaceSelect, addLo
   return (
     <div className="autocomplete-container">
       <input ref={inputRef} placeholder='Enter a Location...' className='text-black w-full h-10 px-3 rounded-lg'/>
-       <style>
-        {`
-          /* Hide the icon in the autocomplete suggestions */
-          .pac-icon {
-            display: none;
-          }
-
-          /* Optionally adjust padding to align text properly */
-          .pac-item {
-            font-family: 'inherit' !important;
-            color: inherit !important;
-            padding-left: 15px !important;
-            font-size: 13px !important;
-          }
-
-          .pac-item-query {
-            font-family: Arial,sans-serif !important;
-            color: inherit !important;
-            font-size: 13px !important;
-          }
-        `}
-      </style>
 
     </div>
   );
 };
+
+// <style>
+//         {`
+//           /* Hide the icon in the autocomplete suggestions */
+//           .pac-icon {
+//             display: none;
+//           }
+
+//           /* Optionally adjust padding to align text properly */
+//           .pac-item {
+//             font-family: 'inherit' !important;
+//             color: inherit !important;
+//             padding-left: 15px !important;
+//             font-size: 13px !important;
+//           }
+
+//           .pac-item-query {
+//             font-family: Arial,sans-serif !important;
+//             color: inherit !important;
+//             font-size: 13px !important;
+//           }
+//         `}
+//       </style>

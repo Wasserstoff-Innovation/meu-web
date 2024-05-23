@@ -1,4 +1,6 @@
 import { PlaceAutocompleteClassic } from './AutoCompleteClassic';
+import { AutocompleteCustom } from './AutocompleteCustom';
+import { AutocompleteCustomHybrid } from './AutocompleteCustomHybrid';
 
 import type {AutocompleteMode} from './Google'
 
@@ -12,14 +14,29 @@ type CustomAutocompleteControlProps = {
 
 export const CustomMapControl = ({
   onPlaceSelect,
+  selectedAutocompleteMode,
   addLocation
 
 }: CustomAutocompleteControlProps) => {
-
+const {id} = selectedAutocompleteMode
 
   return (
     <>
+    <div className="autocomplete-control">
+    {
+      id === 'classic' && (
      <PlaceAutocompleteClassic onPlaceSelect={onPlaceSelect} addLocation={addLocation}/>
+      )
+    }
+            {id === 'custom' && (
+          <AutocompleteCustom onPlaceSelect={onPlaceSelect} addLocation={addLocation} />
+        )}
+
+        {id === 'custom-hybrid' && (
+          <AutocompleteCustomHybrid onPlaceSelect={onPlaceSelect} addLocation={addLocation} />
+        )}
+    </div>
+    
     </>
   );
 };
