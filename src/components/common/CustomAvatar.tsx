@@ -39,34 +39,34 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
     }
   };
   return (
-<div className="bg-slate-50 w-full relative inline-flex shrink-0">
-<Badge
-      content={
-        <>
-          <label htmlFor="avatar">
-            {loading ? (
-              <Spinner />
-            ) : (
-              <img src="/icons/camara.svg" alt="camera" className="h-9 w-full" />
-            )}
-          </label>
-          <input
-            type="file"
-            accept="image/png, image/jpeg"
-            onChange={handleChangeImage}
-            hidden
-            id="avatar"
-            disabled={loading}
-          />
-        </>
-      }
-      placement="bottom-right"
-    >
-      <a href={src} target="_blank" className="bg-slate-800 w-full">
-        <img src={src} className="self-center w-full h-52 cursor-pointer" />
-      </a>
-    </Badge>
-</div>
+    <div className="bg-slate-50 w-full relative inline-flex shrink-0">
+      <Badge
+        content={
+          <>
+            <label htmlFor="avatar">
+              {loading ? (
+                <Spinner />
+              ) : (
+                <img src="/icons/camara.svg" alt="camera" className="h-9 w-full" />
+              )}
+            </label>
+            <input
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={handleChangeImage}
+              hidden
+              id="avatar"
+              disabled={loading}
+            />
+          </>
+        }
+        placement="bottom-right"
+      >
+        <a href={src} target="_blank" className="bg-slate-800 w-full">
+          <img src={src} className="self-center w-full h-52 cursor-pointer" />
+        </a>
+      </Badge>
+    </div>
   );
 };
 
