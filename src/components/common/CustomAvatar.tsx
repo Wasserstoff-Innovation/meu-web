@@ -39,14 +39,15 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
     }
   };
   return (
-    <Badge
+<div className="bg-slate-50 w-full relative inline-flex shrink-0">
+<Badge
       content={
         <>
           <label htmlFor="avatar">
             {loading ? (
               <Spinner />
             ) : (
-              <img src="/icons/camara.svg" alt="camera" className="h-9 w-8" />
+              <img src="/icons/camara.svg" alt="camera" className="h-9 w-full" />
             )}
           </label>
           <input
@@ -61,10 +62,11 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
       }
       placement="bottom-right"
     >
-      <a href={src} target="_blank">
-        <Avatar src={src} className="self-center w-32 h-32 cursor-pointer" />
+      <a href={src} target="_blank" className="bg-slate-800 w-full">
+        <img src={src} className="self-center w-full h-52 cursor-pointer" />
       </a>
     </Badge>
+</div>
   );
 };
 

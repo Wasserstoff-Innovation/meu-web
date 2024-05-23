@@ -92,7 +92,7 @@ const EditProfile = () => {
         </div>
 
         <div className="w-full flex  justify-center mt-4">
-          <Button onClick={saveData}>Save</Button>
+          <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded w-full" onClick={saveData}>Save</Button>
         </div>
       </div>
       {/* <hr className="border-[#D9D9D9] border-[0.5px]" />
