@@ -1,7 +1,8 @@
 import {useEffect, useState, useCallback} from 'react';
-import {useMap, useMapsLibrary} from '@vis.gl/react-google-maps';
+import {APIProvider, useMap, useMapsLibrary} from '@vis.gl/react-google-maps';
 import Combobox from 'react-widgets/Combobox';
 import 'react-widgets/styles.css';
+import { GOOGLE_MAPS_API } from '../../../config';
 
 interface Props {
   onPlaceSelect: (place: google.maps.places.PlaceResult | null) => void;
@@ -35,7 +36,7 @@ export const AutocompleteCustomHybrid = ({onPlaceSelect, addLocation}: Props) =>
 
   useEffect(() => {
     if (!places || !map) return;
-
+    
     setAutocompleteService(new places.AutocompleteService());
     setPlacesService(new places.PlacesService(map));
     setSessionToken(new places.AutocompleteSessionToken());
@@ -97,6 +98,7 @@ export const AutocompleteCustomHybrid = ({onPlaceSelect, addLocation}: Props) =>
   );
 
   return (
+    <APIProvider apiKey={GOOGLE_MAPS_API}>
     <div className="autocomplete-container">
       <Combobox
         placeholder="Search for a place"
@@ -115,5 +117,6 @@ export const AutocompleteCustomHybrid = ({onPlaceSelect, addLocation}: Props) =>
         hideCaret
       />
     </div>
+    </APIProvider>
   );
 };

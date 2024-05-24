@@ -1,5 +1,6 @@
 import {useEffect, useState, useCallback, FormEvent} from 'react';
-import {useMap, useMapsLibrary} from '@vis.gl/react-google-maps';
+import {APIProvider, useMap, useMapsLibrary} from '@vis.gl/react-google-maps';
+import { GOOGLE_MAPS_API } from "../../../config";
 
 interface Props {
   onPlaceSelect: (place: google.maps.places.PlaceResult | null) => void;
@@ -31,10 +32,10 @@ export const AutocompleteCustom = ({onPlaceSelect, addLocation}: Props) => {
   const [inputValue, setInputValue] = useState<string>('');
 
   useEffect(() => {
-    if (!places || !map) return;
-
+    if (!places) return;
+    
     setAutocompleteService(new places.AutocompleteService());
-    setPlacesService(new places.PlacesService(map));
+  
     setSessionToken(new places.AutocompleteSessionToken());
 
     return () => setAutocompleteService(null);
@@ -46,7 +47,6 @@ export const AutocompleteCustom = ({onPlaceSelect, addLocation}: Props) => {
         setPredictionResults([]);
         return;
       }
-      debugger
       const request = {input: inputValue, sessionToken};
       const response = await autocompleteService.getPlacePredictions(request);
 
@@ -58,7 +58,6 @@ export const AutocompleteCustom = ({onPlaceSelect, addLocation}: Props) => {
   const onInputChange = useCallback(
     (event: FormEvent<HTMLInputElement>) => {
       const value = (event.target as HTMLInputElement)?.value;
-      debugger
       setInputValue(value);
       fetchPredictions(value);
     },
@@ -90,15 +89,17 @@ export const AutocompleteCustom = ({onPlaceSelect, addLocation}: Props) => {
   );
 
   return (
+    <APIProvider apiKey={GOOGLE_MAPS_API}>
     <div className="autocomplete-container">
       <input
         value={inputValue}
         onInput={(event: FormEvent<HTMLInputElement>) => onInputChange(event)}
         placeholder="Search for a place"
+        className='text-slate-800 px-2'
       />
 
       {predictionResults.length > 0 && (
-        <ul className="custom-list">
+        <ul className="custom-list bg-white text-slate-800 p-2">
           {predictionResults.map(({place_id, description}) => {
             return (
               <li
@@ -112,5 +113,6 @@ export const AutocompleteCustom = ({onPlaceSelect, addLocation}: Props) => {
         </ul>
       )}
     </div>
+    </APIProvider>
   );
 };
