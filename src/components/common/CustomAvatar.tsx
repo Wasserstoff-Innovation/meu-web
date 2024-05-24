@@ -39,15 +39,15 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
     }
   };
   return (
-    <div className="bg-slate-50 w-full relative inline-flex shrink-0">
       <Badge
         content={
           <>
+            <div className="text center">
             <label htmlFor="avatar">
               {loading ? (
                 <Spinner />
               ) : (
-                <img src="/icons/camara.svg" alt="camera" className="h-9 w-full" />
+                <img src="/icons/camara.svg" alt="camera" className="" />
               )}
             </label>
             <input
@@ -58,15 +58,28 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
               id="avatar"
               disabled={loading}
             />
+            </div>
           </>
         }
         placement="bottom-right"
       >
-        <a href={src} target="_blank" className="bg-slate-800 w-full">
-          <img src={src} className="self-center w-full h-52 cursor-pointer" />
-        </a>
+        {/* <a href={src} target="_blank" className="bg-slate-800 w-full">
+          <img src={src} className=" w-96 h-60 cursor-pointer" />
+        </a> */}
+
+        <div className="relative">
+          <a href={src} target="_blank" className="w-full">
+            <img
+              src={src}
+              className=" w-96 h-60 cursor-pointer"
+            />
+          </a>
+          <div className="absolute bottom-0 left-0 w-full h-36" style={{
+              background: 'linear-gradient(to bottom, transparent, rgba(17, 24, 28, 0.1), rgba(17, 24, 28, 0.2), rgba(17, 24, 28, 0.3), rgba(17, 24, 28, 0.4), rgba(17, 24, 28, 0.5), rgba(17, 24, 28, 0.6), rgba(17, 24, 28, 0.7), rgba(17, 24, 28, 0.8), rgba(17, 24, 28, 0.9), rgb(17, 24, 28))'
+            }}/>
+          
+        </div>
       </Badge>
-    </div>
   );
 };
 
