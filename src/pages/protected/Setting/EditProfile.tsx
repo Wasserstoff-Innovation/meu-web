@@ -50,11 +50,11 @@ const EditProfile = () => {
           <img
             src="/icons/left-arrow.svg"
             alt="back-navigation"
-            className="w-4 h-4"
+            className="w-4 h-4 cursor-pointer"
           />
-          <div>Edit Profile</div>
+          <div className="cursor-pointer">Edit Profile</div>
         </div>
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center relative bottom-[75px] mt-10">
           <CustomAvatar setSrc={setAvatar} src={avatar} />
         </div>
       </div>

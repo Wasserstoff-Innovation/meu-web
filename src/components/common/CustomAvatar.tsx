@@ -40,9 +40,10 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
   };
   return (
       <Badge
+      className="top-[250px] right-[220px]"
         content={
           <>
-            <div className="text center">
+            <div className="text center bg-transparent flex justify-center items-center">
             <label htmlFor="avatar">
               {loading ? (
                 <Spinner />
@@ -50,6 +51,7 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
                 <img src="/icons/camara.svg" alt="camera" className="" />
               )}
             </label>
+            <p className="mx-2">Update Profile Picture</p>       
             <input
               type="file"
               accept="image/png, image/jpeg"
@@ -61,7 +63,7 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
             </div>
           </>
         }
-        placement="bottom-right"
+        
       >
         {/* <a href={src} target="_blank" className="bg-slate-800 w-full">
           <img src={src} className=" w-96 h-60 cursor-pointer" />
@@ -71,7 +73,7 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
           <a href={src} target="_blank" className="w-full">
             <img
               src={src}
-              className=" w-96 h-60 cursor-pointer"
+              className="w-[450px] h-72 cursor-pointer"
             />
           </a>
           <div className="absolute bottom-0 left-0 w-full h-36" style={{
