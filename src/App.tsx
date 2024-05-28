@@ -26,31 +26,35 @@ function App() {
 
   return (
     <>
-    {loading ? (
-        // Render splash screen while loading
-        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-slate-800 font-mono text-white">
-          <SplashScreen />
+      <div className="max-h-dvh w-screen bg-foreground-400 font-mono text-white">
+        <div className="flex-1 flex flex-col justify-start h-dvh overflow-auto no-scrollbar max-w-md bg-foreground mx-auto  ">
+          <Provider store={store}>
+            <PersistGate loading={<Spinner />} persistor={persistor}>
+              {loading ? (
+                // Render splash screen while loading
+                <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center">
+                  <SplashScreen />
+                </div>
+              ) : (
+                <div>
+                  <ToastContainer
+                    position="top-center"
+                    autoClose={50}
+                    hideProgressBar={true}
+                    newestOnTop={false}
+                    closeOnClick
+                    closeButton={false}
+                    rtl={false}
+                    theme="dark"
+                  />
+                  <RouterProvider router={router} />
+                </div>
+              )}
+
+            </PersistGate>
+          </Provider>
         </div>
-      ) :(
-    <div className="max-h-dvh w-screen bg-foreground-400 font-mono text-white">
-      <div className="flex-1 flex flex-col justify-start h-dvh overflow-auto no-scrollbar max-w-md bg-foreground mx-auto  ">
-        <Provider store={store}>
-          <PersistGate loading={<Spinner />} persistor={persistor}>
-            <ToastContainer
-              position="top-center"
-              autoClose={50}
-              hideProgressBar={true}
-              newestOnTop={false}
-              closeOnClick
-              closeButton={false}
-              rtl={false}
-              theme="dark"
-            />
-            <RouterProvider router={router} />
-          </PersistGate>
-        </Provider>
       </div>
-    </div>)}
     </>
   );
 }

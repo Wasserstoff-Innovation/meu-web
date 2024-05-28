@@ -60,7 +60,7 @@ const ZoomEffect = () => {
           }
 
           .threeWords{
-            font-size:10px
+            font-size:7px
           }
 
           .smallTexts{
