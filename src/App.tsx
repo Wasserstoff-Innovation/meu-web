@@ -8,12 +8,17 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Spinner } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import SplashScreen from "./pages/public/SplashScreen";
+import { getIsAuthenticated } from "./utils";
 
 function App() {
 
   const [loading, setLoading] = useState(true);
+  const [splash, setSplash] = useState(false)
 
   useEffect(() => {
+
+    splashLoader()
+
     // Simulate loading process
     const timeout = setTimeout(() => {
       setLoading(false);
@@ -23,6 +28,13 @@ function App() {
     return () => clearTimeout(timeout);
   }, []);
 
+  const splashLoader = async () => {
+    const isAuthenticated = await getIsAuthenticated();
+    if (isAuthenticated) {
+      setSplash(true)
+    }
+    return null;
+  };
 
   return (
     <>
@@ -30,7 +42,7 @@ function App() {
         <div className="flex-1 flex flex-col justify-start h-dvh overflow-auto no-scrollbar max-w-md bg-foreground mx-auto  ">
           <Provider store={store}>
             <PersistGate loading={<Spinner />} persistor={persistor}>
-              {loading ? (
+              {loading && !splash ? (
                 // Render splash screen while loading
                 <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center">
                   <SplashScreen />
