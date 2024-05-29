@@ -40,11 +40,11 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
   };
   return (
       <Badge
-      className="top-[250px] right-[220px]"
+      className="top-[300px] right-[220px] bg-transparent border-none text-white"
         content={
           <>
             <div className="text center bg-transparent flex justify-center items-center">
-            <label htmlFor="avatar">
+            <label htmlFor="avatar" className="cursor-pointer">
               {loading ? (
                 <Spinner />
               ) : (
@@ -73,7 +73,7 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
           <a href={src} target="_blank" className="w-full">
             <img
               src={src}
-              className="w-[450px] h-72 cursor-pointer"
+              className="w-[450px] h-80 cursor-pointer"
             />
           </a>
           <div className="absolute bottom-0 left-0 w-full h-36" style={{
