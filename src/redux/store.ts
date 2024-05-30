@@ -4,12 +4,14 @@ import mainReducer from "./features/mainSlice";
 import popupReducer from "./features/popupSlice";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import friendRequestReducer from "./features/mainSlice";
+import gotFriendRequestReducer  from "./features/mainSlice";
 // import createIdbStorage from "@piotr-cz/redux-persist-idb-storage";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["onBoarding", "main"],
+  whitelist: ["onBoarding", "main", "friendRequest", "gotFriendRequest"],
   // serialize: false,
   // deserialize: false,
 };
@@ -18,6 +20,8 @@ const rootReducer = combineReducers({
   onBoarding: onBoardingReducer,
   main: mainReducer,
   popup: popupReducer,
+  friendRequest:friendRequestReducer,
+  gotFriendRequest:gotFriendRequestReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
