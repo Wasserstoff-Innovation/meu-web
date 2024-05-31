@@ -22,7 +22,7 @@ function App() {
     // Simulate loading process
     const timeout = setTimeout(() => {
       setLoading(false);
-    }, 7000); // Adjust the duration as needed
+    }, 4000); // Adjust the duration as needed
 
     // Cleanup function
     return () => clearTimeout(timeout);
