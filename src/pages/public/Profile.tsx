@@ -43,7 +43,7 @@ const Profile = () => {
       if (!userDoc?.data) return navigate("/login");
       const response = await sendRequest(userDoc?.data, user);
       toast.success(response.message);
-      navigate("/connections/sent");
+      navigate("/");
     } catch (err) {
       console.error(err);
       toast.error((err as Error).message || "Error sending request");
@@ -91,6 +91,7 @@ const Profile = () => {
       }
       console.log(response);
       revalidator.revalidate();
+      navigate("/requests")
     } catch (error) {
       console.error(error);
       toast.error("Failed to Accept request");
@@ -199,7 +200,7 @@ const Profile = () => {
           // icon="../icons/add.svg"
           onClick={() => {
             dispatch(setPopupType("DELETE_SENT_REQUEST"));
-            dispatch(setPopupData(userProfile));
+            dispatch(setPopupData(currentProfile));
             dispatch(togglePopup());
           }}
         >

@@ -3,7 +3,7 @@ import { Button, ModalBody, ModalFooter } from "@nextui-org/react";
 import { cancelRequest } from "../../api/connect/connection";
 import { IConnection } from "../../types/connection";
 import { toast } from "react-toastify";
-import { useRevalidator } from "react-router-dom";
+import { useNavigate, useRevalidator } from "react-router-dom";
 
 type DeleteSentRequestProps = {
   connection: IConnection;
@@ -13,6 +13,7 @@ type DeleteSentRequestProps = {
 const DeleteSentRequest = ({ connection, onClose }: DeleteSentRequestProps) => {
   const revalidator = useRevalidator();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
   const handleDelete = async (id: string) => {
     setLoading(true);
@@ -22,6 +23,7 @@ const DeleteSentRequest = ({ connection, onClose }: DeleteSentRequestProps) => {
       console.log(response);
       revalidator.revalidate();
       onClose();
+      navigate("/sent")
     } catch (error) {
       console.error(error);
       toast.error("Failed to delete request");
