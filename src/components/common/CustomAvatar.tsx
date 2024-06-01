@@ -1,4 +1,4 @@
-import { Avatar, Badge, Spinner } from "@nextui-org/react";
+import { Badge, Spinner } from "@nextui-org/react";
 import imageCompression from "browser-image-compression";
 import React, { useContext, useState } from "react";
 import { uploadAvatar } from "../../api/juno/uploader";
@@ -39,11 +39,11 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
     }
   };
   return (
-      <Badge
+    <Badge
       className="top-[300px] right-[220px] bg-transparent border-none text-white"
-        content={
-          <>
-            <div className="text center bg-transparent flex justify-center items-center">
+      content={
+        <>
+          <div className="text center bg-transparent flex justify-center items-center">
             <label htmlFor="avatar" className="cursor-pointer">
               {loading ? (
                 <Spinner />
@@ -51,7 +51,7 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
                 <img src="/icons/camara.svg" alt="camera" className="" />
               )}
             </label>
-            <p className="mx-2">Update Profile Picture</p>       
+            <p className="mx-2">Update Profile Picture</p>
             <input
               type="file"
               accept="image/png, image/jpeg"
@@ -60,28 +60,27 @@ const CustomAvatar = ({ src, setSrc }: CustomAvatarProps) => {
               id="avatar"
               disabled={loading}
             />
-            </div>
-          </>
-        }
-        
-      >
-        {/* <a href={src} target="_blank" className="bg-slate-800 w-full">
+          </div>
+        </>
+      }
+    >
+      {/* <a href={src} target="_blank" className="bg-slate-800 w-full">
           <img src={src} className=" w-96 h-60 cursor-pointer" />
         </a> */}
 
-        <div className="relative">
-          <a href={src} target="_blank" className="w-full">
-            <img
-              src={src}
-              className="w-[450px] h-80 cursor-pointer"
-            />
-          </a>
-          <div className="absolute bottom-0 left-0 w-full h-36" style={{
-              background: 'linear-gradient(to bottom, transparent, rgba(17, 24, 28, 0.1), rgba(17, 24, 28, 0.2), rgba(17, 24, 28, 0.3), rgba(17, 24, 28, 0.4), rgba(17, 24, 28, 0.5), rgba(17, 24, 28, 0.6), rgba(17, 24, 28, 0.7), rgba(17, 24, 28, 0.8), rgba(17, 24, 28, 0.9), rgb(17, 24, 28))'
-            }}/>
-          
-        </div>
-      </Badge>
+      <div className="relative">
+        <a href={src} target="_blank" className="w-full">
+          <img src={src} className="w-[450px] h-80 cursor-pointer" />
+        </a>
+        <div
+          className="absolute bottom-0 left-0 w-full h-36"
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent, rgba(17, 24, 28, 0.1), rgba(17, 24, 28, 0.2), rgba(17, 24, 28, 0.3), rgba(17, 24, 28, 0.4), rgba(17, 24, 28, 0.5), rgba(17, 24, 28, 0.6), rgba(17, 24, 28, 0.7), rgba(17, 24, 28, 0.8), rgba(17, 24, 28, 0.9), rgb(17, 24, 28))",
+          }}
+        />
+      </div>
+    </Badge>
   );
 };
 
