@@ -20,15 +20,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const handleBeforeUnload = () => {
-      // Clear authentication state when tab is closed
-      localStorage.removeItem("auth");
-      clearStorage();
+      sessionStorage.setItem("isUnloading", "true");
+    };
+
+    const handleUnload = () => {
+      if (sessionStorage.getItem("isUnloading") === "true") {
+        localStorage.removeItem("auth");
+        clearStorage();
+      }
+    };
+
+    const handleLoad = () => {
+      sessionStorage.removeItem("isUnloading");
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("unload", handleUnload);
+    window.addEventListener("load", handleLoad);
 
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("unload", handleUnload);
+      window.removeEventListener("load", handleLoad);
     };
   }, []);
 

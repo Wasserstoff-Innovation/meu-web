@@ -21,7 +21,7 @@ const Privacy = () => {
         <div>Privacy</div>
       </div>
       <div className="flex flex-col gap-4">
-        <div className=" flex gap-3 border items-center border-gray-400 px-4 py-2 rounded-md w-full">
+        <div className=" flex gap-3 bg-[#313436] items-center border-gray-400 px-4 py-2 rounded-md w-full">
           <img
             src= "/icons/!visibility.svg"
             alt="icon"
@@ -30,7 +30,7 @@ const Privacy = () => {
           />
           <div> Hidden User</div>
         </div>
-        <div className=" flex gap-3 border items-center border-gray-400 px-4 py-2 rounded-md w-full">
+        <div className=" flex gap-3 bg-[#313436] items-center border-gray-400 px-4 py-2 rounded-md w-full">
           <img
             src="/icons/block.svg"
             alt="block"
@@ -38,7 +38,7 @@ const Privacy = () => {
           />
           <div> Blocked User</div>
         </div>
-        <div className=" flex gap-3  border items-center border-gray-400 px-4 py-2 rounded-md w-full">
+        <div className=" flex gap-3 bg-[#313436] items-center border-gray-400 px-4 py-2 rounded-md w-full">
           <img
             src="/icons/notification.svg"
             alt="notification"
@@ -50,7 +50,7 @@ const Privacy = () => {
           </div>
         </div>
         <div>When enabled, you will receive notifications when you get a new connection request</div>
-        <div className=" flex gap-3  border items-center border-gray-400 px-4 py-2 rounded-md w-full">
+        <div className=" flex gap-3 bg-[#313436] items-center border-gray-400 px-4 py-2 rounded-md w-full">
           <img
             src="/icons/discoverable.svg"
             alt="discoverable"
@@ -62,7 +62,7 @@ const Privacy = () => {
           </div>
         </div>
         <div>When enabled, others will see your profile in their recommendations</div>
-        <div className=" flex gap-3  border items-center border-gray-400 px-4 py-2 rounded-md w-full">
+        <div className=" flex gap-3 bg-[#313436] items-center border-gray-400 px-4 py-2 rounded-md w-full">
           <img
             src="/icons/compass.svg"
             alt="map-navigation"
