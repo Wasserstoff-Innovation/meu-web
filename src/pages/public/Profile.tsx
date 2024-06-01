@@ -1,20 +1,38 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useRevalidator } from "react-router-dom";
 import { IUser } from "../../types/user";
 import PopUpOption from "../../components/profile/PopUpOption";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Button, Skeleton, Spinner } from "@nextui-org/react";
 import SocialMedia from "../../components/profile/SocialMedia";
 import Purpose from "../../components/profile/Purpose";
 import Interests from "../../components/profile/Interests";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getProfileUrl } from "../../utils";
 import { sendRequest } from "../../api/connect/connection";
 import { toast } from "react-toastify";
+import { IConnection, IConnectionwithPrivateData } from "../../types/connection";
+import {
+  setPopupData,
+  setPopupType,
+  togglePopup,
+} from "../../redux/features/popupSlice";
+import { acceptRequest } from "../../api/connect/connection";
+import { saveConnection, getConnections } from "../../api/juno/connection";
+import { updateConnections } from "../../redux/features/mainSlice";
+import { AuthContext } from "../../context/Auth";
 
 const Profile = () => {
   const { profile } = useLoaderData() as { profile: IUser };
   const [userProfile, setUserProfile] = useState<IUser>(profile);
   const { connections, userDoc } = useAppSelector((state) => state.main);
+  const dispatch = useAppDispatch();
+  const revalidator = useRevalidator();
+  const friendRequests = useAppSelector((state) => state.main.friendRequests);
+  const gotFriendRequests = useAppSelector((state) => state.main.gotFriendRequests);
+  const friendReqExists = friendRequests.some((obj: IConnection) => obj?.user?.userId === userProfile.userId);
+  const gotFriendRequestExists = gotFriendRequests.some((obj: IConnection) => obj?.user?.userId === userProfile.userId);
+  const currentProfile = friendReqExists ? friendRequests.find((obj: IConnectionwithPrivateData) => obj.user?.userId === userProfile.userId)! as IConnectionwithPrivateData : gotFriendRequests.find((obj: IConnectionwithPrivateData) => obj.user?.userId === userProfile.userId)! as IConnectionwithPrivateData;
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -25,7 +43,7 @@ const Profile = () => {
       if (!userDoc?.data) return navigate("/login");
       const response = await sendRequest(userDoc?.data, user);
       toast.success(response.message);
-      navigate("/connections/sent");
+      navigate("/");
     } catch (err) {
       console.error(err);
       toast.error((err as Error).message || "Error sending request");
@@ -58,6 +76,30 @@ const Profile = () => {
     });
   };
 
+  const handleAccept = async () => {
+    setLoading(true);
+    try {
+      if (!userDoc?.data) return;
+      const response = await acceptRequest(
+        currentProfile?.connectionId,
+        userDoc.data
+      );
+      await saveConnection(user, currentProfile?.user);
+      const latestConnections = await getConnections(user);
+      if (latestConnections !== undefined) {
+        dispatch(updateConnections(latestConnections));
+      }
+      console.log(response);
+      revalidator.revalidate();
+      navigate("/requests")
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to Accept request");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div
       className="flex flex-1 flex-col justify-start px-6 mt-4 gap-4 relative"
@@ -88,7 +130,7 @@ const Profile = () => {
         />
       </div>
       <div className="z-10">
-      {toggle && <PopUpOption />}
+        {toggle && <PopUpOption />}
       </div>
       <div className="h-80 w-full z-1">
         <Skeleton isLoaded={loaded} className="h-80 w-full  bg-transparent ">
@@ -151,6 +193,29 @@ const Profile = () => {
             Share Profile
           </Button>
         ) : (
+          friendReqExists ? <Button
+          color="primary"
+          className="w-full"
+          isDisabled={loading}
+          // icon="../icons/add.svg"
+          onClick={() => {
+            dispatch(setPopupType("DELETE_SENT_REQUEST"));
+            dispatch(setPopupData(currentProfile));
+            dispatch(togglePopup());
+          }}
+        >
+          {loading && <Spinner />}
+          Cancle Request
+        </Button> : gotFriendRequestExists ? <Button
+          color="primary"
+          className="w-full"
+          isDisabled={loading}
+          // icon="../icons/add.svg"
+          onClick={handleAccept}
+        >
+          {loading && <Spinner />}
+          Accept Request
+        </Button> :
           <Button
             color="primary"
             className="w-full"

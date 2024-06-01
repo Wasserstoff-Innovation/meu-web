@@ -17,6 +17,7 @@ import { AuthProvider } from "../context/Auth";
 const MainLayout = () => {
   return (
     <AuthProvider>
+      <RootPopup />
       <Outlet />
     </AuthProvider>
   );
@@ -41,7 +42,6 @@ const ProtectedLayout = () => {
   }, [userDoc?.data]);
   return (
     <Fragment>
-      <RootPopup />
       <Outlet />
     </Fragment>
   );
