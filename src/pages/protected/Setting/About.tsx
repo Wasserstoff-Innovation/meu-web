@@ -9,7 +9,7 @@ const About = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 w-full">
       <div className="flex gap-2 text-2xl z-10 relative top-4 left-0 items-center">
         <img
           src="/icons/left-arrow.svg"
@@ -20,7 +20,7 @@ const About = () => {
         <div>About</div>
       </div>
       <div className="flex flex-col gap-4">
-        <div className=" flex gap-3 border items-center border-gray-400 px-4 py-2 rounded-md w-full">
+        <div className=" flex gap-3 bg-[#313436] items-center border-gray-400 px-4 py-2 rounded-md w-full">
           <img
             src="/icons/contract.svg"
             alt="icon"
@@ -28,7 +28,7 @@ const About = () => {
           />
           <div>Terms of Services</div>
         </div>
-        <div className=" flex gap-3 border items-center border-gray-400 px-4 py-2 rounded-md w-full">
+        <div className=" flex gap-3 bg-[#313436] items-center border-gray-400 px-4 py-2 rounded-md w-full">
           <img
             src="/icons/contract.svg"
             alt="block"
@@ -36,7 +36,7 @@ const About = () => {
           />
           <div>Privacy Policy</div>
         </div>
-        <div className=" flex gap-3 border items-center border-gray-400 px-4 py-2 rounded-md w-full">
+        <div className=" flex gap-3 bg-[#313436] items-center border-gray-400 px-4 py-2 rounded-md w-full">
           <img
             src="/icons/contract.svg"
             alt="block"

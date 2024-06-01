@@ -11,14 +11,14 @@ const Privacy = () => {
   }
 
   return (
-    <div className="flex flex-col justify-start gap-6">
+    <div className="flex flex-col justify-start gap-6 w-full">
       <div className="flex gap-2 text-2xl z-10 relative top-4 left-0 items-center">
         <img src="/icons/left-arrow.svg" alt="back-navigation" className="w-4 h-4 cursor-pointer"
         onClick={backNavigate}/>
         <div>Other</div>
       </div>
       <div className="flex flex-col gap-4">
-        <div className=" flex gap-3 border items-center border-gray-400 px-4 py-2 rounded-md w-full">
+        <div className=" flex gap-3 bg-[#313436] items-center border-gray-400 px-4 py-2 rounded-md w-full">
           <img
             src= "/icons/clear.svg"
             alt="icon"
@@ -27,7 +27,7 @@ const Privacy = () => {
           />
           <div> Clear Cache</div>
         </div>
-        <div className=" flex gap-3 border items-center border-gray-400 px-4 py-2 rounded-md w-full">
+        <div className=" flex gap-3 bg-[#313436] items-center border-gray-400 px-4 py-2 rounded-md w-full">
           <img
             src="/icons/haptic.svg"
             alt="block"
@@ -35,7 +35,7 @@ const Privacy = () => {
           />
           <div> Enable Haptic Feedback</div>
         </div>
-        <div className=" flex gap-3 border items-center border-gray-400 px-4 py-2 rounded-md w-full">
+        <div className=" flex gap-3 bg-[#313436] items-center border-gray-400 px-4 py-2 rounded-md w-full">
           <img
             src="/icons/request.svg"
             alt="block"

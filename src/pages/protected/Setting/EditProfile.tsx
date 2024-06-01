@@ -42,7 +42,7 @@ const EditProfile = () => {
 
   return (
     <div className="flex flex-1 flex-col justify-start gap-6">
-      <div>
+      <div className="h-[300px]">
         <div
           className="flex gap-2  text-2xl z-10 relative top-4 left-0 items-center"
           onClick={backNavigate}
@@ -50,11 +50,11 @@ const EditProfile = () => {
           <img
             src="/icons/left-arrow.svg"
             alt="back-navigation"
-            className="w-4 h-4"
+            className="w-4 h-4 cursor-pointer"
           />
-          <div>Edit Profile</div>
+          <div className="cursor-pointer">Edit Profile</div>
         </div>
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center relative bottom-[75px] mt-10">
           <CustomAvatar setSrc={setAvatar} src={avatar} />
         </div>
       </div>
@@ -92,7 +92,7 @@ const EditProfile = () => {
         </div>
 
         <div className="w-full flex  justify-center mt-4">
-          <Button onClick={saveData}>Save</Button>
+          <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded w-full" onClick={saveData}>Save</Button>
         </div>
       </div>
       {/* <hr className="border-[#D9D9D9] border-[0.5px]" />
