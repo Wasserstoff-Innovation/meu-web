@@ -190,7 +190,7 @@ const Profile = () => {
               onShare(profileUrl);
             }}
           >
-            Share Profile
+            Share this Profile
           </Button>
         ) : (
           friendReqExists ? <Button
