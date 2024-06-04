@@ -29,8 +29,8 @@ const Profile = () => {
   const revalidator = useRevalidator();
   const friendRequests = useAppSelector((state) => state.main.friendRequests);
   const gotFriendRequests = useAppSelector((state) => state.main.gotFriendRequests);
-  const friendReqExists = friendRequests.some((obj: IConnection) => obj?.user?.userId === userProfile.userId);
-  const gotFriendRequestExists = gotFriendRequests.some((obj: IConnection) => obj?.user?.userId === userProfile.userId);
+  const friendReqExists = friendRequests?.some((obj: IConnection) => obj?.user?.userId === userProfile.userId);
+  const gotFriendRequestExists = gotFriendRequests?.some((obj: IConnection) => obj?.user?.userId === userProfile.userId);
   const currentProfile = friendReqExists ? friendRequests.find((obj: IConnectionwithPrivateData) => obj.user?.userId === userProfile.userId)! as IConnectionwithPrivateData : gotFriendRequests.find((obj: IConnectionwithPrivateData) => obj.user?.userId === userProfile.userId)! as IConnectionwithPrivateData;
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
