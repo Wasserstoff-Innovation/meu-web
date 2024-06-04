@@ -64,7 +64,7 @@ const DashboardLayout = () => {
   });
   return (
     <APIProvider apiKey={GOOGLE_MAPS_API}>
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col min-h-screen">
         <div className="flex flex-1 flex-col gap-4 overflow-y-auto h-[88vh]">
           <Outlet />
         </div>
