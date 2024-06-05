@@ -40,7 +40,7 @@ const Login = (): ReactNode => {
         </div>
         <div className="flex justify-center">
           <Button
-            className="mt-5 text-sm center"
+            className="mt-6 text-sm center"
             color="default"
             isDisabled={loading}
             onClick={async () => {
@@ -72,7 +72,7 @@ const Login = (): ReactNode => {
             Continue with Internet Identity
           </Button>
         </div>
-        <div className="w-full max-w-md h-64 overflow-hidden mx-auto mt-8">
+        <div className="w-full max-w-md h-64 overflow-hidden mx-auto mt-14">
           <Lottie animationData={EarthLottie} loop={true} />
         </div>
       </div>

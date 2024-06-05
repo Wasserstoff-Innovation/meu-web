@@ -137,6 +137,7 @@ const Ob1 = () => {
 
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
+      <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
       <h1 className="self-stretch text-2xl text-primary-300 font-bold">
         Tell us about yourself
       </h1>
@@ -261,6 +262,7 @@ const Ob1 = () => {
           </a>
           .
         </p>
+      </div>
       </div>
       <div className="flex w-full justify-end">
         <Button

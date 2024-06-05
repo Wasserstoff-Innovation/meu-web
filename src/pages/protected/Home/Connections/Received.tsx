@@ -22,7 +22,7 @@ const Received = () => {
   const [data, setData] = useState<IConnection[]>(requests);
   return (
     <SearchUserLayout data={data} setFilteredData={setData}>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 overflow-y-auto h-[60vh]">
         {data.map((connect) => (
           <ReceivedRequestCard
             key={connect.connectionId}

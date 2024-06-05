@@ -12,7 +12,7 @@ const SentRequestCard = ({ connection }: { connection: IConnection }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   return (
-    <div className="flex justify-between gap-4">
+    <div className="flex justify-between gap-4 my-4">
       <div
         className="flex gap-3 cursor-pointer"
         onClick={() => {

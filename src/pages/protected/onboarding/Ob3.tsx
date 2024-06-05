@@ -30,7 +30,7 @@ const Ob3 = () => {
 
   return (
     <div
-      className="flex flex-col h-screen justify-between items-end gap-4 py-8 "
+      className="flex flex-col h-screen w-full justify-between items-center gap-4 py-8 "
       onClick={() => setActive(false)}
     >
       <div>
@@ -41,7 +41,7 @@ const Ob3 = () => {
       </div>
       <div className="flex w-full justify-end">
         <Button
-          className="mt-2 text-sm "
+          className="text-sm "
           color="primary"
           size="lg"
           onClick={handleNext}

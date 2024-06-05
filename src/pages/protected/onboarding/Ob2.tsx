@@ -76,7 +76,8 @@ const Ob2: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-1 flex-col justify-between items-end gap-4 ">
+    <div className="flex flex-1 flex-col justify-between items-end gap-4 h-screen">
+      <div>
       <h1 className="self-stretch mt-4 text-2xl text-primary-300 font-bold">
         Setup your Profile
       </h1>
@@ -97,7 +98,7 @@ const Ob2: React.FC = () => {
           Your bio can have 2-150 characters.
         </p>
       </div>
-      <div className="w-full mb-64">
+      <div className="w-full">
         <p className="text-white text-sm mb-1">Pronouns </p>
         <Input
           type="text"
@@ -112,9 +113,10 @@ const Ob2: React.FC = () => {
           Your pronouns can have 2-100 characters.
         </p>
       </div>
+      </div>
       <div className="flex w-full justify-end">
         <Button
-          className="my-4 text-sm"
+          className="mb-6 text-sm"
           color="primary"
           size="lg"
           onClick={handleNext}

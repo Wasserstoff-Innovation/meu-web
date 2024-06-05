@@ -18,11 +18,14 @@ const SentRequests = () => {
   }, [requests]);
 
   return (
-    <SearchUserLayout data={data} setFilteredData={setData}>
+    <>
+    <SearchUserLayout data={data} setFilteredData={setData}/>
+    <div className="overflow-y-auto h-[60vh]">
       {data.map((connect) => (
         <SentRequestCard key={connect.connectionId} connection={connect} />
       ))}
-    </SearchUserLayout>
+    </div>
+    </>
   );
 };
 
