@@ -93,7 +93,7 @@ const Ob5 = () => {
       </div>
       <div className="flex w-full justify-end mt-64">
         <Button
-          className="mt-2 text-sm "
+          className="mt-8 text-sm "
           color="primary"
           size="lg"
           onClick={handleNext}

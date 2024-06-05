@@ -9,9 +9,9 @@ TopBarProgress.config(loaderConfig);
 const ConnectionLayout = () => {
   const navigation = useNavigation();
   return (
-    <div className="p-6">
+    <div className="px-6 pt-6">
       <TopBar />
-      <div className="flex flex-col gap-4 overflow-y-auto mt-4">
+      <div className="flex flex-col gap-2 overflow-y-auto mt-4">
         <InviteCard />
         {navigation.state == "loading" ? <TopBarProgress /> : <Outlet />}
       </div>

@@ -19,11 +19,13 @@ const Ob4 = () => {
   };
 
   return (
-    <div className="flex flex-1 flex-col justify-between  py-8 ">
+    <div className="flex flex-1 h-screen flex-col justify-between py-8 ">
+      <div>
       <h1 className=" self-stretch text-2xl text-primary-300 font-bold">
         Add your purpose
       </h1>
       <Purpose  purpose={userData.purpose} handleChange={handleChange}/>
+      </div>
       <div className="flex w-full justify-end">
         <Button
           className="mt-2 text-sm "
