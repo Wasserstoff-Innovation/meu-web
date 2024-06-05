@@ -48,7 +48,7 @@ function App() {
                   <SplashScreen />
                 </div>
               ) : (
-                <div>
+                <>
                   <ToastContainer
                     position="top-center"
                     autoClose={50}
@@ -60,7 +60,7 @@ function App() {
                     theme="dark"
                   />
                   <RouterProvider router={router} />
-                </div>
+                </>
               )}
 
             </PersistGate>
