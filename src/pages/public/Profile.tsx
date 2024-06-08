@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 const Profile = () => {
   const { profile } = useLoaderData() as { profile: IUser };
   const [userProfile, setUserProfile] = useState<IUser>(profile);
+  debugger
   const { connections, userDoc } = useAppSelector((state) => state.main);
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
@@ -88,7 +89,7 @@ const Profile = () => {
         />
       </div>
       <div className="z-10">
-      {toggle && <PopUpOption />}
+      {toggle && <PopUpOption setToggle={setToggle}/>}
       </div>
       <div className="h-80 w-full z-1">
         <Skeleton isLoaded={loaded} className="h-80 w-full  bg-transparent ">
