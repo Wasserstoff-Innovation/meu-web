@@ -11,7 +11,7 @@ const App: React.FC = () => {
   const Navigate = useNavigate();
   const pathName = window.location.pathname;
   return (
-    <div className=" -mx-4 px-4 pt-1 flex flex-col ">
+    <div className="pt-1 flex flex-col ">
       <div className="bg-[#313437] rounded-full px-2 p-1 flex justify-between items-center">
         {topBarData.map((top, index) => (
           <div

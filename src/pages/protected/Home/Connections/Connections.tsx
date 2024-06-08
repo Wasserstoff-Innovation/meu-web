@@ -84,8 +84,7 @@ const Connections = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-4 overflow-y-auto h-[60vh]">
+        <div className="flex flex-col gap-4 overflow-y-auto h-full">
           {connections.map((connectionDoc) => (
             <ConnectionCard
               key={connectionDoc.key}
@@ -93,7 +92,6 @@ const Connections = () => {
             />
           ))}
         </div>
-      </div>
     </>
   );
 };

@@ -9,11 +9,13 @@ TopBarProgress.config(loaderConfig);
 const ConnectionLayout = () => {
   const navigation = useNavigation();
   return (
-    <div className="px-6 pt-6">
+    <div className="px-6 pt-6 h-[calc(100vh-64px)] overflow-hidden">
       <TopBar />
-      <div className="flex flex-col gap-2 overflow-y-auto mt-4">
+      <div className="flex flex-col gap-2 h-[calc(100vh-44px-40px-64px)] mt-4 overflow-auto">
         <InviteCard />
-        {navigation.state == "loading" ? <TopBarProgress /> : <Outlet />}
+        <div className="h-full flex flex-col overflow-hidden">
+          {navigation.state == "loading" ? <TopBarProgress /> : <Outlet />}
+        </div>
       </div>
     </div>
   );

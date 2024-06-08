@@ -75,7 +75,7 @@ const DashboardLayout = () => {
 };
 const Layout = () => {
   return (
-    <div className="flex-1 flex px-6">
+    <div className="flex-1 flex px-6 justify-center">
       <Outlet />
     </div>
   );

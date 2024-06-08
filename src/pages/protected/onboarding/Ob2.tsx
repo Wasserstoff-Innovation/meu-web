@@ -78,7 +78,7 @@ const Ob2: React.FC = () => {
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 h-screen">
       <div>
-      <h1 className="self-stretch mt-4 text-2xl text-primary-300 font-bold">
+      <h1 className="self-stretch my-4 text-2xl text-primary-300 font-bold">
         Setup your Profile
       </h1>
       <div className="w-full flex flex-row justify-center items-center">

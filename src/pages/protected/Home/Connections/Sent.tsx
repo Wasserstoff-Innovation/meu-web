@@ -20,7 +20,7 @@ const SentRequests = () => {
   return (
     <>
     <SearchUserLayout data={data} setFilteredData={setData}/>
-    <div className="overflow-y-auto h-[60vh]">
+    <div className="overflow-y-auto h-full flex flex-col">
       {data.map((connect) => (
         <SentRequestCard key={connect.connectionId} connection={connect} />
       ))}

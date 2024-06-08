@@ -4,6 +4,7 @@ import { Button } from "@nextui-org/react";
 import { updateUserData } from "../../../redux/features/onBoardingSlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 
 const Ob3 = () => {
@@ -17,6 +18,7 @@ const Ob3 = () => {
   const handleNext = () => {
     if (groupSelected.length < 3) {
       console.log("Selected Interest must be greater than 2.");
+      toast.warning("Selected Interest must be minimum 3.");
       return;
     }
     console.log(groupSelected);

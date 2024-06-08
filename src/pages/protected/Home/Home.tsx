@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <div className="p-6">
       <Navbar />
-      <div className="flex flex-col gap-4 overflow-y-auto h-[73vh] mt-4">
+      <div className="flex flex-col gap-4 overflow-y-auto mt-4">
         <h1>Recommended Users</h1>
         {data.map((user) => (
           <RecommendedUserCard user={user} key={user.userId} />

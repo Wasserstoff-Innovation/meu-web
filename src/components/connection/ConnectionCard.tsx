@@ -17,7 +17,7 @@ const ConnectionCard = ({
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   return (
-    <div className="flex justify-between gap-4">
+    <div className="flex justify-between my-2 gap-4">
       <div
         className="flex gap-3 cursor-pointer"
         onClick={() => {
