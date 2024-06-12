@@ -103,3 +103,29 @@ export const deleteConnection = async (
     return { message: "Failed to delete connection" };
   }
 };
+
+export const updateConnection = async (
+user: User | null | undefined,
+  key: string,
+  data: IUserwithPrivateData
+) => {
+  try {
+    if (!user || user === null) return undefined;
+    const latestDoc = await getDoc<IUserwithPrivateData>({
+      collection: "connections",
+      key,
+    });
+    const updatedDoc = await setDoc<IUserwithPrivateData>({
+      collection: "connections",
+      doc: {
+        key,
+        data,
+        updated_at: latestDoc?.updated_at,
+      },
+    });
+    return correctTimeStamps(updatedDoc);
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
+};

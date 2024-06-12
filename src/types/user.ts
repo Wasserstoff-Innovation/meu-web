@@ -9,6 +9,7 @@ export interface IUser {
   interests: string[];
   purpose: string;
   privateData?: PrivateData;
+  note?: string;
 }
 
 export interface PrivateData {
@@ -34,6 +35,10 @@ export interface PrivateData {
     name: string;
   };
   telegram: string;
+}
+
+export interface IConnectedUser extends IUser {
+  note: string;
 }
 
 export interface IUserwithPrivateData extends IUser {
