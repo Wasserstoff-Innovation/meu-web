@@ -1,9 +1,12 @@
 import { useState } from "react";
 import PopUpOption from "./PopUpOption";
 import { IUser } from "../../types/user";
+import { useLoaderData } from "react-router-dom";
 
 const ProfilePicture = ({ user }: { user: IUser }) => {
   const [toggle, setToggle] = useState(false);
+  const { profile } = useLoaderData() as { profile: IUser };
+  const [userProfile] = useState<IUser>(profile);
 
   return (
     <div className="flex" onClick={() => setToggle(false)}>
@@ -29,7 +32,7 @@ const ProfilePicture = ({ user }: { user: IUser }) => {
                 e.stopPropagation();
               }}
             />
-            {toggle && <PopUpOption />}
+            {toggle && <PopUpOption userProfile={userProfile}/>}
           </div>
 
           <div className="flex justify-between w-full px-4 items-center absolute bottom-4 ">

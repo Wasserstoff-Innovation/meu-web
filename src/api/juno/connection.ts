@@ -6,7 +6,7 @@ import {
   listDocs,
   setDoc,
 } from "@junobuild/core";
-import { IUserwithPrivateData } from "../../types/user";
+import { IConnectedUser, IUserwithPrivateData } from "../../types/user";
 import { correctTimeStamps } from "../../utils";
 
 export const saveConnection = async (
@@ -107,15 +107,15 @@ export const deleteConnection = async (
 export const updateConnection = async (
 user: User | null | undefined,
   key: string,
-  data: IUserwithPrivateData
+  data: IConnectedUser
 ) => {
   try {
     if (!user || user === null) return undefined;
-    const latestDoc = await getDoc<IUserwithPrivateData>({
+    const latestDoc = await getDoc<IConnectedUser>({
       collection: "connections",
       key,
     });
-    const updatedDoc = await setDoc<IUserwithPrivateData>({
+    const updatedDoc = await setDoc<IConnectedUser>({
       collection: "connections",
       doc: {
         key,
