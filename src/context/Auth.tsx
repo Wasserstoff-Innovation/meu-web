@@ -19,33 +19,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handleBeforeUnload = () => {
-      sessionStorage.setItem("isUnloading", "true");
-    };
-
-    const handleUnload = () => {
-      if (sessionStorage.getItem("isUnloading") === "true") {
-        localStorage.removeItem("auth");
-        clearStorage();
-      }
-    };
-
-    const handleLoad = () => {
-      sessionStorage.removeItem("isUnloading");
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    window.addEventListener("unload", handleUnload);
-    window.addEventListener("load", handleLoad);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-      window.removeEventListener("unload", handleUnload);
-      window.removeEventListener("load", handleLoad);
-    };
-  }, []);
-
-  useEffect(() => {
     (async () => {
       const satelliteId = import.meta.env.VITE_SATELLITE_ID as string;
       const container = import.meta.env.VITE_CONTAINER_MODE === "true";
