@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 // import { SocketProvider } from "../context/Socket";
 import BottomNav from "../components/Home/BottomNav";
 import { useAppSelector } from "../redux/hooks";
@@ -10,15 +10,17 @@ import { getPublicData } from "../utils";
 import RootPopup from "../components/common/RootPopup";
 import { dashboardLoader, onBoardingLoader } from "../routes/loaders";
 import { APIProvider } from "@vis.gl/react-google-maps";
-import { GOOGLE_MAPS_API } from "../config";
+import { GOOGLE_MAPS_API, loaderConfig } from "../config";
 import { toast } from "react-toastify";
 import { AuthProvider } from "../context/Auth";
-
+import TopBarProgress from "react-topbar-progress-indicator";
+TopBarProgress.config(loaderConfig);
 const MainLayout = () => {
+  const navigation = useNavigation();
   return (
     <AuthProvider>
       <RootPopup />
-      <Outlet />
+      {navigation.state == "loading" ? <TopBarProgress /> : <Outlet />}
     </AuthProvider>
   );
 };
