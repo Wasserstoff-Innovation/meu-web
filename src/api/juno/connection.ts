@@ -6,7 +6,7 @@ import {
   listDocs,
   setDoc,
 } from "@junobuild/core";
-import { IUserwithPrivateData } from "../../types/user";
+import { IConnectedUser, IUserwithPrivateData } from "../../types/user";
 import { correctTimeStamps } from "../../utils";
 
 export const saveConnection = async (
@@ -101,5 +101,31 @@ export const deleteConnection = async (
   } catch (e) {
     console.error(e);
     return { message: "Failed to delete connection" };
+  }
+};
+
+export const updateConnection = async (
+user: User | null | undefined,
+  key: string,
+  data: IConnectedUser
+) => {
+  try {
+    if (!user || user === null) return undefined;
+    const latestDoc = await getDoc<IConnectedUser>({
+      collection: "connections",
+      key,
+    });
+    const updatedDoc = await setDoc<IConnectedUser>({
+      collection: "connections",
+      doc: {
+        key,
+        data,
+        updated_at: latestDoc?.updated_at,
+      },
+    });
+    return correctTimeStamps(updatedDoc);
+  } catch (e) {
+    console.error(e);
+    return undefined;
   }
 };

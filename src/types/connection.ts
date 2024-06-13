@@ -1,8 +1,8 @@
-import { IUser, IUserwithPrivateData } from "./user";
+import { IConnectedUser, IUserwithPrivateData } from "./user";
 
 export type IConnection = {
   connectionId: string;
-  user: IUser;
+  user: IConnectedUser;
 };
 
 export type IConnectionwithPrivateData = {

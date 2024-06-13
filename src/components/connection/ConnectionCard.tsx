@@ -24,10 +24,15 @@ const ConnectionCard = ({
           navigate(`/profile/${connectionDoc.data.userId}`);
         }}
       >
-        <Avatar src={connectionDoc.data.avatar} size="lg" />
+        <Avatar src={connectionDoc.data.avatar} size="lg" className="min-w-[56px]"/>
         <div className="flex flex-col justify-center text-[12px]">
           <div>{connectionDoc.data.name}</div>
           <div className="text-[10px]">{connectionDoc.data.pronouns}</div>
+          <div>
+          {
+            connectionDoc.data.note && <p className="text-wrap">{connectionDoc.data.note}</p>
+          }
+        </div>
         </div>
       </div>
       <div className="flex gap-4 items-center">

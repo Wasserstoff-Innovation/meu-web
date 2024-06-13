@@ -25,6 +25,9 @@ const Profile = () => {
   const { profile } = useLoaderData() as { profile: IUser };
   const [userProfile, setUserProfile] = useState<IUser>(profile);
   const { connections, userDoc } = useAppSelector((state) => state.main);
+  const curConnection = connections.find(
+    (connection) => connection.data.userId === userProfile.userId
+  );
   const dispatch = useAppDispatch();
   const revalidator = useRevalidator();
   const friendRequests = useAppSelector((state) => state.main.friendRequests);
@@ -130,7 +133,7 @@ const Profile = () => {
         />
       </div>
       <div className="z-10">
-        {toggle && <PopUpOption />}
+        {toggle && <PopUpOption  userProfile={userProfile}/>}
       </div>
       <div className="h-80 w-full z-1">
         <Skeleton isLoaded={loaded} className="h-80 w-full  bg-transparent ">
@@ -165,7 +168,12 @@ const Profile = () => {
         {isConnection && (
           <div className="text-[#8D8E90]">
             <p>You both connected at Pragati Maidan on Feb 29, 2024.</p>
-            <p>Your personal note for the person goes here.</p>
+            <div>
+              &nbsp;
+          {
+            curConnection?.data.note && <p className="text-wrap">{curConnection.data.note}</p>
+          }
+        </div>
           </div>
         )}
         <hr className="border-[1px] border-[#A3A5A6]" />
