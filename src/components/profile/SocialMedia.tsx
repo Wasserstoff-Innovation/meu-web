@@ -29,16 +29,16 @@ const SocialMedia = ({ linkedIn, twitter }: SocialMediaProps) => {
       {data.map((social, index) => {
         if (social.verified)
           return (
-            <div
+            <a href={social.url}
               className="bg-white p-1 sm:p-2 sm:px-4 cursor-pointer rounded-full"
               key={index}
             >
               <img
                 src={social.icon}
                 alt={social.name}
-                className="size-[16px] "
+                className="size-[16px]"
               />
-            </div>
+            </a>
           );
       })}
     </div>

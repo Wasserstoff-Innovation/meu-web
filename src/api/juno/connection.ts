@@ -11,11 +11,11 @@ import { correctTimeStamps } from "../../utils";
 
 export const saveConnection = async (
   user: User | null | undefined,
-  data: IUserwithPrivateData
+  data: IConnectedUser
 ) => {
   try {
     if (!user || user === null) return undefined;
-    const createdDoc = await setDoc<IUserwithPrivateData>({
+    const createdDoc = await setDoc<IConnectedUser>({
       collection: "connections",
       doc: {
         key: data.userId,
@@ -32,18 +32,18 @@ export const saveConnection = async (
 
 export const addIfNewConnection = async (
   user: User | null | undefined,
-  data: IUserwithPrivateData
+  data: IConnectedUser
 ) => {
   try {
     if (!user || user === null) return undefined;
-    const existingDoc = await getDoc<IUserwithPrivateData>({
+    const existingDoc = await getDoc<IConnectedUser>({
       collection: "connections",
       key: data.userId,
     });
     if (existingDoc) {
       return;
     }
-    const createdDoc = await setDoc<IUserwithPrivateData>({
+    const createdDoc = await setDoc<IConnectedUser>({
       collection: "connections",
       doc: {
         key: data.userId,
@@ -61,7 +61,7 @@ export const addIfNewConnection = async (
 export const getConnections = async (user: User | null | undefined) => {
   try {
     if (!user || user === null) return undefined;
-    const docs = await listDocs<IUserwithPrivateData>({
+    const docs = await listDocs<IConnectedUser>({
       collection: "connections",
       filter: {
         order: {
@@ -79,14 +79,14 @@ export const getConnections = async (user: User | null | undefined) => {
 
 export const deleteConnection = async (
   user: User | null | undefined,
-  connectionDoc: Doc<IUserwithPrivateData>
+  connectionDoc: Doc<IConnectedUser>
 ) => {
   try {
     if (!user || user === null)
       return {
         message: "Failed to delete connection",
       };
-    const latestDoc = await getDoc<IUserwithPrivateData>({
+    const latestDoc = await getDoc<IConnectedUser>({
       collection: "connections",
       key: connectionDoc.key,
     });
@@ -115,14 +115,16 @@ user: User | null | undefined,
       collection: "connections",
       key,
     });
+    console.log(latestDoc)
     const updatedDoc = await setDoc<IConnectedUser>({
       collection: "connections",
       doc: {
+        ...latestDoc,
         key,
-        data,
-        updated_at: latestDoc?.updated_at,
+        data,        
       },
     });
+    console.log(latestDoc)
     return correctTimeStamps(updatedDoc);
   } catch (e) {
     console.error(e);

@@ -50,12 +50,14 @@ export const updateUserData = async (
       collection: "cards",
       key,
     });
+    if(!latestDoc){
+      throw new Error("Doc not found")
+    }
     const updatedDoc = await setDoc<IUserwithPrivateData>({
       collection: "cards",
       doc: {
-        key,
-        data,
-        updated_at: latestDoc?.updated_at,
+        ...latestDoc,
+        data
       },
     });
     return correctTimeStamps(updatedDoc);
