@@ -50,6 +50,7 @@ export const updateUserData = async (
       collection: "cards",
       key,
     });
+    console.log(latestDoc)
     if(!latestDoc){
       throw new Error("Doc not found")
     }
@@ -60,6 +61,7 @@ export const updateUserData = async (
         data
       },
     });
+    console.log("iupdated",updatedDoc)
     return correctTimeStamps(updatedDoc);
   } catch (e) {
     console.error(e);
