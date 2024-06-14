@@ -4,6 +4,8 @@ import { IUser, IUserwithPrivateData } from "../../types/user";
 import { updateConnections } from "../../redux/features/mainSlice";
 import { getConnections, updateConnection } from "../../api/juno/connection";
 import { AuthContext } from "../../context/Auth";
+import { Spinner } from "@nextui-org/react";
+import { toast } from "react-toastify";
 
 const options = [
   { title: "Share Profile", icon: "/icons/share-white.svg", isRed: false },
@@ -19,9 +21,11 @@ interface PopUpOptionProps {
 }
 
 const PopUpOption: React.FC<PopUpOptionProps> = ({ userProfile }) => {
+  const [loading, setLoading] = useState(false);
+
   const [showInput, setShowInput] = useState(false);
   const [note, setNote] = useState("");
-  const { connections} = useAppSelector((state) => state.main);
+  const { connections } = useAppSelector((state) => state.main);
   const curConnection = connections.find(
     (connection) => connection.data.userId === userProfile.userId
   );
@@ -44,21 +48,31 @@ const PopUpOption: React.FC<PopUpOptionProps> = ({ userProfile }) => {
   };
 
   const handleAddNote = async () => {
-    if (curConnection) {
-      // const updatedConnection: IUserwithPrivateData = {
-      //   ...curConnection.data,
-      //   addNote: note,
-      // };
-      await updateConnection(user, curConnection.data.userId, {
-        ...curConnection.data,
-        note: note,
-      });
-      const latestConnections = await getConnections(user);
-      if (latestConnections !== undefined) {
-        dispatch(updateConnections(latestConnections));
+    setLoading(true);
+    try {
+      if (curConnection) {
+        // const updatedConnection: IUserwithPrivateData = {
+        //   ...curConnection.data,
+        //   addNote: note,
+        // };
+        await updateConnection(user, curConnection.data.userId, {
+          ...curConnection.data,
+          note: note,
+        });
+        const latestConnections = await getConnections(user);
+        if (latestConnections !== undefined) {
+          dispatch(updateConnections(latestConnections));
+        }
+        setShowInput(false);
+        setNote("");
       }
-      setShowInput(false);
-      setNote("");
+    }
+    catch (error) {
+      console.error(error);
+      toast.error("Failed to Add Note");
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -99,12 +113,9 @@ const PopUpOption: React.FC<PopUpOptionProps> = ({ userProfile }) => {
               className="bg-white border-[#A3A5A6] p-2 rounded w-full"
               placeholder="Enter your note"
             />
-            <button
-              className="mt-4 bg-blue-500 text-white p-2 rounded w-full"
-              onClick={handleAddNote}
-            >
-              Add
-            </button>
+            <div className="mt-4 bg-blue-500 text-white p-2 rounded w-full flex justify-center" onClick={handleAddNote}>
+              {loading ? <Spinner size="md" /> : "Add"}
+            </div>
           </div>
         </div>
       )}

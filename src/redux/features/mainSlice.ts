@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUser, IUserwithPrivateData } from "../../types/user";
+import { IConnectedUser, IUser, IUserwithPrivateData } from "../../types/user";
 import { Doc } from "@junobuild/core";
 
 // Define a type for the slice state
 interface mainState {
   userDoc: Doc<IUserwithPrivateData> | undefined;
   recommendedCards: IUser[];
-  connections: Doc<IUserwithPrivateData>[];
+  connections: Doc<IConnectedUser>[];
   friendRequests:[];
   gotFriendRequests:[];
 }

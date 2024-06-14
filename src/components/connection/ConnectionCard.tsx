@@ -7,12 +7,12 @@ import {
 } from "../../redux/features/popupSlice";
 import { useNavigate } from "react-router-dom";
 import { Doc } from "@junobuild/core";
-import { IUserwithPrivateData } from "../../types/user";
+import { IConnectedUser } from "../../types/user";
 
 const ConnectionCard = ({
   connectionDoc,
 }: {
-  connectionDoc: Doc<IUserwithPrivateData>;
+  connectionDoc: Doc<IConnectedUser>;
 }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

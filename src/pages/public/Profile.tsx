@@ -165,16 +165,8 @@ const Profile = () => {
             </p>
           )}
         </div>
-        {isConnection && (
-          <div className="text-[#8D8E90]">
-            <p>You both connected at Pragati Maidan on Feb 29, 2024.</p>
-            <div>
-              &nbsp;
-          {
-            curConnection?.data.note && <p className="text-wrap">{curConnection.data.note}</p>
-          }
-        </div>
-          </div>
+        { curConnection?.data.note && (
+            <p className="text-wrap text-[#8D8E90]">{curConnection.data.note}</p>
         )}
         <hr className="border-[1px] border-[#A3A5A6]" />
       </div>
