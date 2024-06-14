@@ -37,6 +37,7 @@ export const correctTimeStamps = <T>(doc: Doc<T>) => {
   return Object.assign({}, doc, {
     updated_at: new Date(Number(doc?.updated_at) / 1000000).valueOf(),
     created_at: new Date(Number(doc?.created_at) / 1000000).valueOf(),
+    version: Number(doc.version),
   });
 };
 

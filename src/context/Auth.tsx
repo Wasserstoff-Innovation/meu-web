@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { User, authSubscribe, initJuno } from "@junobuild/core";
+import { User, authSubscribe, initSatellite } from "@junobuild/core";
 import { getUserDataCards } from "../api/juno/user";
 import { useAppDispatch } from "../redux/hooks";
 import { updateUserDoc } from "../redux/features/mainSlice";
@@ -23,7 +23,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const satelliteId = import.meta.env.VITE_SATELLITE_ID as string;
       const container = import.meta.env.VITE_CONTAINER_MODE === "true";
       try {
-        await initJuno({
+        console.log("Initializing satellite...");
+        console.log("Satellite ID: ", satelliteId);
+        console.log("Container mode: ", container);
+        await initSatellite({
           satelliteId,
           container,
           workers: {
