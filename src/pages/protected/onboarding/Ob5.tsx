@@ -68,28 +68,26 @@ const Ob5 = () => {
         Verify your Identity
       </h1>
       <div className="w-full flex-col flex mt-40  gap-5">
+        <a href={getLinkedinOAuthUrl()} target="_blank">
         <Button
-          className=" text-sm center"
+          className="w-full text-sm"
           color="default"
           isDisabled={Boolean(userData.privateData.linkedin.email)}
-          onClick={() => {
-            window.location.href = getLinkedinOAuthUrl();
-          }}
         >
           <img src="/icons/linkedin.svg" alt="Linkedin" className="h-6 w-6" />
           Authenticate LinkedIn
         </Button>
+        </a>
+        <a href={getTwitterOAuthUrl()} target="_blank">
         <Button
-          className=" text-sm center"
+          className="w-full text-sm center"
           color="default"
           isDisabled={Boolean(userData.privateData.twitter.id)}
-          onClick={() => {
-            window.location.href = getTwitterOAuthUrl();
-          }}
         >
           <img src="/icons/x.svg" alt="X" className="h-6 w-6" />
           Authenticate X (Twitter)
         </Button>
+        </a>
       </div>
       <div className="flex w-full justify-end mt-64">
         <Button

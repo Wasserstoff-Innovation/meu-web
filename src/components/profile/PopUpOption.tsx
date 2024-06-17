@@ -6,6 +6,8 @@ import { getConnections, updateConnection } from "../../api/juno/connection";
 import { AuthContext } from "../../context/Auth";
 import { Spinner } from "@nextui-org/react";
 import { toast } from "react-toastify";
+import { setPopupData, setPopupType, togglePopup } from "../../redux/features/popupSlice";
+import { getProfileUrl } from "../../utils";
 
 const options = [
   { title: "Share Profile", icon: "/icons/share-white.svg", isRed: false },
@@ -22,7 +24,7 @@ interface PopUpOptionProps {
 
 const PopUpOption: React.FC<PopUpOptionProps> = ({ userProfile }) => {
   const [loading, setLoading] = useState(false);
-
+  const profileUrl = getProfileUrl(userProfile.userId);
   const [showInput, setShowInput] = useState(false);
   const [note, setNote] = useState("");
   const { connections } = useAppSelector((state) => state.main);
@@ -32,7 +34,7 @@ const PopUpOption: React.FC<PopUpOptionProps> = ({ userProfile }) => {
   const conExist = connections.some(
     (connection) => connection.data.userId === userProfile.userId
   );
-
+  const optionsList = !conExist ? options.filter((option) => option.title !== "Add Note" && option.title !== "Remove Connection") : options
   const dispatch = useAppDispatch();
   const { user } = useContext(AuthContext);
   const username = userProfile.name;
@@ -42,8 +44,16 @@ const PopUpOption: React.FC<PopUpOptionProps> = ({ userProfile }) => {
       case "Add Note":
         setShowInput(true);
         break;
+
+      case "Remove Connection":
+        removeConnection();
+        break
       default:
         break;
+
+      case "Share Profile":
+        onShare(profileUrl);
+        break
     }
   };
 
@@ -76,14 +86,36 @@ const PopUpOption: React.FC<PopUpOptionProps> = ({ userProfile }) => {
     }
   };
 
+  const removeConnection = async () => {
+    try {
+      dispatch(setPopupType("DELETE_CONNECTION"));
+      dispatch(setPopupData(curConnection));
+      dispatch(togglePopup());
+    }
+    catch (error) {
+      console.error(error);
+      toast.error("Failed to Remove Connection");
+    }
+    finally {
+    }
+  }
+
+  const onShare = (url: string) => {
+    navigator.clipboard.writeText(url);
+    navigator.share({
+      title: "Share Profile",
+      text: "Check out this profile",
+      url: url,
+    });
+  };
+
   return (
     <div>
       <div
         className="absolute right-5 top-8 bg-[#1A1D21] p-4 rounded-lg mx-4"
         onClick={(e) => e.stopPropagation()}
       >
-        {options.
-          filter((option) => conExist || option.title !== "Add Note").map((option, index) => (
+        {optionsList.map((option, index) => (
             <div
               className={`flex gap-4 p-2 cursor-pointer ${option.isRed && "text-[#DB4437]"
                 }`}

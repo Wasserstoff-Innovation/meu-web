@@ -78,11 +78,13 @@ const Ob2: React.FC = () => {
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 h-screen">
       <div>
-      <h1 className="self-stretch mt-4 text-2xl text-primary-300 font-bold">
+      <div className="max-h-max">
+      <h1 className="self-stretch mt-4 text-2xl text-primary-300 font-bold z-10 relative left-0">
         Setup your Profile
       </h1>
-      <div className="w-full flex flex-row justify-center items-center">
+      <div className="w-full flex flex-row justify-center relative bottom-[75px] mt-6 items-center">
         <CustomAvatar src={avatar} setSrc={setAvatar} />
+      </div>
       </div>
       <div className="w-full">
         <p className="text-white text-sm mb-1">Bio/Headline </p>
