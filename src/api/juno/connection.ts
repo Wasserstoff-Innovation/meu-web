@@ -6,7 +6,7 @@ import {
   listDocs,
   setDoc,
 } from "@junobuild/core";
-import { IConnectedUser, IUserwithPrivateData } from "../../types/user";
+import { IConnectedUser } from "../../types/user";
 import { correctTimeStamps } from "../../utils";
 
 export const saveConnection = async (
@@ -90,10 +90,11 @@ export const deleteConnection = async (
       collection: "connections",
       key: connectionDoc.key,
     });
+    console.log(latestDoc)
     if (!latestDoc) {
       return { message: "Connection not found" };
     }
-    await deleteDoc<IUserwithPrivateData>({
+    await deleteDoc<IConnectedUser>({
       collection: "connections",
       doc: latestDoc,
     });

@@ -231,16 +231,6 @@ const QRScanner: React.FC = () => {
               Gallery
             </p>
           </label>
-          <div className="sm:hidden cursor-pointer flex flex-col items-center justify-center gap-1">
-            <div className=" p-4 bg-[#313437] rounded-full">
-              <img
-                src="./icons/flashlight.svg"
-                alt="flashlight"
-                className="size-5"
-              />
-            </div>
-            <p>Flash</p>
-          </div>
         </div>
       </div>
     </div>

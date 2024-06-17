@@ -138,131 +138,129 @@ const Ob1 = () => {
   return (
     <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
       <div className="flex flex-1 flex-col justify-between items-end gap-4 py-8 ">
-      <h1 className="self-stretch text-2xl text-primary-300 font-bold">
-        Tell us about yourself
-      </h1>
-      <div className="w-full flex  justify-center gap-5">
-        <Button
-          className=" text-sm center"
-          color="default"
-          isDisabled={Boolean(userData.privateData.linkedin.email)}
-          onClick={() => {
-            window.location.href = getLinkedinOAuthUrl();
-          }}
-        >
-          <img src="/icons/linkedin.svg" alt="Linkedin" className="h-6 w-6" />
-          LinkedIn
-        </Button>
-
-        <Button
-          className=" text-sm center"
-          color="default"
-          isDisabled={Boolean(userData.privateData.twitter.id)}
-          onClick={() => {
-            window.location.href = getTwitterOAuthUrl();
-          }}
-        >
-          <img src="/icons/x.svg" alt="X" className="h-6 w-6" />X (Twitter)
-        </Button>
-      </div>
-      <div className="w-full">
-        <p className="text-white text-sm mb-1">Full Name </p>
-        <Input
-          name="name"
-          type="text"
-          placeholder="John Doe"
-          isClearable
-          onClear={() => handleClear("name")} // Clear the 'name' field
-          onChange={handleChange}
-          value={data.name}
-        />
-        {errors.name && (
-          <p className="text-red-500 text-xs mt-1">{errors.name}</p>
-        )}
-        <p className="text-white text-xs mt-1">
-          Your name can have 2-50 characters.
-        </p>
-      </div>
-      <div className="w-full">
-        <p className="text-white text-sm mb-1">Email </p>
-        <Input
-          name="email"
-          type="email"
-          placeholder="johndoe@domain.com"
-          onClear={() => handleClear("email")} // Clear the 'name' field
-          isClearable
-          onChange={handleChange}
-          value={data.email}
-        />
-        {errors.email && (
-          <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-        )}
-        <p className="text-white text-xs mt-1">
-          Please enter your email address.
-        </p>
-      </div>
-      <div className="w-full">
-        <p className="text-white text-sm mb-1">Mobile</p>
-        <div className="flex justify-center items-center text-black relative ">
-          <CountryCode
-            countryCode={data.mobile.countryCode}
-            onChange={(code) =>
-              setData({
-                ...data,
-                mobile: { ...data.mobile, countryCode: code },
-              })
-            }
-          />
-          <Input
-            name="mobile"
-            isClearable
-            type="tel"
-            placeholder="99999 99999 99999"
-            className="ml-2 hover:bg-[#e5e7eb] rounded-md"
-            onClear={() => handleClear("mobile")}
-            onChange={(e) => {
-              setData((prev) => ({
-                ...prev,
-                mobile: {
-                  countryCode: data.mobile.countryCode,
-                  mobileNumber: e.target.value,
-                },
-              }));
-            }}
-            value={data.mobile.mobileNumber}
-          />
-        </div>
-        {errors.mobile && (
-          <p className="text-red-500 text-xs mt-1">{errors.mobile}</p>
-        )}
-        <p className="text-white text-xs mt-1">
-          Please enter your mobile number.
-        </p>
-      </div>
-      <div className="w-full">
-        <p className="text-white text-sm mb-1">Location </p>
-
-        <div className="w-full ">
-          <GooglePlaceSearch addLocation={addLocation} />
-        </div>
-        {errors.location && (
-          <p className="text-red-500 text-xs mt-1">{errors.location}</p>
-        )}
-        <p className="text-white text-xs mt-1">Please enter your location.</p>
-      </div>
-      <div className="w-full">
-        <p className="text-white text-xs mt-1 ">
-          By continuing, you agree to our{" "}
-          <a href="#" className="text-primary-300">
-            Terms of Service
-          </a>{" "}
-          and{" "}
-          <a href="#" className="text-primary-300">
-            Privacy Policy
+        <h1 className="self-stretch text-2xl text-primary-300 font-bold">
+          Tell us about yourself
+        </h1>
+        <div className="w-full flex  justify-center gap-5">
+          <a href={getLinkedinOAuthUrl()} target="_blank">
+            <Button
+              className=" text-sm center"
+              color="default"
+              isDisabled={Boolean(userData.privateData.linkedin.email)}
+            >
+              <img src="/icons/linkedin.svg" alt="Linkedin" className="h-6 w-6" />
+              LinkedIn
+            </Button>
           </a>
-          .
-        </p>
-      </div>
+
+          <a href={getTwitterOAuthUrl()} target="_blank">
+            <Button
+              className=" text-sm center"
+              color="default"
+              isDisabled={Boolean(userData.privateData.twitter.id)}
+            >
+              <img src="/icons/x.svg" alt="X" className="h-6 w-6" />X (Twitter)
+            </Button>
+          </a>
+        </div>
+        <div className="w-full">
+          <p className="text-white text-sm mb-1">Full Name </p>
+          <Input
+            name="name"
+            type="text"
+            placeholder="John Doe"
+            isClearable
+            onClear={() => handleClear("name")} // Clear the 'name' field
+            onChange={handleChange}
+            value={data.name}
+          />
+          {errors.name && (
+            <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+          )}
+          <p className="text-white text-xs mt-1">
+            Your name can have 2-50 characters.
+          </p>
+        </div>
+        <div className="w-full">
+          <p className="text-white text-sm mb-1">Email </p>
+          <Input
+            name="email"
+            type="email"
+            placeholder="johndoe@domain.com"
+            onClear={() => handleClear("email")} // Clear the 'name' field
+            isClearable
+            onChange={handleChange}
+            value={data.email}
+          />
+          {errors.email && (
+            <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+          )}
+          <p className="text-white text-xs mt-1">
+            Please enter your email address.
+          </p>
+        </div>
+        <div className="w-full">
+          <p className="text-white text-sm mb-1">Mobile</p>
+          <div className="flex justify-center items-center text-black relative ">
+            <CountryCode
+              countryCode={data.mobile.countryCode}
+              onChange={(code) =>
+                setData({
+                  ...data,
+                  mobile: { ...data.mobile, countryCode: code },
+                })
+              }
+            />
+            <Input
+              name="mobile"
+              isClearable
+              type="tel"
+              placeholder="99999 99999 99999"
+              className="ml-2 hover:bg-[#e5e7eb] rounded-md"
+              onClear={() => handleClear("mobile")}
+              onChange={(e) => {
+                setData((prev) => ({
+                  ...prev,
+                  mobile: {
+                    countryCode: data.mobile.countryCode,
+                    mobileNumber: e.target.value,
+                  },
+                }));
+              }}
+              value={data.mobile.mobileNumber}
+            />
+          </div>
+          {errors.mobile && (
+            <p className="text-red-500 text-xs mt-1">{errors.mobile}</p>
+          )}
+          <p className="text-white text-xs mt-1">
+            Please enter your mobile number.
+          </p>
+        </div>
+        <div className="w-full">
+          <p className="text-white text-sm mb-1">Location </p>
+
+          <div className="w-full ">
+            <GooglePlaceSearch addLocation={addLocation} location={data.location} />
+          </div>
+          {errors.location && (
+            <p className="text-red-500 text-xs mt-1">{errors.location}</p>
+          )}
+          <p className="text-white text-xs mt-1">Please enter your location.</p>
+        </div>
+        <div className="w-full">
+          <p className="text-white text-xs mt-1 ">
+            By continuing, you agree to our{" "}
+            <a href="#" className="text-primary-300">
+              Terms of Service
+            </a>{" "}
+            and{" "}
+            <a href="#" className="text-primary-300">
+              Privacy Policy
+            </a>
+            .
+          </p>
+        </div>
       </div>
       <div className="flex w-full justify-end">
         <Button

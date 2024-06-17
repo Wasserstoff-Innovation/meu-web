@@ -6,10 +6,15 @@ import { GOOGLE_MAPS_API } from "../../../config";
 
 interface MyProps {
   addLocation: (address: string, latitude: number, longitude: number) => void;
+  location: {
+    address: string;
+    latitude: number;
+    longitude: number;
+  };
 }
 
-const GooglePlaceSearch: React.FC<MyProps> = ({ addLocation }) => {
-  const [value, setValue] = useState<any>(null);
+const GooglePlaceSearch: React.FC<MyProps> = ({ addLocation, location }) => {
+  const [value, setValue] = useState<any>(location.address ? { label: location.address, value: location.address } : null);
 
   const handleChange = async (address: any) => {
     setValue(address);
